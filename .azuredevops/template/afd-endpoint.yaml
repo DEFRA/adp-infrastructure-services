@@ -24,7 +24,7 @@ extends:
     filePathsForTransform: |
       infra/bicep-generic/cdn/afd-endpoint.bicep
     groupedDeployments:
-      - name: AfdEndpoint
+      - name: application_endpoint
         deployments:
           - name: afd-cluster.main
             path: infra/bicep-generic/cdn
