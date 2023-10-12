@@ -1,0 +1,44 @@
+name: 1.0.$(BuildID)_${{ parameters.service }}_${{ parameters.resource }}
+
+trigger: none
+
+parameters:
+  - name: deployFromFeature
+    displayName: "Deploy from Feature Branch"
+    type: boolean
+    default: false
+  - name: service
+    displayName: Select service that needs to be deployed
+    type: string
+    values:
+      - ffc-demo
+  - name: resource
+    displayName: Resource Type to deploy
+    type: string
+    values:
+      - AfdEndpoint
+
+resources:
+  repositories:
+    - repository: ADPPipelineCommon
+      name: DEFRA/adp-pipeline-common
+      endpoint: DEFRA
+      type: github
+      ref: pp/ado-pipeline-common
+
+extends:
+  template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
+  parameters:
+    projectName: $(projectName)
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    groupedDeployments:
+      - name: AfdEndpoint
+        deployment:
+          - name: cluster-afd.main
+            path: infra/bicep-generic/cdn
+            parameterFilePath: infra/services/ffc/ffc-demo
+            resourceGroupName: $(virtualNetworkResourceGroup)
+
+
+
+
