@@ -1,22 +1,12 @@
-name: 1.0.$(BuildID)_${{ parameters.service }}_${{ parameters.resource }}
-
-trigger: none
-
 parameters:
   - name: deployFromFeature
     displayName: "Deploy from Feature Branch"
     type: boolean
     default: false
+  - name: program
+    type: string
   - name: service
-    displayName: Select service that needs to be deployed
     type: string
-    values:
-      - ffc-demo
-  - name: resource
-    displayName: Resource Type to deploy
-    type: string
-    values:
-      - afd-endpoint
 
 resources:
   repositories:
@@ -38,10 +28,5 @@ extends:
         deployments:
           - name: afd-cluster.main
             path: infra/bicep-generic/cdn
-            parameterFilePath: infra/services/ffc/ffc-demo
+            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
-
-
-
-
-

@@ -1,0 +1,26 @@
+name: 1.0.$(BuildID)-FFC-${{ parameters.service }}-${{ parameters.resource }}
+
+trigger: none
+
+parameters:
+  - name: deployFromFeature
+    displayName: "Deploy from Feature Branch"
+    type: boolean
+    default: false
+  - name: service
+    displayName: Select service that needs to be deployed
+    type: string
+    values:
+      - ffc-demo
+  - name: resource
+    displayName: Resource Type to deploy
+    type: string
+    values:
+      - afd-endpoint
+
+extends:
+  template: .azuredevops/template/{{ parameters.resource }}.yaml
+  parameters:
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    program: ffc
+    service: ${{ parameters.service }}
