@@ -24,16 +24,16 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: pp/ado-pipeline-common
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
   parameters:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    groupedTemplates:
+    groupedDeployments:
       - name: AfdEndpoint
-        templates:
+        deployments:
           - name: cluster-afd-main
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/ffc/ffc-demo
