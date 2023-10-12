@@ -1,5 +1,5 @@
 using '../../../bicep-generic/cdn/afd-cluster.main.bicep'
 
-param serviceName = 'ffc-demo1'
+param appEndpointName = 'ffc-demo1'
 
 param enabledState = 'Enabled'

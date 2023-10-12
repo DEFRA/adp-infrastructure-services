@@ -16,7 +16,7 @@ parameters:
     displayName: Resource Type to deploy
     type: string
     values:
-      - afd-endpoint
+      - application-endpoint
 
 extends:
   template: template/${{ parameters.resource }}.yaml

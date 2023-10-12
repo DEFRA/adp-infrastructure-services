@@ -1,5 +1,5 @@
 @description('Required. The name of the service.')
-param serviceName string ='ffc-demo1'
+param appEndpointName string
 
 @allowed([
   'Disabled'
@@ -11,18 +11,20 @@ param enabledState string = 'Enabled'
 @description('Required. The rules to apply to the route.')
 param ruleSets array = []
 
+var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
-var dnsZoneResourceGroup  = '#{{ dnsResourceGroup }}'
+var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
 
 var profileName = '#{{ infraResourceNamePrefix }}#{{ nc_resource_frontdoor }}#{{ nc_instance_regionid }}01'
 var endpointName = '#{{ cdnProfileName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
+var wafPolicyName = '#{{ wafPolicyName }}'
 
-var hostName = '${serviceName}.${dnsZoneName}'
+var hostName = '${appEndpointName}.${dnsZoneName}'
 
 var customDomainConfig = {
-  name: '${serviceName}-custom-domain'
+  name: appEndpointName
   hostName: hostName
   certificateType: 'ManagedCertificate'
 }
@@ -35,6 +37,11 @@ var originGroupConfig = {
     successfulSamplesRequired: 2
   }
   sessionAffinityState: 'Disabled'
+  origins: [
+    {
+      name: '${appEndpointName}-${location}-primary'
+    }
+  ]
 }
 
 module profile_custom_domain '.bicep/customdomain/main.bicep' = {
@@ -61,20 +68,20 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
     profile_custom_domain
   ]
   params: {
-    name: serviceName
+    name: appEndpointName
     profileName: profileName
     healthProbeSettings: originGroupConfig.healthProbeSettings
     loadBalancingSettings: originGroupConfig.loadBalancingSettings
     sessionAffinityState: originGroupConfig.sessionAffinityState
-    origins: map(range(0,1), i => {
-        name: serviceName
+    origins: map(originGroupConfig.origins, origin => {
+        name: origin.name
         hostName: aks_loadbalancer_pls.properties.alias
         sharedPrivateLinkResource: {
           privateLink: {
             id: aks_loadbalancer_pls.id
           }
           privateLinkLocation: aks_loadbalancer_pls.location
-          requestMessage: serviceName
+          requestMessage: appEndpointName
         }
         originHostHeader: hostName
       })
@@ -98,7 +105,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     profile_ruleSet
   ]
   params: {
-    name: serviceName
+    name: appEndpointName
     profileName: profileName
     afdEndpointName: endpointName
     customDomainName: customDomainConfig.name
@@ -107,10 +114,6 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
     originGroupName: profile_origionGroup.outputs.name
-    originPath: ''
-    patternsToMatch: []
-    ruleSets: []
-    supportedProtocols: []
   }
 }
 
@@ -123,6 +126,6 @@ module security_policy '.bicep/securitypolicy/main.bicep' = {
     name: 'default'
     profileName: profileName
     customDomainName: customDomainConfig.name
-    wafPolicyName: 'test'
+    wafPolicyName: wafPolicyName
   }
 }
