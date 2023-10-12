@@ -19,7 +19,7 @@ parameters:
       - afd-endpoint
 
 extends:
-  template: .azuredevops/template/{{ parameters.resource }}.yaml
+  template: template/${{ parameters.resource }}.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ffc
