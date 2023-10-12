@@ -11,13 +11,13 @@ param enabledState string = 'Enabled'
 @description('Required. The rules to apply to the route.')
 param ruleSets array = []
 
-param dnsZoneName string = 'snd1.adp.defra.gov.uk'
-param dnsZoneResourceGroup string = 'sndadpdnsrg1401'
+var dnsZoneName = '#{{ publicDnsZoneName }}'
+var dnsZoneResourceGroup  = '#{{ dnsResourceGroup }}'
 
-var profileName = 'SNDADPINFFD1401' //'#{{ cdnProfileName }}'
-var endpointName = 'snd1-adp-cluster' //'#{{ aksAfdEndpointName }}'
-var loadBalancerPlsName = 'aks-loadbalancer-pls'
-var loadBalancerPlsResourceGroup = 'sndadpinfrg1402-managed'
+var profileName = '#{{ infraResourceNamePrefix }}#{{ nc_resource_frontdoor }}#{{ nc_instance_regionid }}01'
+var endpointName = '#{{ cdnProfileName }}'
+var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
+var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 
 var hostName = '${serviceName}.${dnsZoneName}'
 
