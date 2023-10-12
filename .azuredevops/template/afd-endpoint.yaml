@@ -21,8 +21,8 @@ extends:
   parameters:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    filePathsForTransform:
-      - infra/bicep-generic/cdn/afd-endpoint.bicep
+    filePathsForTransform: |
+      infra/bicep-generic/cdn/afd-endpoint.bicep
     groupedDeployments:
       - name: AfdEndpoint
         deployments:
