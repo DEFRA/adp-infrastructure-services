@@ -1,4 +1,4 @@
-using '../../../bicep-generic/cdn/cluster-afd.main.bicep'
+using '../../../bicep-generic/cdn/afd-cluster.main.bicep'
 
 param serviceName = 'ffc-demo'
 

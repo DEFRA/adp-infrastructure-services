@@ -16,7 +16,7 @@ parameters:
     displayName: Resource Type to deploy
     type: string
     values:
-      - AfdEndpoint
+      - afd-endpoint
 
 resources:
   repositories:
@@ -34,7 +34,7 @@ extends:
     groupedDeployments:
       - name: AfdEndpoint
         deployments:
-          - name: cluster-afd.main
+          - name: afd-cluster.main
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/ffc/ffc-demo
             resourceGroupName: $(virtualNetworkResourceGroup)
