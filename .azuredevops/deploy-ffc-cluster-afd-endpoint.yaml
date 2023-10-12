@@ -37,7 +37,8 @@ extends:
           - name: afd-cluster.main
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/ffc/ffc-demo
-            resourceGroupName: $(virtualNetworkResourceGroup)
+            resourceGroupName: $(aksResourceGroup)
+
 
 
 
