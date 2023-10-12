@@ -33,7 +33,7 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     groupedTemplates:
       - name: AfdEndpoint
-        template:
+        templates:
           - name: cluster-afd-main
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/ffc/ffc-demo
