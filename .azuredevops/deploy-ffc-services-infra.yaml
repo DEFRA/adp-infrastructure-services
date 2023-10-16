@@ -18,12 +18,13 @@ parameters:
     displayName: Resource Type to deploy
     type: string
     values:
-      - application-endpoint
-    default: application-endpoint
+      - application-domain
+    default: application-domain
 
 extends:
-  template: template/${{ parameters.resource }}.yaml
+  template: template/resources.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ffc
+    resource: ${{ parameters.resource }}
     service: ${{ parameters.service }}
