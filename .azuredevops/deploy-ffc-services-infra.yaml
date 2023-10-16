@@ -13,11 +13,13 @@ parameters:
     values:
       - ffc-demo-web
       - ffc-demo-payment-web
+    default: ffc-demo-web
   - name: resource
     displayName: Resource Type to deploy
     type: string
     values:
       - application-endpoint
+    default: application-endpoint
 
 extends:
   template: template/${{ parameters.resource }}.yaml
