@@ -11,7 +11,8 @@ parameters:
     displayName: Select service that needs to be deployed
     type: string
     values:
-      - ffc-demo
+      - ffc-demo-web
+      - ffc-demo-payment-web
   - name: resource
     displayName: Resource Type to deploy
     type: string
