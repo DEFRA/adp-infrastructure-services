@@ -22,7 +22,7 @@ parameters:
     default: application-domain
 
 extends:
-  template: template/resources.yaml
+  template: templates/resources.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ffc
