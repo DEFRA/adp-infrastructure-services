@@ -10,7 +10,8 @@ parameters:
     type: string
 
 extends:
-  template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}.yaml
+  template: templates/services-infra-rtl.yaml
+  #template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ${{ parameters.program }}
