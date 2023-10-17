@@ -29,7 +29,7 @@ extends:
   template: templates/generic.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    rtlOrCustom: ${{ parameters.rtlOrCustom }}
+    useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
     program: ffc
     service: ${{ parameters.service }}
     resource: ${{ parameters.resource }}
