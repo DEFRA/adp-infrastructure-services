@@ -1,5 +1,5 @@
 # ADP Infrastructure Services
-This is the ADP Infrastructure Services repository for Platform Services/Tenants. This contains the tenant/service specific infrastructure templates, configurations and instantiations of common modules.
+This is the ADP Infrastructure Services repository for Platform Services/Tenants. This contains the tenant/service specific infrastructure templates, configurations, and instantiations of common modules.
 
 ## Introduction - usage of the ADP Services Repository
 
@@ -49,7 +49,7 @@ The Platform uses infrastructure parameter files (.bicepParams) to instantiate p
 ## Key principals to note:
 
 - Each Azure component has a .bicepParams file containing the required infrastructure configuration. It is convention-based on the names of the Azure components.
-- Each programme has it's own shared, agnostic Pipeline - that re-uses ADP Pipeline Common. All services must extend this.
+- Each programme has its own shared, agnostic Pipeline - that re-uses ADP Pipeline Common. All services must extend this.
 - The 'environments' can be configured at multiple levels, depending on your requirement: _Resource_, _Programme/Project_ or _Default RTL_.
 - Automation sets up the initial structure and consumes the default RTL pattern. On-going changes are either fully automated or PR-reviewed on demand by GitHub 'Code Owners'.
 - The Default RTL is: Dev, Test, Pre-Prod and Production.
