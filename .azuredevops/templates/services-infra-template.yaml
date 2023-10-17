@@ -3,7 +3,6 @@ parameters:
     type: boolean
     default: false
   - name: environments
-    displayName: List of environments
     type: object
     default: []
   - name: program
