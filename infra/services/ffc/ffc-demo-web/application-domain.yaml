@@ -21,6 +21,6 @@ extends:
         azureRegions:
           primary: 'UKSouth'
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    program: $(program)
-    service: $(service)
-    resource: $(resource)
+    program: ${{ parameters.program }}
+    service: ${{ parameters.service }}
+    resource: ${{ parameters.resource }}
