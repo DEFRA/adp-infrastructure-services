@@ -63,7 +63,7 @@ The following documentation describes the 'Resource', 'Programme/Project' and 'D
 Documentation can be found here: [ADP Environments](https://dev.azure.com/defragovuk/DEFRA-FFC/_wiki/wikis/DEFRA-FFC.wiki/16074/Environments)
 
 #### Resource level:
-Within the 'services/<programme>/<project-service>' folder, add a `component-custom-evns.yaml` (i.e., _application-domain-custom-envs.yaml_) file with the structure defined in the example below. You may edit the `'environments'` block with your own from the defined list of SND1, DEV1, TST1, DMO1, PRE1, PRD1. You can specific the Azure Regions (primary/support UK South) and the Deployment Branches as needed. 
+Within the `services/<programme>/<project-service>` folder, add a `component-custom-evns.yaml` (i.e., _application-domain-custom-envs.yaml_) file with the structure defined in the example below. You may edit the `'environments'` block with your own from the defined list of SND1, DEV1, TST1, DMO1, PRE1, PRD1. You can specific the Azure Regions (primary/support UK South) and the Deployment Branches as needed. 
 
 | Note: On your ADO Pipeline Run, you need to select: *Use Custom Environments*. |
 |:----------|
@@ -122,7 +122,7 @@ extends:
 ```
 
 #### Default RTL Environments:
-To use the standard list (defined here: [ADP Environments](https://dev.azure.com/defragovuk/DEFRA-FFC/_wiki/wikis/DEFRA-FFC.wiki/16074/Environments)) Do not add Resource level environments/config, do not configure programme level environments/config, and do not select 'Use Custom Environments' on the ADO Pipeline run.
+To use the standard list (defined here: [ADP Environments](https://dev.azure.com/defragovuk/DEFRA-FFC/_wiki/wikis/DEFRA-FFC.wiki/16074/Environments)) Do not add Resource level environments/config, do not configure programme level environments/config, and do not select `Use Custom Environments` on the ADO Pipeline run.
 
 Note: priority order is: 
 - Resource > Programme (if Resource level supplied, and 'use custom environments' in ADO pipeline is checked)
