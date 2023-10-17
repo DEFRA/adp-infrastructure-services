@@ -2,6 +2,10 @@ parameters:
   - name: deployFromFeature
     type: boolean
     default: false
+   - name: environments
+    displayName: List of environments
+    type: object
+    default: []
   - name: program
     type: string
   - name: service
@@ -20,6 +24,9 @@ resources:
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
   parameters:
+   ${{ if gt(length(parameters.environments), 0) }}:
+      environments:
+        - ${{ parameters.environments }}
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'

@@ -9,24 +9,18 @@ parameters:
   - name: resource
     type: string
 
-resources:
-  repositories:
-    - repository: ADPPipelineCommon
-      name: DEFRA/adp-pipeline-common
-      endpoint: DEFRA
-      type: github
-      ref: main
-
 extends:
-  template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
+  template: .azuredevops/templates/services-infra-rtl.yaml
   parameters:
-    projectName: $(projectName)
-    deployFromFeature: ${{ parameters.deployFromFeature }}
-    filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'
-    groupedDeployments:
-      - name: application_domain
-        deployments:
-          - name: application-domain.main
-            path: infra/bicep-generic/cdn
-            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
-            resourceGroupName: $(cdnResourceGroup)
+    environments: 
+      - name: 'snd1'
+        serviceConnection: AZD-ADP-SND1
+        deploymentBranches:
+          - 'refs/heads/main'
+        developmentEnvironment: true
+        azureRegions:
+          primary: 'UKSouth'
+    deployFromFeature: $(deployFromFeature)
+    program: $(program)
+    service: $(service)
+    resource: $(resource)
