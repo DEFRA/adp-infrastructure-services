@@ -13,7 +13,7 @@ This is the ADP Infrastructure Services repository for Platform Services/Tenants
 
 The Platform uses inrastructure parameter files (.bicepParams) to instantiate pre-configured (_by ADP Platform Engineering_) and agnostic infrastructure modules (.bicep templates). If a Service/Tenant cannot use the Azure Service Operator or is not applicable for their scenario, a folder with the associated service will be located here as shown below.
 
-* `azureDevOps` - Platform Generic Azure DevOps Pipelinr YAML Files - _not for service modification_
+* `azureDevOps` - Platform Generic Azure DevOps Pipeline YAML Files - _not for service modification_
 * `infra` - Platform Services Infrastructure folder. Contains Service/Tenant infrastructure module instantiations.
 * `services` - Contains the Services Folder Structure, i.e. _`<programme>/<service>/<infrastructure-param-config.bicepParams>`_. This is where all services infrastructure module instantiations will set, and is modified by Service/Tenant teams. 
 ```
