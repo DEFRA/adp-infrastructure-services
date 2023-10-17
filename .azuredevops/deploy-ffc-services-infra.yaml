@@ -7,6 +7,10 @@ parameters:
     displayName: "Deploy from Feature Branch"
     type: boolean
     default: false
+  - name: useCustomEnvironments
+    displayName: "Select to deploy to custom environments"
+    type: boolean
+    default: false
   - name: service
     displayName: Select service that needs to be deployed
     type: string
@@ -25,6 +29,7 @@ extends:
   template: templates/generic.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
+    rtlOrCustom: ${{ parameters.rtlOrCustom }}
     program: ffc
     service: ${{ parameters.service }}
     resource: ${{ parameters.resource }}

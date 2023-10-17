@@ -2,6 +2,8 @@ parameters:
   - name: deployFromFeature
     type: boolean
     default: false
+  - name: useCustomEnvironments
+    type: boolean
   - name: program
     type: string
   - name: service
@@ -10,8 +12,10 @@ parameters:
     type: string
 
 extends:
-  #template: services-infra-rtl.yaml
-  template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}.yaml
+  ${{ if eq(parameters.useCustomEnvironments, true) }}:
+    template: services-infra-rtl.yaml
+  ${{ if eq(parameters.useCustomEnvironments, false) }}:
+    template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ${{ parameters.program }}
