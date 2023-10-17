@@ -10,7 +10,7 @@ parameters:
     type: string
 
 extends:
-  template: /.azuredevops/templates/services-infra-rtl.yaml
+  template: /.azuredevops/templates/services-infra-template.yaml
   parameters:
     environments: 
       - name: 'snd1'

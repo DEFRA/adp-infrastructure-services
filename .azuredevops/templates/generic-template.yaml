@@ -13,7 +13,7 @@ parameters:
 
 extends:
   ${{ if eq(parameters.useCustomEnvironments, false) }}:
-    template: services-infra-rtl.yaml
+    template: services-infra-template.yaml
   ${{ if eq(parameters.useCustomEnvironments, true) }}:
     template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}.yaml
   parameters:

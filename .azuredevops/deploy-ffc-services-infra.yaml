@@ -8,7 +8,7 @@ parameters:
     type: boolean
     default: false
   - name: useCustomEnvironments
-    displayName: "Select to deploy to custom environments"
+    displayName: "Use Custom Environments"
     type: boolean
     default: false
   - name: service
@@ -26,7 +26,7 @@ parameters:
     default: application-domain
 
 extends:
-  template: templates/generic.yaml
+  template: templates/generic-template.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
