@@ -27,7 +27,6 @@ param preValidatedCustomDomainResourceId string = ''
 param certificateType string
 
 @allowed([
-  'TLS10'
   'TLS12'
 ])
 @description('Optional. The minimum TLS version required for the custom domain. Default value: TLS12.')
