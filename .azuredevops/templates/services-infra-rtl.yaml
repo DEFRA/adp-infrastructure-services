@@ -24,9 +24,6 @@ resources:
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
   parameters:
-   ${{ if gt(length(parameters.environments), 0) }}:
-      environments:
-        - ${{ parameters.environments }}
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'
@@ -38,3 +35,7 @@ extends:
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
+            
+    ${{ if gt(length(parameters.environments), 0) }}:
+      environments:
+        - ${{ parameters.environments }}
