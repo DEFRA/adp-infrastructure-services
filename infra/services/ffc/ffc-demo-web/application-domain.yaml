@@ -20,7 +20,7 @@ extends:
         developmentEnvironment: true
         azureRegions:
           primary: 'UKSouth'
-    deployFromFeature: $(deployFromFeature)
+    deployFromFeature: ${{ parameters.deployFromFeature }}
     program: $(program)
     service: $(service)
     resource: $(resource)
