@@ -2,7 +2,7 @@ parameters:
   - name: deployFromFeature
     type: boolean
     default: false
-   - name: environments
+  - name: environments
     displayName: List of environments
     type: object
     default: []
