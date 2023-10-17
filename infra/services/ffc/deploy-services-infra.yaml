@@ -26,7 +26,7 @@ parameters:
     default: application-domain
 
 extends:
-  template: templates/generic-template.yaml
+  template: /.azuredevops/templates/generic-template.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
