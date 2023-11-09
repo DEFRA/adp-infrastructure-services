@@ -13,6 +13,10 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   resource custom_domain 'customDomains@2023-05-01' existing = {
     name: customDomainName
   }
+
+  resource security_policy 'securityPolicies@2023-05-01' existing = {
+    name: name
+  }
 }
 
 resource waf_policy 'Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2022-05-01' existing = {
@@ -30,16 +34,12 @@ resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = 
       }
       associations: [
         {
-          domains: [
-            {
-              id: profile::custom_domain.id
-            }
-          ]
+          domains: concat(profile::security_policy.properties.parameters.associations[0].domains, [{id: profile::custom_domain.id}])
           patternsToMatch: [
             '/*'
           ]
         }
       ]
     }
-  }
+  } 
 }
