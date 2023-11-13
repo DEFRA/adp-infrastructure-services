@@ -23,7 +23,7 @@ resource waf_policy 'Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2
 }
 
 module security_policy_module 'dependencies.bicep' = {
-  name: 'security_policy_module'
+  name: '${uniqueString(deployment().name)}-security_policy_module'
   params: {
     profileName: profileName
     securityPolicyName: name
@@ -41,12 +41,12 @@ resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = 
       }
       associations: [
         {
-          domains: union(security_policy_module.outputs.domains, [{id: profile::custom_domain.id}])
+          domains: union(security_policy_module.outputs.domains, [ { isActive: true, id: profile::custom_domain.id } ])
           patternsToMatch: [
             '/*'
           ]
         }
       ]
     }
-  } 
+  }
 }
