@@ -21,3 +21,5 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
 var domains1 = union(map(profile::security_policy.properties.parameters.associations[0].domains, (domain) => domain.id), [profile::custom_domain.id] )
 
 output domains array = union(domains1,domains1)
+
+output uniqueLocationsLambda array = reduce(domains1, [], (cur, next) => union(cur,[next]))
