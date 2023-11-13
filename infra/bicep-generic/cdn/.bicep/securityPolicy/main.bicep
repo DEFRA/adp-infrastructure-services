@@ -1,10 +1,13 @@
 @description('Required. The name of the security policy')
 param name string
 
+@description('Required. The name of the profile.')
 param profileName string
 
+@description('Required. The name of the WAF policy.')
 param wafPolicyName string
 
+@description('Required. The name of the custom domain.')
 param customDomainName string
 
 resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
@@ -13,14 +16,18 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   resource custom_domain 'customDomains@2023-05-01' existing = {
     name: customDomainName
   }
-
-  resource security_policy 'securityPolicies@2023-05-01' existing = {
-    name: name
-  }
 }
 
 resource waf_policy 'Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2022-05-01' existing = {
   name: wafPolicyName
+}
+
+module security_policy_module 'dependencies.bicep' = {
+  name: 'security_policy_module'
+  params: {
+    profileName: profileName
+    securityPolicyName: name
+  }
 }
 
 resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = {
@@ -34,7 +41,7 @@ resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = 
       }
       associations: [
         {
-          domains: concat(profile::security_policy.properties.parameters.associations[0].domains, [{id: profile::custom_domain.id}])
+          domains: concat(security_policy_module.outputs.domains, [{id: profile::custom_domain.id}])
           patternsToMatch: [
             '/*'
           ]
