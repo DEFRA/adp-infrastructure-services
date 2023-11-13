@@ -18,6 +18,4 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   }
 }
 
-output domains array = union(map(profile::security_policy.properties.parameters.associations[0].domains, (domain) => {
-    id: domain.id
-}), [ {id: profile::custom_domain.id }])
+output domains array = union(map(profile::security_policy.properties.parameters.associations[0].domains, (domain) => domain.id), [profile::custom_domain.id] )
