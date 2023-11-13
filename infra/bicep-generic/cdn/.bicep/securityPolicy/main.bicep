@@ -41,7 +41,7 @@ resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = 
       }
       associations: [
         {
-          domains: concat(security_policy_module.outputs.domains, [{id: profile::custom_domain.id}])
+          domains: union(security_policy_module.outputs.domains, [{id: profile::custom_domain.id}])
           patternsToMatch: [
             '/*'
           ]
