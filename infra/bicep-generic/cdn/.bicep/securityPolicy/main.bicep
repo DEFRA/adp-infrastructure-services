@@ -19,7 +19,7 @@ resource waf_policy 'Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2
 }
 
 module security_policy_module 'dependencies.bicep' = {
-  name: '${uniqueString(deployment().name)}-security_policy_module'
+  name: '${uniqueString(deployment().name)}-security-policy-module'
   params: {
     profileName: profileName
     securityPolicyName: name
