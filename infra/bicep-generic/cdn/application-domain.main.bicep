@@ -123,7 +123,7 @@ module security_policy '.bicep/securityPolicy/main.bicep' = {
     profile_custom_domain
   ]
   params: {
-    name: 'default'
+    name: 'adp-cluster-default'
     profileName: profileName
     customDomainName: customDomainConfig.name
     wafPolicyName: wafPolicyName
