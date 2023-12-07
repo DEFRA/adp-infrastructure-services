@@ -11,8 +11,8 @@ parameters:
     displayName: Select service that needs to be deployed
     type: string
     values:
-      - Portal
-    default: Portal
+      - portal
+    default: portal
   - name: resource
     displayName: Resource Type to deploy
     type: string
