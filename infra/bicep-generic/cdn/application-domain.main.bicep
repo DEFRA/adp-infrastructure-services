@@ -18,7 +18,7 @@ param enabledState string = 'Enabled'
   'Disabled'
   'Enabled'
 ])
-@description('Required. The state of the lonk to default domain.')
+@description('Required. The state of the link to default domain.')
 param linkToDefaultDomain string = 'Disabled'
 
 @description('Required. The rules to apply to the route.')
