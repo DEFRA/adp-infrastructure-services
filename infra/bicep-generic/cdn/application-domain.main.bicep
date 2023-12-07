@@ -1,6 +1,9 @@
 @description('Required. The name of the service.')
 param appEndpointName string
 
+@description('Optional. The name of custom hostname for origin.')
+param originCustomHost string = ''
+
 @allowed([
   'Disabled'
   'Enabled'
@@ -22,6 +25,8 @@ var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 var wafPolicyName = '#{{ wafPolicyName }}'
 
 var hostName = '${appEndpointName}.${dnsZoneName}'
+
+var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
 
 var customDomainConfig = {
   name: appEndpointName
@@ -57,12 +62,12 @@ module profile_custom_domain '.bicep/customdomain/main.bicep' = {
   }
 }
 
-resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01' existing = {
+resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01' existing = if (originCustomHostName == '') {
   name: loadBalancerPlsName
   scope: resourceGroup(loadBalancerPlsResourceGroup)
 }
 
-module profile_origionGroup '.bicep/origingroup/main.bicep' = {
+module profile_origionGroup '.bicep/origingroup/main.bicep' = if (originCustomHostName == '') {
   name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'
   dependsOn: [
     profile_custom_domain
@@ -88,6 +93,25 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
   }
 }
 
+module profile_origionGroup_custom '.bicep/origingroup/main.bicep' = if (originCustomHostName != '') {
+  name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'
+  dependsOn: [
+    profile_custom_domain
+  ]
+  params: {
+    name: appEndpointName
+    profileName: profileName
+    healthProbeSettings: originGroupConfig.healthProbeSettings
+    loadBalancingSettings: originGroupConfig.loadBalancingSettings
+    sessionAffinityState: originGroupConfig.sessionAffinityState
+    origins: map(originGroupConfig.origins, origin => {
+        name: origin.name
+        hostName: originCustomHostName
+        originHostHeader: originCustomHostName
+      })
+  }
+}
+
 module profile_ruleSet '.bicep/ruleset/main.bicep' = [for (ruleSet, index) in ruleSets: {
   name: '${uniqueString(deployment().name)}-Profile-RuleSet-${index}'
   params: {
@@ -102,6 +126,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
   dependsOn: [
     profile_custom_domain
     profile_origionGroup
+    profile_origionGroup_custom
     profile_ruleSet
   ]
   params: {
@@ -113,7 +138,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     forwardingProtocol: 'HttpOnly'
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
-    originGroupName: profile_origionGroup.outputs.name
+    originGroupName: (originCustomHostName == '') ? profile_origionGroup.outputs.name : profile_origionGroup_custom.outputs.name
   }
 }
 
