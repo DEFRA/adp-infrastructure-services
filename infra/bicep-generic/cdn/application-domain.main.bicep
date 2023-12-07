@@ -1,3 +1,6 @@
+@description('Required. The name of the afd endpoint.')
+param afdEndpointName string = '#{{ afdClusterEndpointName }}'
+
 @description('Required. The name of the service.')
 param appEndpointName string
 
@@ -14,12 +17,7 @@ param usePrivateLink bool = true
 @description('Required. The state of the route.')
 param enabledState string = 'Enabled'
 
-@allowed([
-  'Disabled'
-  'Enabled'
-])
-@description('Required. The state of the link to default domain.')
-param linkToDefaultDomain string = 'Disabled'
+
 
 @description('Required. The rules to apply to the route.')
 param ruleSets array = []
@@ -29,7 +27,6 @@ var dnsZoneName = '#{{ publicDnsZoneName }}'
 var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
 
 var profileName = '#{{ cdnProfileName }}'
-var endpointName = '#{{ afdClusterEndpointName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 var wafPolicyName = '#{{ wafPolicyName }}'
@@ -38,7 +35,7 @@ var hostName = '${appEndpointName}.${dnsZoneName}'
 
 var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
 
-var hostHeader = originCustomHostName == '' && hostName !='' ? hostName : originCustomHostName
+var hostHeader = (originCustomHostName == '' && hostName !='') ? hostName : originCustomHostName
 
 var customDomainConfig = {
   name: appEndpointName
@@ -66,7 +63,7 @@ module profile_custom_domain '.bicep/customdomain/main.bicep' = {
   params: {
     name: customDomainConfig.name
     profileName: profileName
-    afdEndpointName: endpointName
+    afdEndpointName: afdEndpointName
     dnsZoneName: dnsZoneName
     dnsZoneResourceGroup: dnsZoneResourceGroup
     hostName: customDomainConfig.hostName
@@ -125,25 +122,25 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
   params: {
     name: appEndpointName
     profileName: profileName
-    afdEndpointName: endpointName
+    afdEndpointName: afdEndpointName
     customDomainName: customDomainConfig.name
     enabledState: enabledState
     forwardingProtocol: 'HttpOnly'
     httpsRedirect: 'Enabled'
-    linkToDefaultDomain: linkToDefaultDomain
+    linkToDefaultDomain: 'Disabled'
     originGroupName: profile_origionGroup.outputs.name
   }
 }
 
-module security_policy '.bicep/securityPolicy/main.bicep' = {
-  name: '${uniqueString(deployment().name)}-Security-Policy'
-  dependsOn: [
-    profile_custom_domain
-  ]
-  params: {
-    name: 'default'
-    profileName: profileName
-    customDomainName: customDomainConfig.name
-    wafPolicyName: wafPolicyName
-  }
-}
+// module security_policy '.bicep/securityPolicy/main.bicep' = {
+//   name: '${uniqueString(deployment().name)}-Security-Policy'
+//   dependsOn: [
+//     profile_custom_domain
+//   ]
+//   params: {
+//     name: 'default'
+//     profileName: profileName
+//     customDomainName: customDomainConfig.name
+//     wafPolicyName: wafPolicyName
+//   }
+// }
