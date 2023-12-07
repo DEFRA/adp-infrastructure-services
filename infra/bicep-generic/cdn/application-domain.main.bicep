@@ -4,6 +4,9 @@ param appEndpointName string
 @description('Optional. The name of custom hostname for origin.')
 param originCustomHost string = ''
 
+@description('Optional. Use Private Link for origin. Default to true.')
+param usePrivateLink bool = true
+
 @allowed([
   'Disabled'
   'Enabled'
@@ -27,6 +30,8 @@ var wafPolicyName = '#{{ wafPolicyName }}'
 var hostName = '${appEndpointName}.${dnsZoneName}'
 
 var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
+
+var hostHeader = originCustomHostName == '' && hostName !='' ? hostName : originCustomHostName
 
 var customDomainConfig = {
   name: appEndpointName
@@ -62,12 +67,12 @@ module profile_custom_domain '.bicep/customdomain/main.bicep' = {
   }
 }
 
-resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01' existing = if (originCustomHostName == '') {
+resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01' existing = if (usePrivateLink) {
   name: loadBalancerPlsName
   scope: resourceGroup(loadBalancerPlsResourceGroup)
 }
 
-module profile_origionGroup '.bicep/origingroup/main.bicep' = if (originCustomHostName == '') {
+module profile_origionGroup '.bicep/origingroup/main.bicep' = {
   name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'
   dependsOn: [
     profile_custom_domain
@@ -80,37 +85,19 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = if (originCustomHo
     sessionAffinityState: originGroupConfig.sessionAffinityState
     origins: map(originGroupConfig.origins, origin => {
         name: origin.name
-        hostName: aks_loadbalancer_pls.properties.alias
-        sharedPrivateLinkResource: {
+        hostName: usePrivateLink ? aks_loadbalancer_pls.properties.alias : originCustomHostName
+        sharedPrivateLinkResource: usePrivateLink ? {
           privateLink: {
             id: aks_loadbalancer_pls.id
           }
           privateLinkLocation: aks_loadbalancer_pls.location
           requestMessage: appEndpointName
-        }
-        originHostHeader: hostName
+        } : null
+        originHostHeader:  hostHeader
       })
   }
 }
 
-module profile_origionGroup_custom '.bicep/origingroup/main.bicep' = if (originCustomHostName != '') {
-  name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'
-  dependsOn: [
-    profile_custom_domain
-  ]
-  params: {
-    name: appEndpointName
-    profileName: profileName
-    healthProbeSettings: originGroupConfig.healthProbeSettings
-    loadBalancingSettings: originGroupConfig.loadBalancingSettings
-    sessionAffinityState: originGroupConfig.sessionAffinityState
-    origins: map(originGroupConfig.origins, origin => {
-        name: origin.name
-        hostName: originCustomHostName
-        originHostHeader: originCustomHostName
-      })
-  }
-}
 
 module profile_ruleSet '.bicep/ruleset/main.bicep' = [for (ruleSet, index) in ruleSets: {
   name: '${uniqueString(deployment().name)}-Profile-RuleSet-${index}'
@@ -126,7 +113,6 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
   dependsOn: [
     profile_custom_domain
     profile_origionGroup
-    profile_origionGroup_custom
     profile_ruleSet
   ]
   params: {
