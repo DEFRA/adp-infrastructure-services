@@ -2,7 +2,7 @@ using '../../../bicep-generic/cdn/application-domain.main.bicep'
 
 param appEndpointName = 'portal'
 
-param originCustomHost = az.getSecret('#{{ ssvSubscriptionId }}', '#{{ portalResourceGroup }}', '#{{ ssvPortalKeyVaultName }}', 'APP-DEFAULT-URL')
+param originCustomHost = 'portal.purpleplant-61657ddd.uksouth.azurecontainerapps.io'
 
 param usePrivateLink = false
 
