@@ -124,7 +124,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     forwardingProtocol: 'HttpOnly'
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
-    originGroupName: (originCustomHostName == '') ? profile_origionGroup.outputs.name : profile_origionGroup_custom.outputs.name
+    originGroupName: profile_origionGroup.outputs.name
   }
 }
 
