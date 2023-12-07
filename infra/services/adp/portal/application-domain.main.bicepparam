@@ -6,4 +6,6 @@ param originCustomHost = az.getSecret('#{{ ssvSubscriptionId }}', '#{{ ssvShared
 
 param usePrivateLink = false
 
+param linkToDefaultDomain = 'Enabled'
+
 param enabledState = 'Enabled'

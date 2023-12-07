@@ -14,6 +14,13 @@ param usePrivateLink bool = true
 @description('Required. The state of the route.')
 param enabledState string = 'Enabled'
 
+@allowed([
+  'Disabled'
+  'Enabled'
+])
+@description('Required. The state of the lonk to default domain.')
+param linkToDefaultDomain string = 'Disabled'
+
 @description('Required. The rules to apply to the route.')
 param ruleSets array = []
 
@@ -123,7 +130,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     enabledState: enabledState
     forwardingProtocol: 'HttpOnly'
     httpsRedirect: 'Enabled'
-    linkToDefaultDomain: 'Disabled'
+    linkToDefaultDomain: linkToDefaultDomain
     originGroupName: profile_origionGroup.outputs.name
   }
 }
