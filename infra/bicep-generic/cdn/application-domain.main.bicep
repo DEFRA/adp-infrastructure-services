@@ -125,7 +125,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     afdEndpointName: afdEndpointName
     customDomainName: customDomainConfig.name
     enabledState: enabledState
-    forwardingProtocol: 'HttpOnly'
+    forwardingProtocol: 'MatchRequest'
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
     originGroupName: profile_origionGroup.outputs.name
