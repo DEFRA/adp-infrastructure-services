@@ -132,15 +132,15 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
   }
 }
 
-// module security_policy '.bicep/securityPolicy/main.bicep' = {
-//   name: '${uniqueString(deployment().name)}-Security-Policy'
-//   dependsOn: [
-//     profile_custom_domain
-//   ]
-//   params: {
-//     name: 'default'
-//     profileName: profileName
-//     customDomainName: customDomainConfig.name
-//     wafPolicyName: wafPolicyName
-//   }
-// }
+module security_policy '.bicep/securityPolicy/main.bicep' = {
+  name: '${uniqueString(deployment().name)}-Security-Policy'
+  dependsOn: [
+    profile_custom_domain
+  ]
+  params: {
+    name: 'default'
+    profileName: profileName
+    customDomainName: customDomainConfig.name
+    wafPolicyName: wafPolicyName
+  }
+}
