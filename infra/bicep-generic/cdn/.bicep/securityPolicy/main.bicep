@@ -15,23 +15,31 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   }
 }
 
-module getExistingDomains '.bicep/getdomains/main.bicep' = {
-  name: 'getDomains'
-  params: {
-    profileName: profileName
-    securityPolicyName: name
-  }
+resource waf_policy 'Microsoft.Network/FrontDoorWebApplicationFirewallPolicies@2022-05-01' existing = {
+  name: wafPolicyName
 }
 
-module security_policy '.bicep/associatedomain/main.bicep' = {
-  name: 'associateomains'
-  params: {
-    profileName: profileName
-    wafPolicyName: wafPolicyName
-    name: name    
-    domainlist: union(getExistingDomains.outputs.customdomainlist,array(profile::custom_domain.id))
+resource security_policy 'Microsoft.Cdn/profiles/securityPolicies@2023-05-01' = {
+  name: name
+  parent: profile
+  properties: {
+    parameters: {
+      type: 'WebApplicationFirewall'
+      wafPolicy: {
+        id: waf_policy.id
+      }
+      associations: [
+        {
+          domains: [
+            {
+              id: profile::custom_domain.id
+            }
+          ]
+          patternsToMatch: [
+            '/*'
+          ]
+        }
+      ]
+    }
   }
-  dependsOn: [
-    getExistingDomains
-  ]
 }
