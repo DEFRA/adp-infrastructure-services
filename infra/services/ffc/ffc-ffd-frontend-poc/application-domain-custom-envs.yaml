@@ -24,14 +24,12 @@ extends:
         serviceConnection: AZD-ADP-SND2
         deploymentBranches:
           - 'refs/heads/main'
-        developmentEnvironment: true
         azureRegions:
           primary: 'UKSouth'
       - name: 'snd3'
         serviceConnection: AZD-ADP-SND3
         deploymentBranches:
           - 'refs/heads/main'
-        developmentEnvironment: true
         azureRegions:
           primary: 'UKSouth'
     deployFromFeature: ${{ parameters.deployFromFeature }}
