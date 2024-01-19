@@ -58,6 +58,17 @@ var originGroupConfig = {
   ]
 }
 
+resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
+  name: profileName
+}
+
+resource global_rule_set 'Microsoft.Cdn/profiles/ruleSets@2023-05-01' existing = {
+  name: 'ResponseHeaderRuleSet'
+  parent: profile
+}
+
+var globalRuleSets = array(global_rule_set)
+
 module profile_custom_domain '.bicep/customdomain/main.bicep' = {
   name: '${uniqueString(deployment().name)}-CustomDomain'
   params: {
@@ -129,6 +140,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
     originGroupName: profile_origionGroup.outputs.name
+    globalRuleSets: globalRuleSets
   }
 }
 
