@@ -13,9 +13,9 @@ param ruleSets = [
               {
                 name: 'ModifyResponseHeader'
                 parameters: {
-                  typeName: 'DeliveryRuleHeaderActionParameters',
-                  headerAction: 'Append',
-                  headerName: 'X-Rule2-version',
+                  typeName: 'DeliveryRuleHeaderActionParameters'
+                  headerAction: 'Append'
+                  headerName: 'X-Rule2-version'
                   value: 'v2'
                 }
               }
