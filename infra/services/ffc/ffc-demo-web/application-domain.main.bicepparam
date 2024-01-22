@@ -6,19 +6,19 @@ param enabledState = 'Enabled'
 
 param ruleSets = [
     {
-        name: "ResponseHeaderRuleSet"
+        name: 'ResponseHeaderRuleSet'
         rules: [
             {
                 name: AppendStrictTransportSecurityHeader
                 order: 0
                 actions: [
                     {
-                        "name": "ModifyResponseHeader",
+                        "name": 'ModifyResponseHeader'
                         "parameters": {
-                            "typeName": "DeliveryRuleHeaderActionParameters",
-                            "headerAction": "Append",
-                            "headerName": "Strict-Transport-Security",
-                            "value": "max-age=31536000; includeSubDomains"
+                            "typeName": 'DeliveryRuleHeaderActionParameters',
+                            "headerAction": 'Append',
+                            "headerName": 'Strict-Transport-Security',
+                            "value": 'max-age=31536000; includeSubDomains'
                         }
                     }
                 ]
