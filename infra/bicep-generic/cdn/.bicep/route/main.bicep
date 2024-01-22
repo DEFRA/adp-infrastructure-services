@@ -55,7 +55,7 @@ param patternsToMatch array = []
 @description('Optional. The rule sets of the rule. The rule sets must be defined in the profile ruleSets.')
 param ruleSets array = []
 
-@description('Optional. The global rule sets of the rule that will be assciated to every route.')
+@description('Optional. The global rule sets of the rules that will be associated with every route.')
 param globalRuleSets array = []
 
 @allowed([ 'Http', 'Https' ])
