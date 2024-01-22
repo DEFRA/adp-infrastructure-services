@@ -22,6 +22,13 @@ param enabledState string = 'Enabled'
 @description('Required. The rules to apply to the route.')
 param ruleSets array = []
 
+@description('Required. The global rules to apply to the route. These are existing global rule set defined for ADP which are setup in frontdoor profile.')
+param globalRuleSets array = [
+  {
+    name: 'ResponseHeaderRuleSet'
+  }
+]
+
 var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
 var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
@@ -57,17 +64,6 @@ var originGroupConfig = {
     }
   ]
 }
-
-resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
-  name: profileName
-}
-
-resource global_rule_set 'Microsoft.Cdn/profiles/ruleSets@2023-05-01' existing = {
-  name: 'ResponseHeaderRuleSet'
-  parent: profile
-}
-
-var globalRuleSets = array(global_rule_set)
 
 module profile_custom_domain '.bicep/customdomain/main.bicep' = {
   name: '${uniqueString(deployment().name)}-CustomDomain'
