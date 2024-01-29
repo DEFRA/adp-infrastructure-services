@@ -37,6 +37,7 @@ var profileName = '#{{ cdnProfileName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 var wafPolicyName = '#{{ wafPolicyName }}'
+var subscriptionId = '#{{ subscriptionId }}'
 
 var hostName = '${appEndpointName}.${dnsZoneName}'
 
@@ -80,7 +81,7 @@ module profile_custom_domain '.bicep/customdomain/main.bicep' = {
 
 resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01' existing = if (usePrivateLink) {
   name: loadBalancerPlsName
-  scope: resourceGroup(loadBalancerPlsResourceGroup)
+  scope: resourceGroup(subscriptionId, loadBalancerPlsResourceGroup)
 }
 
 module profile_origionGroup '.bicep/origingroup/main.bicep' = {
