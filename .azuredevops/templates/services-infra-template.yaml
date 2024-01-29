@@ -18,7 +18,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: features/cdn-changes
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -34,6 +34,7 @@ extends:
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
+            serviceConnectionVariableName: 'secServiceConnection'
             
     ${{ if gt(length(parameters.environments), 0) }}:
       environments:
