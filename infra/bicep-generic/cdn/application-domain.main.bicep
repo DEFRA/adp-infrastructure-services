@@ -31,7 +31,7 @@ param globalRuleSets array = [
 
 var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
-var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
+var dnsZoneResourceGroup = '#{{ cdnResourceGroup }}'
 
 var profileName = '#{{ cdnProfileName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
