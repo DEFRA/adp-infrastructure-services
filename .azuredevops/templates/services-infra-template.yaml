@@ -18,7 +18,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: features/cdn-changes
+      ref: main
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -44,17 +44,7 @@ extends:
                   -CustomDomainName '${{ parameters.service }}'
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(secSubscriptionId)'
-          # - name: Set-AFDSecurityPolicy.ps1
-          #   path: infra/scripts
-          #   type: 'script'
-          #   scriptArguments: >
-          #     -AfdName '$(cdnProfileName)'
-          #     -WafPolicyName '$(wafPolicyName)'
-          #     -CustomDomainName '${{ parameters.service }}'
-          #     -ResourceGroupName '$(cdnResourceGroup)'
-          #     -SubscriptionId '$(secSubscriptionId)'
-          #   serviceConnectionVariableName: 'secServiceConnection'
-            
+
     ${{ if gt(length(parameters.environments), 0) }}:
       environments:
         - ${{ parameters.environments }}
