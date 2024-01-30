@@ -14,15 +14,16 @@ param usePrivateLink bool = true
   'Disabled'
   'Enabled'
 ])
-@description('Required. The state of the route.')
+@description('Optional. The state of the route.')
 param enabledState string = 'Enabled'
 
+@description('Required')
+param forwardingProtocol string = 'HttpOnly'
 
-
-@description('Required. The rules to apply to the route.')
+@description('Optional. The rules to apply to the route.')
 param ruleSets array = []
 
-@description('Required. The global rules to apply to the route. These are existing global rule set defined for ADP which are setup in frontdoor profile.')
+@description('Optional. The global rules to apply to the route. These are existing global rule set defined for ADP which are setup in frontdoor profile.')
 param globalRuleSets array = [
   {
     name: 'ResponseHeaderRuleSet'
@@ -133,7 +134,7 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     afdEndpointName: afdEndpointName
     customDomainName: customDomainConfig.name
     enabledState: enabledState
-    forwardingProtocol: 'MatchRequest'
+    forwardingProtocol: forwardingProtocol
     httpsRedirect: 'Enabled'
     linkToDefaultDomain: 'Disabled'
     originGroupName: profile_origionGroup.outputs.name
