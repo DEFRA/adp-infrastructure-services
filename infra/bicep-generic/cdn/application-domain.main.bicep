@@ -143,15 +143,15 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
   }
 }
 
-module security_policy '.bicep/securityPolicy/main.bicep' = {
-  name: '${uniqueString(deployment().name)}-Security-Policy'
+module security_policy_ '.bicep/securityPolicy/main.bicep' = [for item in range(0, 102): {
+  name: '${uniqueString(deployment().name)}-Security-Policy-${item}'
   dependsOn: [
     profile_custom_domain
   ]
   params: {
-    name: 'default'
+    name: 'Policy-${item}'
     profileName: profileName
     customDomainName: customDomainConfig.name
     wafPolicyName: wafPolicyName
   }
-}
+}]
