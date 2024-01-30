@@ -37,7 +37,6 @@ var dnsZoneResourceGroup = '#{{ cdnResourceGroup }}'
 var profileName = '#{{ cdnProfileName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
-var wafPolicyName = '#{{ wafPolicyName }}'
 var subscriptionId = '#{{ subscriptionId }}'
 
 var hostName = '${appEndpointName}.${dnsZoneName}'
@@ -142,16 +141,3 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     globalRuleSets: globalRuleSets
   }
 }
-
-module security_policy_ '.bicep/securityPolicy/main.bicep' = [for item in range(0, 102): {
-  name: '${uniqueString(deployment().name)}-Security-Policy-${item}'
-  dependsOn: [
-    profile_custom_domain
-  ]
-  params: {
-    name: 'Policy-${item}'
-    profileName: profileName
-    customDomainName: customDomainConfig.name
-    wafPolicyName: wafPolicyName
-  }
-}]
