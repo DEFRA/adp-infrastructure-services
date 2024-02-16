@@ -24,6 +24,7 @@ extends:
     program: ${{ parameters.program }}
     service: ${{ parameters.service }}
     resource: ${{ parameters.resource }}
+    includePlatformEnvs: true
     ${{ if and(eq(parameters.useCustomEnvironments, false), gt(length(parameters.environments), 0)) }}:
       environments:
         - ${{ parameters.environments }}

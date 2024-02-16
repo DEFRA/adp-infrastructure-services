@@ -15,6 +15,7 @@ parameters:
     displayName: Select service that needs to be deployed
     type: string
     values:
+      - fcp-find-ai-frontend
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
