@@ -34,7 +34,6 @@ extends:
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
-            serviceConnectionVariableName: 'secServiceConnection'
             postDeployScriptsList:
               - displayName: Set AFD Security Policy
                 scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
