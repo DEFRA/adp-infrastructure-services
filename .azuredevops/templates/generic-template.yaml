@@ -13,6 +13,9 @@ parameters:
     type: string
   - name: resource
     type: string
+  - name: includePlatformEnvs
+    type: boolean
+    default: false
 
 extends:
   ${{ if eq(parameters.useCustomEnvironments, false) }}:
@@ -20,6 +23,8 @@ extends:
   ${{ if eq(parameters.useCustomEnvironments, true) }}:
     template: /infra/services/${{ parameters.program }}/${{ parameters.service }}/${{ parameters.resource }}-custom-envs.yaml
   parameters:
+    ${{ if eq(parameters.useCustomEnvironments, false) }}:
+      includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ${{ parameters.program }}
     service: ${{ parameters.service }}

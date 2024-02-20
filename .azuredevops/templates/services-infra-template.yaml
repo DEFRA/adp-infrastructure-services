@@ -11,6 +11,9 @@ parameters:
     type: string
   - name: resource
     type: string
+  - name: includePlatformEnvs
+    type: boolean
+    default: false
 
 resources:
   repositories:
@@ -26,7 +29,7 @@ extends:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'
-    includePlatformEnvs: false
+    includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain

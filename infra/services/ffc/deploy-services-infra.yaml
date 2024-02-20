@@ -32,6 +32,7 @@ extends:
   template: /.azuredevops/templates/generic-template.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
+    includePlatformEnvs: true
     useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
     program: ffc
     service: ${{ parameters.service }}
