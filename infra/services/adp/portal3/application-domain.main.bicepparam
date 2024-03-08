@@ -12,4 +12,4 @@ param usePrivateLink = false
 
 param enabledState = 'Enabled'
 
-param forwardingProtocol = 'MatchRequest'
+param forwardingProtocol = 'HTTP'
