@@ -7,8 +7,8 @@ param profileName string
 @description('Required. The name of the AFD endpoint.')
 param afdEndpointName string
 
-//@description('Required. The host name of the domain. Must be a domain name.')
-//param hostName string
+@description('Required. The host name of the domain. Must be a domain name.')
+param hostName string
 
 @description('Optonal. Resource reference to the Azure DNS zone.')
 param azureDnsZoneResourceId string = ''
@@ -102,3 +102,5 @@ output resourceGroupName string = resourceGroup().name
 
 @description('The host name of the domain.!!!!!!!!!')
 output ip string  = publicip.properties.ipAddress
+
+output host string = hostName
