@@ -6,7 +6,7 @@ param appEndpointName = 'portal3'
 
 //param originCustomHost = az.getSecret('#{{ ssvSubscriptionId }}', '#{{ ssvSharedResourceGroup }}', '#{{ ssvPlatformKeyVaultName }}', 'PORTAL-APP-DEFAULT-URL')
 
-param originCustomHost = ''
+param originCustomHost = '12'
 
 param usePrivateLink = false
 
