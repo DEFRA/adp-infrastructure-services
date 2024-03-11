@@ -65,7 +65,7 @@ resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01'
       id: azureDnsZoneResourceId
     } : null
     extendedProperties: !empty(extendedProperties) ? extendedProperties : null
-    hostName: toLower(replace(publicip.properties.ipAddress, 'https://', '')) 
+    hostName: hostName
     preValidatedCustomDomainResourceId: !empty(preValidatedCustomDomainResourceId) ? {
       id: preValidatedCustomDomainResourceId
     } : null
