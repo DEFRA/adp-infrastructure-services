@@ -16,6 +16,6 @@ param forwardingProtocol = 'HttpOnly'
 
 param gatewayFrontend = {
   resourcePublicIP: 'portal-gw-publicip'
-  resourceGroup: 'container-rg'
-  subscriptionID: '7dc5bbdf-72d7-42ca-ac23-eb5eea3764b4'
+  resourceGroup: '#{{ ssvSharedResourceGroup }}'
+  subscriptionID: '#{{ ssvSubscriptionId }}'
 }
