@@ -7,8 +7,8 @@ param profileName string
 @description('Required. The name of the AFD endpoint.')
 param afdEndpointName string
 
-@description('Required. The host name of the domain. Must be a domain name.')
-param hostName string
+//@description('Required. The host name of the domain. Must be a domain name.')
+//param hostName string
 
 @description('Optonal. Resource reference to the Azure DNS zone.')
 param azureDnsZoneResourceId string = ''
