@@ -40,7 +40,10 @@ var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 
 var hostName = '${appEndpointName}.${dnsZoneName}'
 
-var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
+var originCustomHostName = (publicip.properties.ipAddress !='' ) ? publicip.properties.ipAddress : toLower(replace(originCustomHost, 'https://', ''))
+
+
+//var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
 
 var hostHeader = (originCustomHostName == '' && hostName !='') ? hostName : originCustomHostName
 
@@ -101,7 +104,7 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
     sessionAffinityState: originGroupConfig.sessionAffinityState
     origins: map(originGroupConfig.origins, origin => {
         name: origin.name
-        hostName: usePrivateLink ? aks_loadbalancer_pls.properties.alias : publicip.properties.ipAddress
+        hostName: usePrivateLink ? aks_loadbalancer_pls.properties.alias : originCustomHostName
         sharedPrivateLinkResource: usePrivateLink ? {
           privateLink: {
             id: aks_loadbalancer_pls.id
@@ -109,7 +112,7 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
           privateLinkLocation: aks_loadbalancer_pls.location
           requestMessage: appEndpointName
         } : null
-        originHostHeader: publicip.properties.ipAddress
+        originHostHeader: hostHeader
       })
   }
 }
