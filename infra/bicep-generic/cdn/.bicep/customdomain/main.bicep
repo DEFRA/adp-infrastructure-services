@@ -52,6 +52,11 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   }
 }
 
+resource publicip 'Microsoft.Network/publicIPAddresses@2021-05-01' existing = {
+  name: 'portal-gw-publicip'
+  scope: resourceGroup('container-rg')
+}
+
 resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01' = {
   name: name
   parent: profile
@@ -60,7 +65,7 @@ resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01'
       id: azureDnsZoneResourceId
     } : null
     extendedProperties: !empty(extendedProperties) ? extendedProperties : null
-    hostName: hostName
+    hostName: publicip.properties.ipAddress
     preValidatedCustomDomainResourceId: !empty(preValidatedCustomDomainResourceId) ? {
       id: preValidatedCustomDomainResourceId
     } : null
@@ -94,3 +99,6 @@ output resourceId string = profile_custom_domain.id
 
 @description('The name of the resource group the custom domain was created in.')
 output resourceGroupName string = resourceGroup().name
+
+@description('The host name of the domain.!!!!!!!!!')
+output ip string  = publicip.properties.ipAddress
