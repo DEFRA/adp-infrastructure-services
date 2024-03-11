@@ -52,10 +52,7 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   }
 }
 
-resource publicip 'Microsoft.Network/publicIPAddresses@2023-05-01' existing = {
-  name: 'portal-gw-publicip'
-  scope: resourceGroup('7dc5bbdf-72d7-42ca-ac23-eb5eea3764b4', 'container-rg')
-}
+
 
 resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01' = {
   name: name
@@ -99,8 +96,3 @@ output resourceId string = profile_custom_domain.id
 
 @description('The name of the resource group the custom domain was created in.')
 output resourceGroupName string = resourceGroup().name
-
-@description('The host name of the domain.!!!!!!!!!')
-output ip string  = publicip.properties.ipAddress
-
-output host string = hostName

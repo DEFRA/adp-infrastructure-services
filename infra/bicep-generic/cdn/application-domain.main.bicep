@@ -83,6 +83,11 @@ resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01'
   scope: resourceGroup(loadBalancerPlsResourceGroup)
 }
 
+resource publicip 'Microsoft.Network/publicIPAddresses@2023-05-01' existing = {
+  name: 'portal-gw-publicip'
+  scope: resourceGroup('7dc5bbdf-72d7-42ca-ac23-eb5eea3764b4', 'container-rg')
+}
+
 module profile_origionGroup '.bicep/origingroup/main.bicep' = {
   name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'
   dependsOn: [
@@ -104,7 +109,7 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
           privateLinkLocation: aks_loadbalancer_pls.location
           requestMessage: appEndpointName
         } : null
-        originHostHeader:  hostHeader
+        originHostHeader:  publicip.properties.ipAddress
       })
   }
 }
