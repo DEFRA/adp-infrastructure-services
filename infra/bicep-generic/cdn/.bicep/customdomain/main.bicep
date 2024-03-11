@@ -54,7 +54,7 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
 
 resource publicip 'Microsoft.Network/publicIPAddresses@2021-05-01' existing = {
   name: 'portal-gw-publicip'
-  scope: resourceGroup('SNDADPINFRG1403')
+  scope: resourceGroup('7dc5bbdf-72d7-42ca-ac23-eb5eea3764b4', 'container-rg')
 }
 
 resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01' = {
