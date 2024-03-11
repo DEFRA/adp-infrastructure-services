@@ -30,6 +30,11 @@ param globalRuleSets array = [
   }
 ]
 
+@description('Optional. Gateway Frontend IP')
+param gatewayFrontend object
+
+
+
 var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
 var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
@@ -87,8 +92,8 @@ resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01'
 }
 
 resource publicip 'Microsoft.Network/publicIPAddresses@2023-05-01' existing = {
-  name: 'portal-gw-publicip'
-  scope: resourceGroup('7dc5bbdf-72d7-42ca-ac23-eb5eea3764b4', 'container-rg')
+  name: gatewayFrontend.resourcePublicIP
+  scope: resourceGroup(gatewayFrontend.subscriptionID, gatewayFrontend.resourceGroup)
 }
 
 module profile_origionGroup '.bicep/origingroup/main.bicep' = {
