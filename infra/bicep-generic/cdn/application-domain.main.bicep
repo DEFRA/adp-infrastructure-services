@@ -101,7 +101,7 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
     sessionAffinityState: originGroupConfig.sessionAffinityState
     origins: map(originGroupConfig.origins, origin => {
         name: origin.name
-        hostName: usePrivateLink ? aks_loadbalancer_pls.properties.alias : originCustomHostName
+        hostName: usePrivateLink ? aks_loadbalancer_pls.properties.alias : publicip.properties.ipAddress
         sharedPrivateLinkResource: usePrivateLink ? {
           privateLink: {
             id: aks_loadbalancer_pls.id
@@ -109,7 +109,7 @@ module profile_origionGroup '.bicep/origingroup/main.bicep' = {
           privateLinkLocation: aks_loadbalancer_pls.location
           requestMessage: appEndpointName
         } : null
-        originHostHeader:  publicip.properties.ipAddress
+        originHostHeader: publicip.properties.ipAddress
       })
   }
 }
