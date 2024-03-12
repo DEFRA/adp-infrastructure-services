@@ -46,7 +46,7 @@ Write-Debug "${functionName}:AppGatewayName=$AppGatewayName"
 try {
 
     $AppGw = Get-AzApplicationGateway -Name $AppGatewayName -ResourceGroupName $ResourceGroupName   
-    
+
     if($AppGw){
         $GwFrontEndIPs= Get-AzApplicationGatewayFrontendIPConfig -ApplicationGateway $AppGw
         foreach($obj in $GwFrontEndIPs){
@@ -55,8 +55,9 @@ try {
             }else{
                 $pipResource = Get-AzResource -ResourceId $obj.PublicIPAddress.Id
                 $publicIp = Get-AzPublicIpAddress -ResourceGroupName $pipResource.ResourceGroupName -Name $pipResource.Name
-                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$publicIp.IpAddress"
-                Write-Host "PublicIPAddress: "$publicIp.IpAddress
+                $IpAddress = $publicIp.IpAddress
+                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$IpAddress"
+                Write-Host "PublicIPAddress: "$IpAddress
             }
         }
     }
