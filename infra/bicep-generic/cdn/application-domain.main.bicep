@@ -30,11 +30,6 @@ param globalRuleSets array = [
   }
 ]
 
-// @description('Optional. Gateway Frontend Public IP')
-// param gatewayFrontend object
-
-
-
 var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
 var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
@@ -44,9 +39,6 @@ var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
 
 var hostName = '${appEndpointName}.${dnsZoneName}'
-
-//var originCustomHostName = (gatewayPublicip.properties.ipAddress !='' ) ? gatewayPublicip.properties.ipAddress : toLower(replace(originCustomHost, 'https://', ''))
-
 
 var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
 
@@ -90,11 +82,6 @@ resource aks_loadbalancer_pls 'Microsoft.Network/privateLinkServices@2023-05-01'
   name: loadBalancerPlsName
   scope: resourceGroup(loadBalancerPlsResourceGroup)
 }
-
-// resource gatewayPublicip 'Microsoft.Network/publicIPAddresses@2023-05-01' existing = {
-//   name: gatewayFrontend.resourcePublicIP
-//   scope: resourceGroup(gatewayFrontend.subscriptionID, gatewayFrontend.resourceGroup)
-// }
 
 module profile_origionGroup '.bicep/origingroup/main.bicep' = {
   name: '${uniqueString(deployment().name)}-Profile-OrigionGroup'

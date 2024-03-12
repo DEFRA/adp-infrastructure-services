@@ -1,16 +1,17 @@
 <#
 .SYNOPSIS
-Get Azure Monitor Workspace ResourceIds and pass them to Grafana Dashboard bicep template
+Get Application Gateway Public IP and pass it to application domain bicep template.
+
 .DESCRIPTION
-Get Azure Monitor Workspace ResourceIds and set variable with values which are then used by the Grafana Dashboard bicep template.
+Get Application Gateway Public IP and set variable with values which is then used by application domain bicep template.
+
 .PARAMETER ResourceGroupName
 Mandatory. Resource Group Name.
-.PARAMETER GrafanaName
-Mandatory. Grafana Dashboard name.
-.PARAMETER WorkspaceResourceId
-Mandatory. Azure Monitor Workspace ResourceId.
+.PARAMETER AppGatewayName
+Mandatory. Application Gateway Name.
+
 .EXAMPLE
-.\Get-WorkspaceResourceIds.ps1 -ResourceGroupName <ResourceGroupName> -GrafanaName <GrafanaName> -WorkspaceResourceId <WorkspaceResourceId>
+.\Get-AppGatewayFrontendPublicIP.ps1 -ResourceGroupName <ResourceGroupName> -AppGatewayName <AppGatewayName>
 #> 
 
 [CmdletBinding()]
@@ -45,7 +46,7 @@ Write-Debug "${functionName}:AppGatewayName=$AppGatewayName"
 try {
 
     $AppGw = Get-AzApplicationGateway -Name $AppGatewayName -ResourceGroupName $ResourceGroupName   
-
+    
     if($AppGw){
         $GwFrontEndIPs= Get-AzApplicationGatewayFrontendIPConfig -ApplicationGateway $AppGw
         foreach($obj in $GwFrontEndIPs){
@@ -54,9 +55,8 @@ try {
             }else{
                 $pipResource = Get-AzResource -ResourceId $obj.PublicIPAddress.Id
                 $publicIp = Get-AzPublicIpAddress -ResourceGroupName $pipResource.ResourceGroupName -Name $pipResource.Name
-                $IpAddress = $publicIp.IpAddress
-                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$IpAddress"
-                Write-Host "PublicIPAddress: " $IpAddress
+                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$publicIp.IpAddress"
+                Write-Host "PublicIPAddress: "$publicIp.IpAddress
             }
         }
     }

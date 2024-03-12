@@ -6,6 +6,7 @@ param appEndpointName = 'portal3'
 
 //param originCustomHost = az.getSecret('#{{ ssvSubscriptionId }}', '#{{ ssvSharedResourceGroup }}', '#{{ ssvPlatformKeyVaultName }}', 'PORTAL-APP-DEFAULT-URL')
 
+// This value comes from pre-deployment powershell task
 param originCustomHost = '#{{ AppGatewayPublicIP }}'
 
 param usePrivateLink = false
@@ -13,9 +14,3 @@ param usePrivateLink = false
 param enabledState = 'Enabled'
 
 param forwardingProtocol = 'HttpOnly'
-
-// param gatewayFrontend = {
-//   resourcePublicIP: 'portal-gw-publicip'
-//   resourceGroup: 'container-rg'
-//   subscriptionID: '#{{ ssv3subscriptionId }}'
-// }
