@@ -3,7 +3,7 @@
 Get Application Gateway Public IP and pass it to application domain bicep template.
 
 .DESCRIPTION
-Get Application Gateway Public IP and set variable with values which is then used by application domain bicep template.
+Get Application Gateway Public IP and set a variable with values which is then used by application domain bicep template.
 
 .PARAMETER ResourceGroupName
 Mandatory. Resource Group Name.
@@ -45,19 +45,19 @@ Write-Debug "${functionName}:AppGatewayName=$AppGatewayName"
 
 try {
 
-    $AppGw = Get-AzApplicationGateway -Name $AppGatewayName -ResourceGroupName $ResourceGroupName   
+    $appGateway = Get-AzApplicationGateway -Name $AppGatewayName -ResourceGroupName $ResourceGroupName   
 
-    if($AppGw){
-        $GwFrontEndIPs= Get-AzApplicationGatewayFrontendIPConfig -ApplicationGateway $AppGw
-        foreach($obj in $GwFrontEndIPs){
-            if($obj.PrivateIPAddress){
-                Write-Host "PrivateIPAddress: " $obj.PrivateIPAddress
+    if($appGateway){
+        $gatewayFrontEndIPs= Get-AzApplicationGatewayFrontendIPConfig -ApplicationGateway $appGateway
+        foreach($IpObj in $gatewayFrontEndIPs){
+            if($IpObj.PrivateIPAddress){
+                Write-Host "PrivateIPAddress: " $IpObj.PrivateIPAddress
             }else{
-                $pipResource = Get-AzResource -ResourceId $obj.PublicIPAddress.Id
-                $publicIp = Get-AzPublicIpAddress -ResourceGroupName $pipResource.ResourceGroupName -Name $pipResource.Name
-                $IpAddress = $publicIp.IpAddress
-                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$IpAddress"
-                Write-Host "PublicIPAddress: "$IpAddress
+                $publicIpResource = Get-AzResource -ResourceId $IpObj.PublicIPAddress.Id
+                $publicIP = Get-AzPublicIpAddress -ResourceGroupName $publicIpResource.ResourceGroupName -Name $publicIpResource.Name
+                $publicIpAddress = $publicIP.IpAddress
+                Write-Host "##vso[task.setvariable variable=AppGatewayPublicIP]$publicIpAddress"
+                Write-Host "PublicIPAddress: "$publicIpAddress
             }
         }
     }
