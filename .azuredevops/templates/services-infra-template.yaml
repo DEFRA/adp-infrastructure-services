@@ -18,7 +18,8 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      # ref: main
+      ref: gg/304334-Sec-AppGW-Variables
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -43,8 +44,8 @@ extends:
                   serviceConnectionVariableName: secServiceConnection
                   type: AzurePowerShell
                   scriptArguments: >
-                    -ResourceGroupName  'SECADPSNDRG1403'
-                    -AppGatewayName 'SECADPSNDAG1403'        
+                    -ResourceGroupName  $(secInfraResourceGroup)
+                    -AppGatewayName $(secApplicationGatewayName)       
                       
             postDeployScriptsList:   
               - displayName: Set AFD Security Policy
