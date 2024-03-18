@@ -39,13 +39,14 @@ extends:
             preDeployScriptsList:
               - displayName: Get App Gateway Public IP
                 scriptPath: infra/scripts/Get-AppGatewayFrontendPublicIP.ps1
-                serviceConnectionVariableName: ssvServiceConnection
+                serviceConnectionVariableName: secServiceConnection
                 type: AzurePowerShell
                 scriptArguments: >
-                  -ResourceGroupName 'container-rg'
-                  -AppGatewayName 'portal-appgateway'           
+                  -ResourceGroupName  'SECADPSNDRG1403'
+                  -AppGatewayName 'SECADPSNDAG1403' 
+       
                       
-            postDeployScriptsList:
+            postDeployScriptsList:   
               - displayName: Set AFD Security Policy
                 scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                 scriptArguments: >
