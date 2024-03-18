@@ -36,15 +36,15 @@ extends:
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
 
-            preDeployScriptsList:
-              - displayName: Get App Gateway Public IP
-                scriptPath: infra/scripts/Get-AppGatewayFrontendPublicIP.ps1
-                serviceConnectionVariableName: secServiceConnection
-                type: AzurePowerShell
-                scriptArguments: >
-                  -ResourceGroupName  'SECADPSNDRG1403'
-                  -AppGatewayName 'SECADPSNDAG1403' 
-       
+            ${{ if eq(parameters.service, 'portal') }}:
+              preDeployScriptsList:
+                - displayName: Get App Gateway Public IP
+                  scriptPath: infra/scripts/Get-AppGatewayFrontendPublicIP.ps1
+                  serviceConnectionVariableName: secServiceConnection
+                  type: AzurePowerShell
+                  scriptArguments: >
+                    -ResourceGroupName  'SECADPSNDRG1403'
+                    -AppGatewayName 'SECADPSNDAG1403'        
                       
             postDeployScriptsList:   
               - displayName: Set AFD Security Policy
