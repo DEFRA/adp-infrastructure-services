@@ -52,8 +52,6 @@ resource profile 'Microsoft.Cdn/profiles@2023-05-01' existing = {
   }
 }
 
-
-
 resource profile_custom_domain 'Microsoft.Cdn/profiles/customDomains@2023-05-01' = {
   name: name
   parent: profile
