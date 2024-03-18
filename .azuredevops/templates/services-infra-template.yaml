@@ -39,7 +39,7 @@ extends:
             preDeployScriptsList:
               - displayName: Get App Gateway Public IP
                 scriptPath: infra/scripts/Get-AppGatewayFrontendPublicIP.ps1
-                serviceConnectionVariableName: ssvServiceConnection
+                serviceConnectionVariableName: secServiceConnection
                 type: AzurePowerShell
                 scriptArguments: >
                   -ResourceGroupName  'SECADPSNDRG1403'

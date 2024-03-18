@@ -45,6 +45,8 @@ Write-Debug "${functionName}:AppGatewayName=$AppGatewayName"
 
 try {
 
+    Set-AzureSubscription -SubscriptionId '8614fd38-cbce-4efc-a8b7-84bfe3febe43'
+
     $appGateway = Get-AzApplicationGateway -Name $AppGatewayName -ResourceGroupName $ResourceGroupName   
 
     if($appGateway){
