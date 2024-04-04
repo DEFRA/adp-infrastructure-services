@@ -13,13 +13,13 @@ extends:
   template: /.azuredevops/templates/services-infra-template.yaml
   parameters:
     environments: 
-      # - name: 'snd1'
-      #   serviceConnection: AZD-ADP-SND1
-      #   deploymentBranches:
-      #     - 'refs/heads/main'
-      #   developmentEnvironment: true
-      #   azureRegions:
-      #     primary: 'UKSouth'      
+      - name: 'snd1'
+        serviceConnection: AZD-ADP-SND1
+        deploymentBranches:
+          - 'refs/heads/main'
+        developmentEnvironment: true
+        azureRegions:
+          primary: 'UKSouth'            
       - name: 'snd3'
         serviceConnection: AZD-ADP-SND3
         deploymentBranches:
