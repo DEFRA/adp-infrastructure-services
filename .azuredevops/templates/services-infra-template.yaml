@@ -26,8 +26,8 @@ extends:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: |
-      '**/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
-      '**/*${{ parameters.resource }}.main.bicep'
+      **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
+      **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: false
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
