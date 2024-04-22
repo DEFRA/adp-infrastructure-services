@@ -35,7 +35,7 @@ extends:
         deployments:
           - name: KeyvaultAccess
             type: 'script'
-            scriptPath: infra/scripts/Set-KeyvaultAccess.ps1
+            scriptPath: $(Pipeline.Workspace)/s/self/infra/scripts/Set-KeyvaultAccess.ps1
             serviceConnectionVariableName: subscriptionName
             scriptType: AzurePowerShell
             scriptArguments: >
