@@ -32,7 +32,17 @@ extends:
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
-        deployments:    
+        deployments:
+          - name: KeyvaultAccess
+            type: 'script'
+            scriptPath: infra/scripts/Set-KeyvaultAccess.ps1
+            serviceConnectionVariableName: subscriptionName
+            scriptType: AzurePowerShell
+            scriptArguments: >
+              -AppRegConnectionName  $(tier2ServiceConnectionAppRegName)
+              -SubscriptionId $(subscriptionId)
+              -ResourceGroupName  $(servicesResourceGroup)
+              -Keyvault  $(applicationKeyvaultName)    
           - name: Register App
             type: 'script'
             scriptType: AzurePowerShell
@@ -42,15 +52,7 @@ extends:
             scriptArguments: >
                 -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
             preDeployScriptsList:
-              - displayName: KeyvaultAccess
-                scriptPath: infra/scripts/Set-KeyvaultAccess.ps1
-                serviceConnectionVariableName: subscriptionName
-                type: AzurePowerShell
-                scriptArguments: >
-                  -AppRegConnectionName  $(tier2ServiceConnectionAppRegName)
-                  -SubscriptionId $(subscriptionId)
-                  -ResourceGroupName  $(servicesResourceGroup)
-                  -Keyvault  $(applicationKeyvaultName)
+              
 
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
