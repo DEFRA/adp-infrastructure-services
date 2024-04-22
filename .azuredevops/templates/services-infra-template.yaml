@@ -36,6 +36,7 @@ extends:
           - name: KeyvaultAccess
             type: 'script'
             path: infra/scripts/Set-KeyvaultAccess.ps1
+            useSystemAccessTokeninScript: true
             serviceConnectionVariableName: subscriptionName
             scriptType: AzurePowerShell
             scriptArguments: >
