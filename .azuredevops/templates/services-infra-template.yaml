@@ -41,7 +41,7 @@ extends:
             serviceConnectionVariableName: subscriptionName
             scriptType: AzureCLI
             scriptArguments: >
-              -AppRegConnection  $(ssvAppRegServicePrincipalId)
+              -AppRegServicePrincipal  $(ssvAppRegServicePrincipalId)
               -SubscriptionId $(subscriptionId)
               -ResourceGroupName  $(servicesResourceGroup)
               -Keyvault  $(applicationKeyvaultName)    
@@ -50,6 +50,7 @@ extends:
             scriptType: AzurePowerShell
             scriptRepo: PipelineCommonScripts
             serviceConnectionVariableName: ssvServiceConnection
+            resourceGroup: $(servicesResourceGroup)
             path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
             scriptArguments: >
                 -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'

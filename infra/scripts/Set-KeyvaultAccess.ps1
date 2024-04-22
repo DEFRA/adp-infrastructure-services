@@ -5,7 +5,7 @@ Set Keyvault Secrets Officer role to service connection for given keyvault
 .DESCRIPTION
 Set Keyvault Secrets Officer role to service connection for given keyvault to store the app reg secrets
 
-.PARAMETER AppRegConnection
+.PARAMETER AppRegServicePrincipal
 Mandatory. App registration connection name.
 .PARAMETER SubscriptionId
 Mandatory. SubscriptionId .
@@ -15,13 +15,13 @@ Mandatory. ResourceGroupName Name.
 Mandatory. Keyvault Name.
 
 .EXAMPLE
-.\Set-KeyvaultAccess.ps1 -AppRegConnection <AppRegConnection> -SubscriptionId <SubscriptionId> -ResourceGroupName <ResourceGroupName> -Keyvault <Keyvault>
+.\Set-KeyvaultAccess.ps1 -AppRegServicePrincipal <AppRegServicePrincipal> -SubscriptionId <SubscriptionId> -ResourceGroupName <ResourceGroupName> -Keyvault <Keyvault>
 #> 
 
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)] 
-    [string] $AppRegConnection,
+    [string] $AppRegServicePrincipal,
     [Parameter(Mandatory)]
     [string] $SubscriptionId,
     [Parameter(Mandatory)]
@@ -48,7 +48,7 @@ if ($enableDebug) {
 }
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
-Write-Debug "${functionName}:AppRegConnection=$AppRegConnection"
+Write-Debug "${functionName}:AppRegServicePrincipal=$AppRegServicePrincipal"
 Write-Debug "${functionName}:SubscriptionId=$SubscriptionId"
 Write-Debug "${functionName}:ResourceGroupName=$ResourceGroupName"
 Write-Debug "${functionName}:Keyvault=$Keyvault"
@@ -56,7 +56,7 @@ Write-Debug "${functionName}:Keyvault=$Keyvault"
 try {
 
     #$appId = az ad sp list --filter "displayname eq '$AppRegConnection'" --query "[].{appId:appId}" --output tsv
-    az role assignment create --role "Key Vault Secrets Officer" --assignee-object-id $AppRegConnection --scope /subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.KeyVault/vaults/$Keyvault       
+    az role assignment create --role "Key Vault Secrets Officer" --assignee-object-id $AppRegServicePrincipal --scope /subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.KeyVault/vaults/$Keyvault       
     $exitCode = 0
 }
 catch {
