@@ -39,7 +39,7 @@ extends:
             serviceConnectionVariableName: subscriptionName
             scriptType: AzurePowerShell
             scriptArguments: >
-              -AppRegConnectionName  $(tier2ServiceConnectionAppRegName)
+              -AppRegConnection  $(tier2ServiceConnectionAppRegName)
               -SubscriptionId $(subscriptionId)
               -ResourceGroupName  $(servicesResourceGroup)
               -Keyvault  $(applicationKeyvaultName)    
