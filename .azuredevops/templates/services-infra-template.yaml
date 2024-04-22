@@ -18,16 +18,28 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: rv/337355
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
   parameters:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'
+    filePathsForTransform: |
+      '**infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
+      '**/*${{ parameters.resource }}.main.bicep'
     includePlatformEnvs: false
     groupedDeployments:
+    - ${{ if eq(parameters.resource, 'application-registration') }}:
+      - name: app_reg
+        deployments:    
+          - name: Register App
+            type: 'script'
+            scriptType: AzurePowerShell
+            scriptRepo: PipelineCommonScripts
+            path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
+            scriptArguments: >
+                -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
         deployments:
