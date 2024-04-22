@@ -37,8 +37,9 @@ extends:
             type: 'script'
             path: infra/scripts/Set-KeyvaultAccess.ps1
             useSystemAccessTokeninScript: true
+            azureCLIScriptType: pscore
             serviceConnectionVariableName: subscriptionName
-            scriptType: AzurePowerShell
+            scriptType: AzureCLI
             scriptArguments: >
               -AppRegConnection  $(tier2ServiceConnectionAppRegName)
               -SubscriptionId $(subscriptionId)
