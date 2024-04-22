@@ -35,7 +35,7 @@ extends:
         deployments:
           - name: KeyvaultAccess
             type: 'script'
-            scriptPath: $(Pipeline.Workspace)/s/self/infra/scripts/Set-KeyvaultAccess.ps1
+            path: infra/scripts/Set-KeyvaultAccess.ps1
             serviceConnectionVariableName: subscriptionName
             scriptType: AzurePowerShell
             scriptArguments: >
@@ -51,7 +51,6 @@ extends:
             path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
             scriptArguments: >
                 -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
-            preDeployScriptsList:
               
 
     - ${{ if eq(parameters.resource, 'application-domain') }}:
