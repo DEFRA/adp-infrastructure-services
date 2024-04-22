@@ -41,7 +41,7 @@ extends:
             serviceConnectionVariableName: subscriptionName
             scriptType: AzureCLI
             scriptArguments: >
-              -AppRegConnection  $(tier2ServiceConnectionAppRegName)
+              -AppRegConnection  $(ssvAppRegServicePrincipalId)
               -SubscriptionId $(subscriptionId)
               -ResourceGroupName  $(servicesResourceGroup)
               -Keyvault  $(applicationKeyvaultName)    
