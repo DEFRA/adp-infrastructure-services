@@ -56,7 +56,7 @@ Write-Debug "${functionName}:Keyvault=$Keyvault"
 try {
 
     #$appId = az ad sp list --filter "displayname eq '$AppRegConnection'" --query "[].{appId:appId}" --output tsv
-    az role assignment create --role "Key Vault Secrets Officer" --assignee $AppRegConnection --scope /subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.KeyVault/vaults/$Keyvault       
+    az role assignment create --role "Key Vault Secrets Officer" --assignee-object-id $AppRegConnection --scope /subscriptions/$SubscriptionId/resourceGroups/$ResourceGroupName/providers/Microsoft.KeyVault/vaults/$Keyvault       
     $exitCode = 0
 }
 catch {
