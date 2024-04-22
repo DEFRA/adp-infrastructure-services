@@ -37,7 +37,7 @@ extends:
             type: 'script'
             scriptType: AzurePowerShell
             scriptRepo: PipelineCommonScripts
-            serviceConnectionVariableName: AZD-ADP-SSV3
+            serviceConnectionVariableName: ssvServiceConnection
             path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
             scriptArguments: >
                 -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
