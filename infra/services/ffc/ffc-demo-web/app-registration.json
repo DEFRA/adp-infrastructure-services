@@ -1,24 +1,24 @@
 {
     "applications": [
         {
-            "displayName": "ADO-DefraGovUK-ADP-#{{ environment }}-#{{ parameters.service }}",
+            "displayName": "ADO-DefraGovUK-ADP-#{{ environment }}-#{{ service }}",
             "IdentifierUris": "",
             "secretAutoRenewalEnabled": true,
             "keyVault": {
                 "name": "#{{ applicationKeyvaultName }}",
                 "secrets": [
                     {
-                        "key": "#{{ parameters.service }}-ClientSecret",
+                        "key": "#{{ service }}-ClientSecret",
                         "type": "ClientSecret"
                     },
                     {
-                        "key": "#{{ parameters.service }}-ClientId",
+                        "key": "#{{ service }}-ClientId",
                         "type": "ClientId"
                     }
                 ]
             },
             "web": {
-                "redirectUris": "[\"https://#{{ parameters.service }}.#{{ publicDnsZoneName }}\"]",
+                "redirectUris": "[\"https://#{{ service }}.#{{ publicDnsZoneName }}\"]",
                 "implicitGrantSettings": {
                     "enableAccessTokenIssuance": false,
                     "enableIdTokenIssuance": true
@@ -28,6 +28,10 @@
                 {
                     "resourceAppId": "00000003-0000-0000-c000-000000000000",
                     "resourceAccess": [
+                        {
+                            "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+                            "type": "Scope"
+                        },
                         {
                             "id": "18a4783c-866b-4cc7-a460-3d5e5662c884",
                             "type": "Role"
