@@ -33,23 +33,11 @@ extends:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
         deployments:
-          # - name: KeyvaultAccess
-          #   type: 'script'
-          #   path: infra/scripts/Set-KeyvaultAccess.ps1
-          #   useSystemAccessTokeninScript: true
-          #   azureCLIScriptType: pscore
-          #   serviceConnectionVariableName: subscriptionName
-          #   scriptType: AzureCLI
-          #   scriptArguments: >
-          #     -AppRegServicePrincipal  $(ssvAppRegServicePrincipalId)
-          #     -SubscriptionId $(subscriptionId)
-          #     -ResourceGroupName  $(servicesResourceGroup)
-          #     -Keyvault  $(applicationKeyvaultName)    
           - name: Register App
             type: 'script'
             scriptType: AzurePowerShell
             scriptRepo: PipelineCommonScripts
-            serviceConnectionVariableName: ssvServiceConnection
+            serviceConnectionVariableName: subscriptionName
             resourceGroup: $(servicesResourceGroup)
             path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
             scriptArguments: >
