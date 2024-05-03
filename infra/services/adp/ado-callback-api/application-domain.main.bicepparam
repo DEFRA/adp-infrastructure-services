@@ -4,7 +4,7 @@ param afdEndpointName = '#{{ environment_lower}}#{{ environmentId }}-adp-contain
 
 param appEndpointName = 'ado-callback-api'
 
-param originCustomHost = '#{{ callBackApiInternalHostName }}'
+param originCustomHost = '#{{ adoCallBackApiInternalHostName }}'
 
 param usePrivateLink = false
 
