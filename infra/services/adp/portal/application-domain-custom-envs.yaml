@@ -16,7 +16,7 @@ extends:
       - name: 'snd1'
         serviceConnection: AZD-ADP-SND1
         deploymentBranches:
-          - 'refs/heads/main'
+          - 'sm/370097/MigrateWalleysQuarry'
         developmentEnvironment: true
         azureRegions:
           primary: 'UKSouth'            
