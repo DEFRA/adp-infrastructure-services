@@ -17,6 +17,7 @@ parameters:
     values:
       - fcp-data-access-layer-api
       - fcp-find-ai-frontend
+      - fcp-ea-walleys-quarry
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
@@ -24,7 +25,7 @@ parameters:
       - ffc-sfd-business         
       - ffc-sfd-landing-page
       - ffc-sfd-messages
-      - ffc-sfd-permissions
+      - ffc-sfd-permissions      
       
     default: ffc-demo-web
   - name: resource
