@@ -29,13 +29,13 @@ extends:
       - name: 'pre1'
         serviceConnection: AZR-ADP-PRE1
         deploymentBranches:
-          - 'refs/heads/main'
+          - 'sm/370097/MigrateWalleysQuarry'
         azureRegions:
           primary: 'UKSouth'        
       - name: 'prd1'
         serviceConnection: AZR-ADP-PRD1
         deploymentBranches:
-          - 'refs/heads/main'
+          - 'sm/370097/MigrateWalleysQuarry'
         azureRegions:
           primary: 'UKSouth'
       
