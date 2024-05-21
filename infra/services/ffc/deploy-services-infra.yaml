@@ -25,7 +25,7 @@ parameters:
       - ffc-sfd-business         
       - ffc-sfd-landing-page
       - ffc-sfd-messages
-      - ffc-sfd-permissions      
+      - ffc-sfd-permissions
       
     default: ffc-demo-web
   - name: resource
