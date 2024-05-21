@@ -16,12 +16,12 @@ parameters:
     type: string
     values:
       - fcp-data-access-layer-api
-      - fcp-find-ai-frontend  
+      - fcp-find-ai-frontend
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
       - ffc-sfd-ahwp-stub
-      - ffc-sfd-business         
+      - ffc-sfd-business
       - ffc-sfd-landing-page
       - ffc-sfd-messages
       - ffc-sfd-permissions
