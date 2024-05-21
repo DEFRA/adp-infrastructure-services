@@ -17,7 +17,7 @@ parameters:
     values:
       - fcp-data-access-layer-api
       - fcp-find-ai-frontend
-      - fcp-ea-walleys-quarry
+      - ea-wq-incident-web
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
