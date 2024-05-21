@@ -16,8 +16,7 @@ parameters:
     type: string
     values:
       - fcp-data-access-layer-api
-      - fcp-find-ai-frontend
-      - ea-wq-incident-web
+      - fcp-find-ai-frontend      
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
@@ -26,6 +25,7 @@ parameters:
       - ffc-sfd-landing-page
       - ffc-sfd-messages
       - ffc-sfd-permissions
+      - ea-wq-incident-web
       
     default: ffc-demo-web
   - name: resource
