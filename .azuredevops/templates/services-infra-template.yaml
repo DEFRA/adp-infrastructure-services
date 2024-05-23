@@ -18,7 +18,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: aa/addSND4environmentForDemoServices
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -26,7 +26,7 @@ extends:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: '**/*${{ parameters.resource }}.main.bicep'
-    includePlatformEnvs: false
+    includePlatformEnvs: true
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
