@@ -18,7 +18,9 @@
                 ]
             },
             "web": {
-                "redirectUris": "[]",
+                "redirectUris": [
+                    "https://coreai-mcu-frontend.#{{ publicDnsZoneName }}"
+                ],
                 "implicitGrantSettings": {
                     "enableAccessTokenIssuance": false,
                     "enableIdTokenIssuance": true
