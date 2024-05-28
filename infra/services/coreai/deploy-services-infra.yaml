@@ -24,6 +24,7 @@ parameters:
     type: string
     values:
       - application-domain
+      - application-registration      
     default: application-domain
 
 extends:
