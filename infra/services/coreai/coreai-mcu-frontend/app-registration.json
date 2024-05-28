@@ -1,24 +1,24 @@
 {
     "applications": [
         {
-            "displayName": "ADO-DefraGovUK-ADP-#{{ environment }}-#{{ service }}",
+            "displayName": "ADO-DefraGovUK-ADP-coreai-mcu-frontend-#{{ environment }}",
             "IdentifierUris": "",
             "secretAutoRenewalEnabled": true,
             "keyVault": {
-                "name": "#{{ applicationKeyvaultName }}",
+                "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
                 "secrets": [
                     {
-                        "key": "#{{ service }}-ClientSecret",
+                        "key": "coreai-mcu-frontend-ClientSecret",
                         "type": "ClientSecret"
                     },
                     {
-                        "key": "#{{ service }}-ClientId",
+                        "key": "coreai-mcu-frontend-ClientId",
                         "type": "ClientId"
                     }
                 ]
             },
             "web": {
-                "redirectUris": "[\"https://#{{ service }}.#{{ publicDnsZoneName }}\"]",
+                "redirectUris": "[\"https://coreai-mcu-frontend.#{{ publicDnsZoneName }}\"]",
                 "implicitGrantSettings": {
                     "enableAccessTokenIssuance": false,
                     "enableIdTokenIssuance": true
