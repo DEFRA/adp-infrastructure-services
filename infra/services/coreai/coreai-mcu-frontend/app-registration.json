@@ -1,7 +1,7 @@
 {
     "applications": [
         {
-            "displayName": "ADO-DefraGovUK-ADP-coreai-mcu-frontend-#{{ environment }}",
+            "displayName": "ADO-DefraGovUK-ADP-coreai-mcu-frontend-#{{ environment }}#{{ environmentId }}",
             "IdentifierUris": "",
             "secretAutoRenewalEnabled": true,
             "keyVault": {
@@ -18,7 +18,7 @@
                 ]
             },
             "web": {
-                "redirectUris": "[\"https://coreai-mcu-frontend.#{{ publicDnsZoneName }}\"]",
+                "redirectUris": "[]",
                 "implicitGrantSettings": {
                     "enableAccessTokenIssuance": false,
                     "enableIdTokenIssuance": true
