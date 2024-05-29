@@ -42,7 +42,13 @@ extends:
             path: "PowerShellLibrary/Add-AdAppRegistrations.ps1"
             scriptArguments: >
                 -AppRegJsonPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json'
-              
+            postDeployScriptsList:   
+              - displayName: Set RBAC Permissions
+                scriptPath: infra/scripts/Set-KVSecret-RBAC.ps1
+                scriptArguments: >
+                  -ServiceName '${{ parameters.service }}'
+                  -KeyvaultName '$(infraResourceNamePrefix)$(nc_resource_keyvault)$(nc_instance_regionid)01'
+                  -MIPrefix '$(infraResourceNamePrefix)$(nc_resource_managedidentity)$(nc_instance_regionid)01'           
 
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
