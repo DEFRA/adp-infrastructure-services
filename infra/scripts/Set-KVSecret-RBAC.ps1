@@ -64,7 +64,7 @@ try {
     $clientIDResourceID = $keyvaultResourceID + "/secrets/" + $ServiceName + "-ClientId"
     $clientSecretResourceID = $keyvaultResourceID + "/secrets/" + $ServiceName + "-ClientSecret"
     $currentRoleForClientID = Get-AzRoleAssignment -ObjectId $miObjectID  -Scope $clientIDResourceID
-    if (!$currentRoleForClientSecret -or $currentRoleForClientID.RoleDefinitionName -ne $roleName) {
+    if (!$currentRoleForClientID -or $currentRoleForClientID.RoleDefinitionName -ne $roleName) {
         New-AzRoleAssignment -RoleDefinitionName $roleName -ObjectId $miObjectID  -Scope $clientIDResourceID
         Write-Output "Role assigned to Client ID"
     }
