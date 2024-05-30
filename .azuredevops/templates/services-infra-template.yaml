@@ -47,14 +47,14 @@ extends:
                     -AppGatewayName $(secApplicationGatewayName)  
 
               postDeployScriptsList:   
-              - displayName: Set AFD ADP Portal Security Policy
-                scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
-                scriptArguments: >
-                  -AfdName '$(cdnProfileName)'
-                  -WafPolicyName '$(adpPortalwafPolicyName)'
-                  -CustomDomainName '${{ parameters.service }}'
-                  -ResourceGroupName '$(cdnResourceGroup)'
-                  -SubscriptionId '$(subscriptionId)'   
+                - displayName: Set AFD ADP Portal Security Policy
+                  scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
+                  scriptArguments: >
+                    -AfdName '$(cdnProfileName)'
+                    -WafPolicyName '$(adpPortalwafPolicyName)'
+                    -CustomDomainName '${{ parameters.service }}'
+                    -ResourceGroupName '$(cdnResourceGroup)'
+                    -SubscriptionId '$(subscriptionId)'   
                       
             postDeployScriptsList:   
               - displayName: Set AFD Security Policy
