@@ -56,15 +56,15 @@ extends:
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(subscriptionId)'
 
-              ${{ if eq(parameters.service, 'portal') }}:
-                - displayName: Set AFD ADP PortalSecurity Policy
-                  scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
-                  scriptArguments: >
-                    -AfdName '$(cdnProfileName)'
-                    -WafPolicyName '$(adpPortalwafPolicyName)'
-                    -CustomDomainName '${{ parameters.service }}'
-                    -ResourceGroupName '$(cdnResourceGroup)'
-                    -SubscriptionId '$(subscriptionId)'
+              - ${{ if eq(parameters.service, 'portal') }}:
+                  - displayName: Set AFD ADP PortalSecurity Policy
+                    scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
+                    scriptArguments: >
+                      -AfdName '$(cdnProfileName)'
+                      -WafPolicyName '$(adpPortalwafPolicyName)'
+                      -CustomDomainName '${{ parameters.service }}'
+                      -ResourceGroupName '$(cdnResourceGroup)'
+                      -SubscriptionId '$(subscriptionId)'
 
            
 
