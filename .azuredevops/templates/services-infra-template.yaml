@@ -44,17 +44,7 @@ extends:
                   type: AzurePowerShell
                   scriptArguments: >
                     -ResourceGroupName  $(secInfraResourceGroup)
-                    -AppGatewayName $(secApplicationGatewayName)  
-
-              postDeployScriptsList:   
-                - displayName: Set AFD ADP Portal Security Policy
-                  scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
-                  scriptArguments: >
-                    -AfdName '$(cdnProfileName)'
-                    -WafPolicyName '$(adpPortalwafPolicyName)'
-                    -CustomDomainName '${{ parameters.service }}'
-                    -ResourceGroupName '$(cdnResourceGroup)'
-                    -SubscriptionId '$(subscriptionId)'   
+                    -AppGatewayName $(secApplicationGatewayName)                
                       
             postDeployScriptsList:   
               - displayName: Set AFD Security Policy
@@ -65,6 +55,16 @@ extends:
                   -CustomDomainName '${{ parameters.service }}'
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(subscriptionId)'
+
+              ${{ if eq(parameters.service, 'portal') }}:
+                - displayName: Set AFD ADP PortalSecurity Policy
+                  scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
+                  scriptArguments: >
+                    -AfdName '$(cdnProfileName)'
+                    -WafPolicyName '$(adpPortalwafPolicyName)'
+                    -CustomDomainName '${{ parameters.service }}'
+                    -ResourceGroupName '$(cdnResourceGroup)'
+                    -SubscriptionId '$(subscriptionId)'
 
            
 
