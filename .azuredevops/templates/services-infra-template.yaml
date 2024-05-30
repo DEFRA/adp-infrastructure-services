@@ -18,7 +18,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: main
+      ref: sm/374060/AddWAFforDefraNetworksandOpenVPN
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -52,6 +52,16 @@ extends:
                 scriptArguments: >
                   -AfdName '$(cdnProfileName)'
                   -WafPolicyName '$(wafPolicyName)'
+                  -CustomDomainName '${{ parameters.service }}'
+                  -ResourceGroupName '$(cdnResourceGroup)'
+                  -SubscriptionId '$(subscriptionId)'
+
+            ${{ if eq(parameters.service, 'portal') }}:   
+              - displayName: Set AFD Portal Security Policy
+                scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
+                scriptArguments: >
+                  -AfdName '$(cdnProfileName)'
+                  -WafPolicyName '$(adpPortalwafPolicyName)'
                   -CustomDomainName '${{ parameters.service }}'
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(subscriptionId)'
