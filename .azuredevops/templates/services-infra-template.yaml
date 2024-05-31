@@ -58,7 +58,7 @@ extends:
                       -ResourceGroupName '$(cdnResourceGroup)'
                       -SubscriptionId '$(subscriptionId)'
 
-              - ${{ if and(eq(parameters.service, 'portal'), ne('$(environment)', 'SND')) }}:
+              - ${{ if eq(parameters.service, 'portal') }}:
                   - displayName: Set AFD ADP Portal Security Policy
                     scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                     scriptArguments: >
