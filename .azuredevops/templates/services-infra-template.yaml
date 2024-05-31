@@ -58,10 +58,11 @@ extends:
                       -SubscriptionId '$(subscriptionId)'
 
               - ${{ if eq(parameters.service, 'portal') }}:
-                  - displayName: Set AFD ADP PortalSecurity Policy
+                  - displayName: Set AFD ADP Portal Security Policy
                     scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                     scriptArguments: >
                       -AfdName '$(cdnProfileName)'
+                      -PolicyName 'adp-portal'
                       -WafPolicyName '$(adpPortalwafPolicyName)'
                       -CustomDomainName '${{ parameters.service }}'
                       -ResourceGroupName '$(cdnResourceGroup)'
