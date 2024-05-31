@@ -52,6 +52,7 @@ extends:
                     scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                     scriptArguments: >
                       -AfdName '$(cdnProfileName)'
+                      -PolicyName 'default'
                       -WafPolicyName '$(wafPolicyName)'
                       -CustomDomainName '${{ parameters.service }}'
                       -ResourceGroupName '$(cdnResourceGroup)'
