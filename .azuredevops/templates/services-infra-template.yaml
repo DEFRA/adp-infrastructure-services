@@ -44,8 +44,7 @@ extends:
                   type: AzurePowerShell
                   scriptArguments: >
                     -ResourceGroupName  $(secInfraResourceGroup)
-                    -AppGatewayName $(secApplicationGatewayName)                
-                      
+                    -AppGatewayName $(secApplicationGatewayName)                     
             postDeployScriptsList:   
               - ${{ if ne(parameters.service, 'portal') }}:
                   - displayName: Set AFD Security Policy
