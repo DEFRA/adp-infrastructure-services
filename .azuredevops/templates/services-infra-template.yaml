@@ -67,9 +67,7 @@ extends:
                       -WafPolicyName '$(adpPortalwafPolicyName)'
                       -CustomDomainName '${{ parameters.service }}'
                       -ResourceGroupName '$(cdnResourceGroup)'
-                      -SubscriptionId '$(subscriptionId)'
-
-           
+                      -SubscriptionId '$(subscriptionId)'           
 
     ${{ if gt(length(parameters.environments), 0) }}:
       environments:
