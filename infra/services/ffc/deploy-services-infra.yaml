@@ -4,11 +4,15 @@ trigger: none
 
 parameters:
   - name: deployFromFeature
-    displayName: "Deploy from Feature Branch"
+    displayName: Deploy from Feature Branch
     type: boolean
     default: false
   - name: useCustomEnvironments
-    displayName: "Use Custom Environments"
+    displayName: Use Custom Environments
+    type: boolean
+    default: false
+  - name: includePlatformEnvs
+    displayName: Include Platform Environments
     type: boolean
     default: false
   - name: service
@@ -40,6 +44,7 @@ extends:
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
+    includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     program: ffc
     service: ${{ parameters.service }}
     resource: ${{ parameters.resource }}
