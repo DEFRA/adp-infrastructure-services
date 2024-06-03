@@ -17,7 +17,7 @@ parameters:
     type: boolean
     default: false
   - name: useCustomEnvironments
-    displayName: Use Custom Environments
+    displayName: "Use Custom Environments"
     type: boolean
     default: false
   - name: includePlatformEnvs
