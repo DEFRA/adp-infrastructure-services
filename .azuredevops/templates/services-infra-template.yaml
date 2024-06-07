@@ -28,7 +28,7 @@ extends:
     filePathsForTransform: |
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
       **/*${{ parameters.resource }}.main.bicep
-    includePlatformEnvs: false
+    includePlatformEnvs: true
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
