@@ -68,6 +68,11 @@ Write-Debug "${functionName}:ResourceGroupName=$ResourceGroupName"
 Write-Debug "${functionName}:CustomDomainName=$CustomDomainName"
 Write-Debug "${functionName}:SubscriptionId=$SubscriptionId"
 
+$jsonResult = az deployment group create -g $ResourceGroupName --template-file ../../bicep-generic/sdn/application-domain.main.bicep | ConvertFrom-Json
+$waf = $jsonResult.properties.outputs.wafPolicyName.value
+$waf
+
+
 try {
 
     $wafPolicy = Get-AzFrontDoorWafPolicy -ResourceGroupName $ResourceGroupName -Name $WafPolicyName
