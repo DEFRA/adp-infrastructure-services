@@ -83,8 +83,7 @@ extends:
               - displayName: Set AFD Security Policy
                 scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                 scriptArguments: >
-                  -AfdName '$(cdnProfileName)'
-                  -PolicyName 'adp-portal'
+                  -AfdName '$(cdnProfileName)'                  
                   -WafPolicyName '$(wafName)'
                   -CustomDomainName '${{ parameters.service }}'
                   -ResourceGroupName '$(cdnResourceGroup)'

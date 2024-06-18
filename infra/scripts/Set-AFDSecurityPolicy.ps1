@@ -60,6 +60,18 @@ if ($enableDebug) {
     Set-Variable -Name DebugPreference -Value Continue -Scope global
 }
 
+if ($WafPolicyName -like "*01") {
+    $PolicyName = 'internal'
+} elseif  ($WafPolicyName -like "*02") {
+    $PolicyName = 'adp-portal'
+}
+else {
+    $PolicyName = 'external'
+
+}
+
+Write-Output "The Policy Name is '$PolicyName'. "
+
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
 Write-Debug "${functionName}:AfdName=$AfdName"
 Write-Debug "${functionName}:PolicyName=$PolicyName"
