@@ -68,9 +68,14 @@ Write-Debug "${functionName}:ResourceGroupName=$ResourceGroupName"
 Write-Debug "${functionName}:CustomDomainName=$CustomDomainName"
 Write-Debug "${functionName}:SubscriptionId=$SubscriptionId"
 
-$wafResources = Get-AzResource -ResourceGroupName $ResourceGroupName  -ResourceType Microsoft.Network/firewallPolicies
+$wafResources = Get-AzResource -ResourceGroupName $ResourceGroupName  -ResourceType Microsoft.Network/frontdoorWebApplicationFirewallPolicies
 
-
+# Output the WAF resources
+$wafResources | ForEach-Object {
+    [PSCustomObject]@{
+        Name = $_.Name
+    }
+}
 
 # Output the WAF resources    
 Write-Output "WAF name '$wafResources'..."  
