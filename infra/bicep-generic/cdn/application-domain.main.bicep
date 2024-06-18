@@ -31,7 +31,7 @@ param globalRuleSets array = [
 ]
 
 @description('Required. The name of the WAF.')
-param wafPolicyName string
+param wafName string
 
 
 var location = '#{{ location }}'
@@ -147,4 +147,4 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
 
 
 @description('The name of the custom WAF.')
-output wafPolicyName string = wafPolicyName
+output wafName string = wafName
