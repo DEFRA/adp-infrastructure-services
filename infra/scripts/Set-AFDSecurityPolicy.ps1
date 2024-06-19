@@ -61,12 +61,12 @@ if ($enableDebug) {
 }
 
 if ($WafPolicyName -like "*01") {
-    $PolicyName = 'internal'
+    $PolicyName = 'baseline-internal'
 } elseif  ($WafPolicyName -like "*02") {
-    $PolicyName = 'adp-portal'
+    $PolicyName = 'adp-portal-internal'
 }
 else {
-    $PolicyName = 'external'
+    $PolicyName = 'baseline-external'
 
 }
 
