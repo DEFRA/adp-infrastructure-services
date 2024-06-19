@@ -18,7 +18,8 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: refs/tags/1.0.0-latest
+      #ref: refs/tags/1.0.0-latest
+      ref: rv/399652
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
