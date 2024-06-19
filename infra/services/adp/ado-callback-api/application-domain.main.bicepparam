@@ -12,4 +12,4 @@ param enabledState = 'Enabled'
 
 param forwardingProtocol = 'HttpOnly'
 
-param wafName = '#{{ wafPolicyName }}'
+param ingressType = '#{{ wafPolicyName }}'

@@ -4,4 +4,4 @@ param appEndpointName = 'fcp-find-ai-frontend'
 
 param enabledState = 'Enabled'
 
-param wafName = '#{{ externalWafPolicyName }}'
+param ingressType = '#{{ externalWafPolicyName }}'

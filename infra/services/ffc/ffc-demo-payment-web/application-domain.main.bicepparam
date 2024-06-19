@@ -4,4 +4,4 @@ param appEndpointName = 'ffc-demo-payment-web'
 
 param enabledState = 'Enabled'
 
-param wafName = '#{{ wafPolicyName }}'
+param ingressType = '#{{ wafPolicyName }}'
