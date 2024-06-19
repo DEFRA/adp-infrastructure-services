@@ -68,8 +68,7 @@
                         ]
                     }
                 ]
-            },
-            "owners": #{{ noescape(platformAccessAADGroupOwners) }}
+            }
         }
     ]
 }
