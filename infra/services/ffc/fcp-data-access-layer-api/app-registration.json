@@ -36,29 +36,7 @@
                         }
                     ]
                 }
-            ],
-            "optionalClaims": {
-                "idToken": [
-                    {
-                        "name": "groups",
-                        "source": null,
-                        "essential": false,
-                        "additionalProperties": [
-                            "sam_account_name"
-                        ]
-                    }
-                ],
-                "accessToken": [
-                    {
-                        "name": "groups",
-                        "source": null,
-                        "essential": false,
-                        "additionalProperties": [
-                            "sam_account_name"
-                        ]
-                    }
-                ]
-            }
+            ]
         }
     ]
 }
