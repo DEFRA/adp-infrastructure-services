@@ -62,12 +62,12 @@ if ($enableDebug) {
 
 if ($WafPolicyName -like "*01") {
     $PolicyName = 'baseline-internal'
-} elseif  ($WafPolicyName -like "*02") {
+} 
+elseif  ($WafPolicyName -like "*02") {
     $PolicyName = 'adp-portal-internal'
 }
 else {
     $PolicyName = 'baseline-external'
-
 }
 
 Write-Output "The Policy Name is '$PolicyName'. "
