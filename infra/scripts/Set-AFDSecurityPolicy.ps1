@@ -64,7 +64,7 @@ if ($WafPolicyName -like "*01") {
     $PolicyName = 'baseline-internal'
 } 
 elseif  ($WafPolicyName -like "*02") {
-    $PolicyName = 'adp-portal-internal'
+    $PolicyName = 'adp-portal'
 }
 else {
     $PolicyName = 'baseline-external'
