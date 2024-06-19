@@ -1,0 +1,42 @@
+{
+    "applications": [
+        {
+            "displayName": "ADP-FCP-DAL-API-#{{ environment }}#{{ environmentId }}",
+            "IdentifierUris": "",
+            "secretAutoRenewalEnabled": true,
+            "keyVault": {
+                "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
+                "secrets": [
+                    {
+                        "key": "fcp-data-access-layer-api-ClientSecret",
+                        "type": "ClientSecret"
+                    },
+                    {
+                        "key": "fcp-data-access-layer-api-ClientId",
+                        "type": "ClientId"
+                    }
+                ]
+            },
+            "web": {
+                "redirectUris": [
+                    "https://fcp-data-access-layer-api.#{{ publicDnsZoneName }}/authenticate"
+                ],
+                "implicitGrantSettings": {
+                    "enableAccessTokenIssuance": false,
+                    "enableIdTokenIssuance": true
+                }
+            },
+            "requiredResourceAccess": [
+                {
+                    "resourceAppId": "00000003-0000-0000-c000-000000000000",
+                    "resourceAccess": [
+                        {
+                            "id": "e1fe6dd8-ba31-4d61-89e7-88639da4683d",
+                            "type": "Scope"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
