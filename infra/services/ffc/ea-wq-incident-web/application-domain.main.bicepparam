@@ -4,6 +4,6 @@ param appEndpointName = 'ea-wq-incident-web'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ externalWafPolicyName }}'
+param ingressType = '#{{ wafPolicyName }}'
 
 

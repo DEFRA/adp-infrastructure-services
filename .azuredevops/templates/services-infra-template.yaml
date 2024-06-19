@@ -28,7 +28,7 @@ extends:
     filePathsForTransform: |
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
       **/*${{ parameters.resource }}.main.bicep
-    includePlatformEnvs: true
+    includePlatformEnvs: false
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
@@ -62,7 +62,7 @@ extends:
             resourceGroupName: $(cdnResourceGroup)
 
             ${{ if eq(parameters.service, 'portal') }}:
-              preDeployScriptsList:                
+              preDeployScriptsList:
                 - displayName: Get App Gateway Public IP
                   scriptPath: infra/scripts/Get-AppGatewayFrontendPublicIP.ps1
                   serviceConnectionVariableName: secServiceConnection
