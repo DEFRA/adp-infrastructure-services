@@ -60,7 +60,6 @@ if ($enableDebug) {
     Set-Variable -Name DebugPreference -Value Continue -Scope global
 }
 
-
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
 Write-Debug "${functionName}:AfdName=$AfdName"
 Write-Debug "${functionName}:PolicyName=$PolicyName"
