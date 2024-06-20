@@ -80,8 +80,7 @@ extends:
                 inlineScript: |
                   $output = '$(azureDeploymentOutputs)' | ConvertFrom-Json                  
                   Write-Host "##vso[task.setvariable variable=wafName;]$($output.wafName.value)"
-                  Write-Host "##vso[task.setvariable variable=ingressType;]$($output.ingressType.value)"
-
+                  
               - displayName: Set AFD Security Policy
                 scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                 scriptArguments: >

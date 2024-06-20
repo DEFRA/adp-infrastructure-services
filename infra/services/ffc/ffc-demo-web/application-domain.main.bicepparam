@@ -6,4 +6,4 @@ param enabledState = 'Enabled'
 
 param ingressType = 'internal'
 
-param wafName = '#{{ wafPolicyName }}'
+param wafName = '#{{ externalWafPolicyName }}'

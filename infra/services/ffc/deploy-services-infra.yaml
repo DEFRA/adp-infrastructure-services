@@ -38,7 +38,7 @@ parameters:
     default: ffc-demo-web
 
   - name: ingressType
-    displayName: Select Ingress type of the Service
+    displayName: Select ingress type of the service
     type: string
     values:
       - internal

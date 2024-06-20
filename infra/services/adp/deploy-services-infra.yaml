@@ -25,7 +25,7 @@ parameters:
       - ado-callback-api
     default: portal
   - name: ingressType
-    displayName: Select Ingress type of the Service
+    displayName: Select ingress type of the service
     type: string
     values:
     default: adp-portal
