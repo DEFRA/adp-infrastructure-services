@@ -4,4 +4,6 @@ param appEndpointName = 'ffc-demo-web'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param ingressType = 'internal'
+
+param wafName = '#{{ wafPolicyName }}'

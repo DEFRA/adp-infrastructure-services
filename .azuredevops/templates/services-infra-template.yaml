@@ -18,7 +18,8 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: refs/tags/1.0.0-latest
+      #ref: refs/tags/1.0.0-latest
+      ref: sm/392627/ImplementGeographicalRestrictionsonAFDWAF
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -72,20 +73,22 @@ extends:
                     -AppGatewayName $(secApplicationGatewayName)
 
             postDeployScriptsList:
-              - displayName: 'Process Output Variable'
+              - displayName: 'Determine WAF Ingress Type'
                 type: PowerShell
                 inlineScript: |
-                  $output = '$(azureDeploymentOutputs)' | ConvertFrom-Json
+                  $output = '$(azureDeploymentOutputs)' | ConvertFrom-Json                  
+                  Write-Host "##vso[task.setvariable variable=wafName;]$($output.wafName.value)"
                   Write-Host "##vso[task.setvariable variable=ingressType;]$($output.ingressType.value)"
 
               - displayName: Set AFD Security Policy
                 scriptPath: infra/scripts/Set-AFDSecurityPolicy.ps1
                 scriptArguments: >
-                  -AfdName '$(cdnProfileName)'                  
-                  -WafPolicyName '$(ingressType)'
-                  -CustomDomainName '${{ parameters.service }}'
+                  -AfdName '$(cdnProfileName)'
+                  -WafPolicyName '$(wafName)'
+                  -IngressType '$(ingressType)'
+                  -ServiceName '${{ parameters.service }}'                  
                   -ResourceGroupName '$(cdnResourceGroup)'
-                  -SubscriptionId '$(subscriptionId)'                    
+                  -SubscriptionId '$(subscriptionId)'
 
     ${{ if gt(length(parameters.environments), 0) }}:
       environments:
