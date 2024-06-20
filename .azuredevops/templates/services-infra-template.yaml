@@ -20,7 +20,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: refs/tags/1.0.0-latest      
+      ref: refs/tags/1.0.0-latest
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -30,7 +30,7 @@ extends:
     filePathsForTransform: |
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
       **/*${{ parameters.resource }}.main.bicep
-    includePlatformEnvs: true
+    includePlatformEnvs: false
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
