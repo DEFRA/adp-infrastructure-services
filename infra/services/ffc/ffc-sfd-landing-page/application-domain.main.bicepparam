@@ -4,4 +4,4 @@ param appEndpointName = 'ffc-sfd-landing-page'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

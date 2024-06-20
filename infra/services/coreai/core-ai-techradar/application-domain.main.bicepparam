@@ -4,4 +4,4 @@ param appEndpointName = 'core-ai-techradar'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

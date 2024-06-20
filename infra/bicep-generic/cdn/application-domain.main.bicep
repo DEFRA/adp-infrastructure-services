@@ -30,9 +30,6 @@ param globalRuleSets array = [
   }
 ]
 
-@description('Required. The name of the Ingress Type.')
-param ingressType string
-
 @description('Required. The name of the WAF.')
 param wafName string
 
@@ -147,10 +144,6 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
     globalRuleSets: globalRuleSets
   }
 }
-
-
-@description('The name of the Ingress Type.')
-output ingressType string = ingressType
 
 @description('The name of the WAF.')
 output wafName string = wafName

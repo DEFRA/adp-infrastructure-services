@@ -12,6 +12,4 @@ param enabledState = 'Enabled'
 
 param forwardingProtocol = 'HttpOnly'
 
-param ingressType = 'internal'
-
 param wafName = '#{{ adpPortalwafPolicyName }}'

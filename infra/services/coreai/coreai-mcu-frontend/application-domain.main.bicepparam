@@ -4,4 +4,4 @@ param appEndpointName = 'coreai-mcu-frontend'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

@@ -4,4 +4,4 @@ param appEndpointName = 'ffc-ffd-frontend-poc'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

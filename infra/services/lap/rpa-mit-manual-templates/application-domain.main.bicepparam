@@ -4,4 +4,4 @@ param appEndpointName = 'rpa-mit-manual-templates'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

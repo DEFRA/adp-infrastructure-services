@@ -4,4 +4,4 @@ param appEndpointName = 'ffc-sfd-ahwp-stub'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

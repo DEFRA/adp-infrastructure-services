@@ -4,4 +4,4 @@ param appEndpointName = 'trade-exports-packinglistai-ui'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

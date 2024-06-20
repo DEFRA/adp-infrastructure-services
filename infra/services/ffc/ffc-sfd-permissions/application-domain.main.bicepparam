@@ -4,4 +4,4 @@ param appEndpointName = 'ffc-sfd-permissions'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

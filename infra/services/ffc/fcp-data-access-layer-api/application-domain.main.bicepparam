@@ -4,4 +4,4 @@ param appEndpointName = 'fcp-data-access-layer-api'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'

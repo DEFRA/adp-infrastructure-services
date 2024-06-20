@@ -4,4 +4,4 @@ param appEndpointName = 'mcu-techspike-ai-web'
 
 param enabledState = 'Enabled'
 
-param ingressType = '#{{ wafPolicyName }}'
+param wafName = '#{{ wafPolicyName }}'
