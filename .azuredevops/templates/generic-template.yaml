@@ -11,6 +11,8 @@ parameters:
     type: string
   - name: service
     type: string
+  - name: ingressType
+    type: string
   - name: resource
     type: string
 
