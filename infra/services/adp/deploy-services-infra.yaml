@@ -23,11 +23,7 @@ parameters:
     values:
       - portal
       - ado-callback-api
-    default: portal
-  - name: ingressType
-    displayName: Select ingress type of the service
-    type: string
-    default: adp-portal
+    default: portal  
   - name: resource
     displayName: Resource Type to deploy
     type: string
@@ -42,6 +38,6 @@ extends:
     useCustomEnvironments: true
     program: adp
     service: ${{ parameters.service }}
-    ingressType: ${{ parameters.ingressType }}
+    ingressType: 'internal'
     resource: ${{ parameters.resource }}
 
