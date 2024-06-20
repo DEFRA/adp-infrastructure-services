@@ -71,7 +71,7 @@ if ($ServiceName -eq "portal")
 }
 else 
 {
-    $PolicyName = "baseline-'$IngressType'"
+    $PolicyName = "baseline-$IngressType"
 }
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
