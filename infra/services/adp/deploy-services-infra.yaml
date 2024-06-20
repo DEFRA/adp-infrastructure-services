@@ -23,7 +23,7 @@ parameters:
     values:
       - portal
       - ado-callback-api
-    default: portal  
+    default: portal
   - name: resource
     displayName: Resource Type to deploy
     type: string
