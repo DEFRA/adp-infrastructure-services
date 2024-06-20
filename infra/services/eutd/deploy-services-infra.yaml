@@ -40,5 +40,6 @@ extends:
     useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
     program: eutd
     service: ${{ parameters.service }}
+    ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
 

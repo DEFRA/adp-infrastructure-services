@@ -25,6 +25,7 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ${{ parameters.program }}
     service: ${{ parameters.service }}
+    ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
     ${{ if and(eq(parameters.useCustomEnvironments, false), gt(length(parameters.environments), 0)) }}:
       environments:
