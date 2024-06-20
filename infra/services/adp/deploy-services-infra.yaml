@@ -27,7 +27,6 @@ parameters:
   - name: ingressType
     displayName: Select ingress type of the service
     type: string
-    values:
     default: adp-portal
   - name: resource
     displayName: Resource Type to deploy
