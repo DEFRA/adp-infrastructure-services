@@ -11,11 +11,9 @@ Mandatory. Azure FrontDoor Instance Name
 Mandatory. Security Policy Name
 .PARAMETER WafPolicyName
 Mandatory. Azure WAF Policy Instance Name
-.PARAMETER IngressType
-Mandatory. Service Ingress Type
 .PARAMETER ResourceGroupName
 Mandatory. Resource Group Name
-.PARAMETER ServiceName
+.PARAMETER CustomDomainName
 Mandatory. Custom Domain Name to be added to the Security Policy
 .PARAMETER SubscriptionId
 Mandatory. Azure Subscription Id
@@ -34,15 +32,12 @@ param(
     
     [Parameter(Mandatory)] 
     [string]$WafPolicyName,
-
-    [Parameter(Mandatory)] 
-    [string]$IngressType,
     
     [Parameter(Mandatory)] 
     [string]$ResourceGroupName,
     
     [Parameter(Mandatory)] 
-    [string]$ServiceName,
+    [string]$CustomDomainName,
     
     [Parameter(Mandatory)] 
     [string]$SubscriptionId
@@ -65,27 +60,19 @@ if ($enableDebug) {
     Set-Variable -Name DebugPreference -Value Continue -Scope global
 }
 
-if ($ServiceName -eq "portal")
-{
-    $PolicyName = 'adp-portal'
-}
-else 
-{
-    $PolicyName = "baseline-$IngressType"
-}
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
 Write-Debug "${functionName}:AfdName=$AfdName"
 Write-Debug "${functionName}:PolicyName=$PolicyName"
 Write-Debug "${functionName}:WafPolicyName=$WafPolicyName"
 Write-Debug "${functionName}:ResourceGroupName=$ResourceGroupName"
-Write-Debug "${functionName}:ServiceName=$ServiceName"
+Write-Debug "${functionName}:CustomDomainName=$CustomDomainName"
 Write-Debug "${functionName}:SubscriptionId=$SubscriptionId"
 
 try {
 
     $wafPolicy = Get-AzFrontDoorWafPolicy -ResourceGroupName $ResourceGroupName -Name $WafPolicyName
-    $customDomain = Get-AzFrontDoorCdnCustomDomain -ProfileName $AfdName -ResourceGroupName $ResourceGroupName -CustomDomainName $ServiceName
+    $customDomain = Get-AzFrontDoorCdnCustomDomain -ProfileName $AfdName -ResourceGroupName $ResourceGroupName -CustomDomainName $CustomDomainName
 
     $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -SubscriptionId $SubscriptionId
     $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq $PolicyName }
@@ -102,7 +89,7 @@ try {
             }
         }
         if (-not $exists) {
-            Write-Output "Adding domain '$ServiceName' to the Security Policy '$PolicyName'."
+            Write-Output "Adding domain '$CustomDomainName' to the Security Policy '$PolicyName'."
 
             $domains += @{"Id" = $($customDomain.Id) }
             $association = New-AzFrontDoorCdnSecurityPolicyWebApplicationFirewallAssociationObject -PatternsToMatch $securityPolicy.Parameter.Association[0].PatternsToMatch -Domain $domains
@@ -111,11 +98,11 @@ try {
             Update-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -Name $PolicyName -Parameter $wafParameter
         }
         else {
-            Write-Output "Domain '$ServiceName' is already associated to a security policy '$PolicyName'."
+            Write-Output "Domain '$CustomDomainName' is already associated to a security policy '$PolicyName'."
         }
     }
     else {
-        Write-Output "Creating new Security Policy '$PolicyName' and adding domain '$ServiceName'..."
+        Write-Output "Creating new Security Policy '$PolicyName' and adding domain '$CustomDomainName'..."
 
         $association = New-AzFrontDoorCdnSecurityPolicyWebApplicationFirewallAssociationObject -PatternsToMatch @("/*") -Domain @(@{"Id" = $($customDomain.Id) })
         $wafParameter = New-AzFrontDoorCdnSecurityPolicyWebApplicationFirewallParametersObject -Association @($association) -WafPolicyId $wafPolicy.Id
