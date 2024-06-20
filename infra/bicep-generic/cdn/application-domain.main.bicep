@@ -33,7 +33,6 @@ param globalRuleSets array = [
 @description('Required. The name of the WAF.')
 param wafName string
 
-
 var location = '#{{ location }}'
 var dnsZoneName = '#{{ publicDnsZoneName }}'
 var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'

@@ -4,6 +4,4 @@ param appEndpointName = 'ffc-demo-web'
 
 param enabledState = 'Enabled'
 
-param wafName = 'internal'
-
 param wafName = '#{{ externalWafPolicyName }}'

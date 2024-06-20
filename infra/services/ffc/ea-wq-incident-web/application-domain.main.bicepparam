@@ -5,5 +5,3 @@ param appEndpointName = 'ea-wq-incident-web'
 param enabledState = 'Enabled'
 
 param wafName = '#{{ wafPolicyName }}'
-
-
