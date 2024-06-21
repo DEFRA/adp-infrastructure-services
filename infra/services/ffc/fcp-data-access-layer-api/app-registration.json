@@ -2,7 +2,7 @@
     "applications": [
         {
             "displayName": "ADP-FCP-DAL-API-#{{ environment }}#{{ environmentId }}",
-            "IdentifierUris": "",
+            "identifierUris": "api://{{appId}}",
             "secretAutoRenewalEnabled": true,
             "keyVault": {
                 "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
@@ -27,8 +27,7 @@
                         }
                     ]
                 }
-            ],
-            "identifierUris": "api://{{appId}}",
+            ],            
             "groupMembershipClaims": "SecurityGroup",
             "optionalClaims": {
                 "idToken": [
