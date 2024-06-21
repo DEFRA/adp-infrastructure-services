@@ -1,18 +1,18 @@
 {
     "applications": [
         {
-            "displayName": "ADP-FCP-DAL-API-#{{ environment }}#{{ environmentId }}",
+            "displayName": "ADP-FCP-DAL-#{{ environment }}#{{ environmentId }}",
             "identifierUris": "api://{{appId}}",
             "secretAutoRenewalEnabled": true,
             "keyVault": {
                 "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
                 "secrets": [
                     {
-                        "key": "fcp-data-access-layer-api-ClientSecret",
+                        "key": "fcp-data-access-layer-ClientSecret",
                         "type": "ClientSecret"
                     },
                     {
-                        "key": "fcp-data-access-layer-api-ClientId",
+                        "key": "fcp-data-access-layer-ClientId",
                         "type": "ClientId"
                     }
                 ]
