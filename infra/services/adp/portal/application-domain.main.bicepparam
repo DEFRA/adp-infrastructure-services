@@ -13,3 +13,7 @@ param enabledState = 'Enabled'
 param forwardingProtocol = 'HttpOnly'
 
 param wafName = '#{{ adpPortalwafPolicyName }}'
+
+param hostName = '#{{ portalWebHostNameFD }}'
+
+param dnsZoneName = '#{{ portalDNSZoneNameFD }}'

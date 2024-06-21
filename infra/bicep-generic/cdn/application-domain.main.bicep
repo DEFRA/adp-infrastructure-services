@@ -32,16 +32,21 @@ param globalRuleSets array = [
 
 @description('Required. The name of the WAF.')
 param wafName string
+@description('Optional. The DNS Zone Name. Default to publicDnsZoneName.')
+param dnsZoneName string = '#{{ publicDnsZoneName }}'
+
+@description('Optional. host Name. Default to appEndpointName.dnsZoneName')
+param hostName string = '${appEndpointName}.${dnsZoneName}'
 
 var location = '#{{ location }}'
-var dnsZoneName = '#{{ publicDnsZoneName }}'
-var dnsZoneResourceGroup = '#{{ dnsResourceGroup }}'
+
+var dnsZoneResourceGroup = (dnsZoneName == '#{{ adpDnsZoneName }}') ? '#{{ ssvSharedResourceGroup }}' : '#{{ dnsResourceGroup }}'
+
+var dnsZoneSubscriptionId = (dnsZoneName == '#{{ adpDnsZoneName }}') ? '#{{ ssvSubscriptionId }}' : subscription().subscriptionId
 
 var profileName = '#{{ cdnProfileName }}'
 var loadBalancerPlsName = '#{{ aksLoadBalancerPlsName }}'
 var loadBalancerPlsResourceGroup = '#{{ aksResourceGroup }}-Managed'
-
-var hostName = '${appEndpointName}.${dnsZoneName}'
 
 var originCustomHostName = toLower(replace(originCustomHost, 'https://', ''))
 
@@ -76,6 +81,7 @@ module profile_custom_domain '.bicep/customdomain/main.bicep' = {
     afdEndpointName: afdEndpointName
     dnsZoneName: dnsZoneName
     dnsZoneResourceGroup: dnsZoneResourceGroup
+    dnsZoneSubscriptionId: dnsZoneSubscriptionId
     hostName: customDomainConfig.hostName
     certificateType: customDomainConfig.certificateType
   }
