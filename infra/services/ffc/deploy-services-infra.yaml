@@ -27,8 +27,6 @@ parameters:
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc
       - ffc-sfd-ahwp-stub
-      - ffc-sfd-business
-      - ffc-sfd-messages
       - ffc-sfd-permissions
       - ea-wq-incident-web
       
