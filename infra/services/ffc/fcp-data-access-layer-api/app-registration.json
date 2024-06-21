@@ -17,15 +17,6 @@
                     }
                 ]
             },
-            "web": {
-                "redirectUris": [
-                    "https://fcp-data-access-layer-api.#{{ publicDnsZoneName }}/authenticate"
-                ],
-                "implicitGrantSettings": {
-                    "enableAccessTokenIssuance": false,
-                    "enableIdTokenIssuance": true
-                }
-            },
             "requiredResourceAccess": [
                 {
                     "resourceAppId": "00000003-0000-0000-c000-000000000000",
