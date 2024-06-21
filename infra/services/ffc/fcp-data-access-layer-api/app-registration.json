@@ -37,6 +37,8 @@
                     ]
                 }
             ],
+            "identifierUris": "api://{{appId}}",
+            "groupMembershipClaims": "SecurityGroup",
             "optionalClaims": {
                 "idToken": [
                     {
