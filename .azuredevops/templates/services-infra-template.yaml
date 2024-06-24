@@ -37,6 +37,7 @@ extends:
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json
       **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: false
+    additionalRepositories: [ ADPInfrastuctureCore ]
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
