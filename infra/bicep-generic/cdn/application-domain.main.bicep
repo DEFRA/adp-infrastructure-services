@@ -152,3 +152,6 @@ module afd_endpoint_route '.bicep/route/main.bicep' = {
 
 @description('The name of the WAF.')
 output wafName string = wafName
+
+@description('App endpoint name.')
+output appEndpointName string = appEndpointName
