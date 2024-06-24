@@ -38,7 +38,9 @@ extends:
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
       - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
-      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@ADPPipelineCommon
+      #- /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@ADPPipelineCommon
+      - /infra/services/${{ parameters.program }}/ea-wq-incident-web/env-vars/{environment}.yaml@ADPPipelineCommon
+            
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
