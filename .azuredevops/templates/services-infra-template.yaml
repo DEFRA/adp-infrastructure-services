@@ -24,7 +24,6 @@ resources:
       endpoint: DEFRA
       type: github
       ref: refs/tags/1.0.0-latest
-     repositories:
     - repository: InfraServices
       name: DEFRA/adp-infrastructure-services
       endpoint: DEFRA
