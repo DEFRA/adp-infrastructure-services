@@ -1,2 +1,2 @@
 variables:
-  endpointName: 'ea-wq-incident-web-tst'
+  appEndpoint: 'ea-wq-incident-web-tst'

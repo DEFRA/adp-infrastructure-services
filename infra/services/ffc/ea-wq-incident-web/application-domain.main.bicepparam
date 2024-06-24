@@ -1,6 +1,6 @@
 using '../../../bicep-generic/cdn/application-domain.main.bicep'
 
-param appEndpointName = '#{{ appEndpointName }}'
+param appEndpointName = '#{{ appEndpoint }}'
 
 param enabledState = 'Enabled'
 
