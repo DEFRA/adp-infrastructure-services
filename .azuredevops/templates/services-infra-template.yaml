@@ -23,7 +23,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      ref: refs/tags/1.0.0-latest    
+      ref: refs/tags/1.0.0-latest
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -35,8 +35,10 @@ extends:
       **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     variableFiles: 
-      
-      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@_self
+      - /pipelines/vars/common.yaml@_self
+      - /pipelines/vars/env/{environment}.yaml@_self
+      - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
+      - /infra/services/${{ parameters.program }}/ea-wq-incident-web/env-vars/{environment}.yaml@ADPPipelineCommon
 
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
