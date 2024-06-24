@@ -21,6 +21,12 @@ resources:
       #ref: refs/tags/1.0.0-latest
       ref: rv/399652
 
+    - repository: ADPInfrastucture
+      name: DEFRA/adp-infrastructure
+      endpoint: DEFRA
+      type: github
+      ref: main
+
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
   parameters:
@@ -62,7 +68,7 @@ extends:
             scriptType: AzurePowerShell
             scriptRepo: PipelineCommonFiles
             serviceConnectionVariableName: ssvServiceConnection            
-            path: "templates/powershell/build/Create-AADGroups.ps1"
+            path: "infra/bootstrap/tenant/scripts/Create-AADGroups.ps1@ADPInfrastucture"
             scriptArguments: >
                 -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json'
     - ${{ if eq(parameters.resource, 'application-domain') }}:
