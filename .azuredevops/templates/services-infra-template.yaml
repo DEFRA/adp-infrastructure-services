@@ -24,6 +24,11 @@ resources:
       endpoint: DEFRA
       type: github
       ref: refs/tags/1.0.0-latest
+    - repository: _self
+      name: DEFRA/adp-infrastructure-services
+      endpoint: DEFRA
+      type: github
+      ref: main
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
@@ -38,7 +43,7 @@ extends:
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
       - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
-      - ../infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@_self
+      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@_self
 
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
