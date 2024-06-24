@@ -15,7 +15,7 @@ parameters:
     type: string
   - name: includePlatformEnvs
     type: boolean
-    default: true
+    default: false
   
 resources:
   repositories:
