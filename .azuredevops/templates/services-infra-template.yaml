@@ -66,9 +66,9 @@ extends:
           - name: Create Group
             type: 'script'
             scriptType: AzurePowerShell
-            scriptRepo: PipelineCommonFiles
+            scriptRepo: ADPInfrastuctureCore
             serviceConnectionVariableName: ssvServiceConnection            
-            path: infra/bootstrap/tenant/scripts/Create-AADGroups.ps1@ADPInfrastuctureCore
+            path: "infra/bootstrap/tenant/scripts/Create-AADGroups.ps1"
             scriptArguments: >
                 -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json'
     - ${{ if eq(parameters.resource, 'application-domain') }}:
