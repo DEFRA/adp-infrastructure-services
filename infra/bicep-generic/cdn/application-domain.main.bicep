@@ -32,8 +32,9 @@ param globalRuleSets array = [
 
 @description('Required. The name of the WAF.')
 param wafName string
-@description('Optional. The DNS Zone Name. Default to publicDnsZoneName.')
-param dnsZoneName string = '#{{ publicDnsZoneName }}'
+
+@description('Required. The DNS Zone Name.')
+param dnsZoneName string
 
 @description('Optional. host Name. Default to appEndpointName.dnsZoneName')
 param hostName string = '${appEndpointName}.${dnsZoneName}'
