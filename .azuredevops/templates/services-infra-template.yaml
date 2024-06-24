@@ -40,9 +40,7 @@ extends:
       **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     variableFiles: 
-      - /pipelines/vars/common.yaml@_self
-      - /pipelines/vars/env/{environment}.yaml@_self
-      - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
+      
       - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@_self
 
     groupedDeployments:
