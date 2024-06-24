@@ -28,6 +28,7 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: |
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
+      **/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json
       **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: false
     groupedDeployments:
@@ -53,7 +54,17 @@ extends:
               -ServiceName '${{ parameters.service }}'
               -KeyvaultName '$(infraResourceNamePrefix)$(nc_resource_keyvault)$(nc_instance_regionid)01'
               -MIPrefix '$(infraResourceNamePrefix)$(nc_resource_managedidentity)$(nc_instance_regionid)01'
-
+    - ${{ if eq(parameters.resource, 'application-access-group') }}:
+      - name: app_access_group
+        deployments:
+          - name: Create Group
+            type: 'script'
+            scriptType: AzurePowerShell
+            scriptRepo: PipelineCommonFiles
+            serviceConnectionVariableName: ssvServiceConnection            
+            path: "templates/powershell/build/Create-AADGroups.ps1"
+            scriptArguments: >
+                -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json'
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
         deployments:
