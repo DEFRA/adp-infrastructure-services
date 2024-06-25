@@ -11,8 +11,13 @@ parameters:
     type: string
   - name: service
     type: string
+  - name: ingressType
+    type: string
   - name: resource
     type: string
+  - name: includePlatformEnvs
+    type: boolean
+    default: false
 
 extends:
   ${{ if eq(parameters.useCustomEnvironments, false) }}:
@@ -23,7 +28,9 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     program: ${{ parameters.program }}
     service: ${{ parameters.service }}
+    ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
+    includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
     ${{ if and(eq(parameters.useCustomEnvironments, false), gt(length(parameters.environments), 0)) }}:
       environments:
         - ${{ parameters.environments }}
