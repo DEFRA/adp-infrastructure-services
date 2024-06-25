@@ -39,7 +39,7 @@ extends:
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
       - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
-      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@InfraServices
+      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@self
 
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
