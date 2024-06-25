@@ -18,8 +18,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA
       type: github
-      #ref: refs/tags/1.0.0-latest
-      ref: rv/399652
+      ref: refs/tags/1.0.0-latest
 
     - repository: ADPInfrastuctureCore
       name: DEFRA/adp-infrastructure-core
@@ -34,7 +33,7 @@ extends:
     deployFromFeature: ${{ parameters.deployFromFeature }}
     filePathsForTransform: |
       **/infra/services/${{ parameters.program }}/${{ parameters.service }}/app-registration.json
-      **/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json
+      **/infra/services/${{ parameters.program }}/${{ parameters.service }}/aad-group.json
       **/*${{ parameters.resource }}.main.bicep
     includePlatformEnvs: false
     additionalRepositories: [ ADPInfrastuctureCore ]
@@ -71,7 +70,7 @@ extends:
             serviceConnectionVariableName: ssvServiceConnection            
             path: "infra/bootstrap/tenant/scripts/Create-AADGroups.ps1"
             scriptArguments: >
-                -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aadGroup.json'
+                -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aad-group.json'
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
         deployments:
