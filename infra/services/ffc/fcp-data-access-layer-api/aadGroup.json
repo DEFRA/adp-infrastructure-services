@@ -1,7 +1,7 @@
 {
     "userADGroups": [
         {
-            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL-CONSOLIDATED-VIEW",
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL",
             "description": "Azure AD Access group for FCP DAL App.",
             "Owners": {
                 "serviceprincipals" : [
