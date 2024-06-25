@@ -1,3 +1,3 @@
 variables:
   appEndpoint: 'ea-wq-incident-web'
-  dnsZoneName: 'snd2.adp.defra.gov.uk'
+  dnsZoneName: '$(publicDnsZoneName)'

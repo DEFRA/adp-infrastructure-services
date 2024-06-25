@@ -1,3 +1,3 @@
 variables:
   appEndpoint: 'rpa-mit-web'
-  dnsZoneName: 'dev1.adp.defra.gov.uk'
+  dnsZoneName: '$(publicDnsZoneName)'

@@ -1,3 +1,3 @@
 variables:
   appEndpoint: 'coreai-mcu-frontend'
-  dnsZoneName: 'pre1.adp.defra.gov.uk'
+  dnsZoneName: '$(publicDnsZoneName)'
