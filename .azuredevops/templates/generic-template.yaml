@@ -17,7 +17,7 @@ parameters:
     type: string
   - name: includePlatformEnvs
     type: boolean
-    default: true
+    default: false  
 
 extends:
   ${{ if eq(parameters.useCustomEnvironments, false) }}:
