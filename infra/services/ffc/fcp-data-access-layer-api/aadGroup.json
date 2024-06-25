@@ -1,14 +1,15 @@
 {
     "userADGroups": [
         {
-            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL",
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL-CONSOLIDATED-VIEW",
             "description": "Azure AD Access group for FCP DAL App.",
             "Owners": {
                 "serviceprincipals" : [
                     "#{{ ssvAppRegServicePrincipalName }}"
                 ],
                 "users" : [
-                    "Jack.McCabe@defra.gov.uk"
+                    "Jack.McCabe@defra.gov.uk",
+                    "rajesh.venkatraman@defra.onmicrosoft.com"
                 ]
             },
             "Members": {
