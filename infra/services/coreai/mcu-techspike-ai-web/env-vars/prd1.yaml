@@ -1,0 +1,3 @@
+variables:
+  appEndpoint: 'mcu-techspike-ai-web'
+  dnsZoneName: 'prd1.adp.defra.gov.uk'

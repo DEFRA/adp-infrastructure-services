@@ -1,0 +1,3 @@
+variables:
+  appEndpoint: 'trade-exports-packinglistai-ui'
+  dnsZoneName: 'snd4.adp.defra.gov.uk'

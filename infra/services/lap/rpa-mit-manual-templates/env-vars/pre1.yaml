@@ -1,0 +1,3 @@
+variables:
+  appEndpoint: 'rpa-mit-manual-templates'
+  dnsZoneName: 'pre1.adp.defra.gov.uk'
