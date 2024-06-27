@@ -1,3 +1,6 @@
 variables:
   appEndpoint: 'fcp-data-access-layer-api'
   dnsZoneName: '$(publicDnsZoneName)'
+  fcpDALConsolidatedViewGroupOwners: |
+    [ 
+    ]
