@@ -7,7 +7,7 @@
                 "serviceprincipals" : [
                     "#{{ ssvAppRegServicePrincipalName }}"
                 ],
-                "users" : #{{ noescape(fcpDALConsolidatedViewGroupOwners) }}
+                "users" : []
             },
             "Members": {
                 "groups" : [
