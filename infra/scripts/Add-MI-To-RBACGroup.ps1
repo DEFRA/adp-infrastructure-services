@@ -58,7 +58,7 @@ Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 try {
     $ServiceMIList = $ServiceMIList -split ','
     $members = @()
-    $x = Get-AzADServicePrincipal -DisplayName $principalName
+    $x = Get-AzADGroup -DisplayName $RBACGroupName
     Write-Output $x
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
