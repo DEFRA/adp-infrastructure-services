@@ -65,7 +65,7 @@ try {
             Write-Warning "Managed Identity $principalName not found"
         }else{
             Write-Output "miObjectID: $miObjectID"                
-            $members.Add($miObjectID)
+            $members+=$miObjectID
         }                
     }
     $groupid = (Get-AzADGroup -DisplayName $RBACGroupName).id
