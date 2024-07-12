@@ -40,7 +40,8 @@ parameters:
     type: string
     values:
       - application-domain
-      - application-registration      
+      - application-registration
+      - application-rbac
     default: application-domain
 
 extends:
@@ -52,4 +53,3 @@ extends:
     service: ${{ parameters.service }}
     ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
-

@@ -110,7 +110,18 @@ extends:
                   -CustomDomainName '$(appEndpointName)'
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(subscriptionId)'
-
+    - ${{ if eq(parameters.resource, 'application-rbac') }}:
+      - name: application_rbac
+        deployments:
+          - name: Service RBAC
+            type: 'script'
+            scriptType: AzurePowerShell
+            serviceConnectionVariableName: ssvServiceConnection            
+            path: "infra/scripts/Add-MI-To-RBACGroup.ps1"
+            scriptArguments: >
+              -ServiceMIList '${{ convertToJson($(openAiUserGroupMiList)) }}'
+              -RBACGroupName '$(openAiUserGroup)'
+              -MIPrefix '$(infraResourceNamePrefix)$(nc_resource_managedidentity)$(nc_instance_regionid)01'
     ${{ if gt(length(parameters.environments), 0) }}:
       environments:
         - ${{ parameters.environments }}
