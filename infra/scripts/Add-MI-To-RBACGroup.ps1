@@ -66,7 +66,7 @@ try {
         }else{
             $miObjectID = $miObject.id
             Write-Output "miObjectID: $miObjectID"                
-            $members += $miObjectID 
+            $members.Add($miObjectID)
         }                
     }
     $groupid = (Get-AzADGroup -DisplayName $RBACGroupName).id
