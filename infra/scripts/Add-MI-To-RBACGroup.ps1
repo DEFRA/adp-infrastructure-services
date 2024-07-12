@@ -58,14 +58,16 @@ Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 try {
     $ServiceMIList = $ServiceMIList -split ','
     $members = @()
-    $x = Get-AzADGroup -DisplayName $RBACGroupName
-    Write-Output $x
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
-        $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
-        Write-Output "miObjectID: $miObjectID"                
-        $members += $miObjectID 
-        
+        $miObject = Get-AzADServicePrincipal -DisplayName $principalName
+        if ($null -eq $miObject) {
+            Write-Warning "Managed Identity $principalName not found"
+        }else{
+            $miObjectID = $miObject.id
+            Write-Output "miObjectID: $miObjectID"                
+            $members += $miObjectID 
+        }                
     }
     $groupid = (Get-AzADGroup -DisplayName $RBACGroupName).id
     Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
