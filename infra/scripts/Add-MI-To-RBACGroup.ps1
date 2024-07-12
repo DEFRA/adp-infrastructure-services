@@ -60,11 +60,10 @@ try {
     $members = @()
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
-        $miObject = Get-AzADServicePrincipal -DisplayName $principalName
-        if ($null -eq $miObject) {
+        $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
+        if ($null -eq $miObjectID) {
             Write-Warning "Managed Identity $principalName not found"
         }else{
-            $miObjectID = $miObject.id
             Write-Output "miObjectID: $miObjectID"                
             $members.Add($miObjectID)
         }                
