@@ -57,11 +57,16 @@ Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 
 try {
     $ServiceMIList = $ServiceMIList -split ','
+    $members = @()
+    $groupid = (Get-AzADGroup -DisplayName $RBACGroupName).Id
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
         $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
-        Write-Output "miObjectID: $miObjectID"
+        Write-Output "miObjectID: $miObjectID"                
+        $members += $miObjectID 
+        
     }
+    Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
 
     $exitCode = 0
 }
