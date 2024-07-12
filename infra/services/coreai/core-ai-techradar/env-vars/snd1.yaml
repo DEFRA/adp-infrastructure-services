@@ -1,5 +1,4 @@
 variables:
   appEndpoint: 'core-ai-techradar'
   dnsZoneName: '$(publicDnsZoneName)'
-  openAiUserGroupMiList:
-    - 'core-ai-techradar'
+  openAiUserGroupMiList: 'core-ai-techradar'

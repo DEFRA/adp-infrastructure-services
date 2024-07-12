@@ -56,7 +56,7 @@ Write-Debug "${functionName}:RBACGroupName=$RBACGroupName"
 Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 
 try {
-    $ServiceMIList = $ServiceMIList | ConvertFrom-Json
+    $ServiceMIList = $ServiceMIList -split ','
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
         $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
