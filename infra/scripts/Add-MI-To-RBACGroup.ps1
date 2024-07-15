@@ -56,7 +56,7 @@ Write-Debug "${functionName}:RBACGroupName=$RBACGroupName"
 Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 
 try {
-    $ServiceMIList = $ServiceMIList -split ','
+    [array]$ServiceMIList = $ServiceMIList -split ','
     $members = @()
     foreach ($serviceMI in $ServiceMIList) {
         $principalName = $MIPrefix + "-" + $serviceMI
