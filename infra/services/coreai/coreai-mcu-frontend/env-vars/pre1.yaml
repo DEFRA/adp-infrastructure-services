@@ -1,3 +1,4 @@
 variables:
   appEndpoint: 'coreai-mcu-frontend'
   dnsZoneName: '$(publicDnsZoneName)'
+  openAiUserGroupMiList: 'coreai-mcu-frontend,coreai-mcu-generation-oai'
