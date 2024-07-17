@@ -1,3 +1,2 @@
 variables:
-  accessGroupMiList: 
-    '$(openAiUserGroup)': 'coreai-mcu-generation-oai'
+  accessGroupMiList: '{"groupName": "$(openAiUserGroup)",  "miSuffixList": "coreai-mcu-generation-oai"}'

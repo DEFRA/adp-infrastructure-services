@@ -49,14 +49,10 @@ Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 
 try {
 
-    $content = ''
-    foreach ($line in $AccessGroupMiList) {
-        $content = $content + "`n" + $line 
-    }
-    $yaml = ConvertFrom-YAML $content    
+    $accessGroupMiListObj = ConvertFrom-Json $AccessGroupMiList    
     
-    foreach ($accessGroupName in $yaml.variables.accessGroupMiList.Keys) {
-        [array]$ServiceMIList = $yaml.variables.accessGroupMiList[$accessGroupName] -split ','
+    foreach ($accessGroupMiObj in $accessGroupMiListObj) {
+        [array]$ServiceMIList = $accessGroupMiObj.miSuffixList -split ','
         $members = @()
         foreach ($serviceMI in $ServiceMIList) {
             $principalName = $MIPrefix + "-" + $serviceMI                
@@ -69,7 +65,7 @@ try {
                 $members += $miObjectID
             }
         }   
-        $groupid = (Get-AzADGroup -DisplayName $accessGroupName).id
+        $groupid = (Get-AzADGroup -DisplayName $accessGroupMiObj.groupName).id
         Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
     }
     
