@@ -55,8 +55,8 @@ try {
     }
     $yaml = ConvertFrom-YAML $content    
     
-    foreach ($accessGroupMiObj in $yaml.variables.accessGroupMiList) {
-        [array]$ServiceMIList = $accessGroupMiObj.miSuffixList -split ','
+    foreach ($accessGroupName in $yaml.variables.accessGroupMiList.Keys) {
+        [array]$ServiceMIList = $yaml.variables.accessGroupMiList[$accessGroupName] -split ','
         $members = @()
         foreach ($serviceMI in $ServiceMIList) {
             $principalName = $MIPrefix + "-" + $serviceMI                
@@ -69,7 +69,7 @@ try {
                 $members += $miObjectID
             }
         }   
-        $groupid = (Get-AzADGroup -DisplayName $accessGroupMiObj.groupName).id
+        $groupid = (Get-AzADGroup -DisplayName $accessGroupName).id
         Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
     }
     
