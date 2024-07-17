@@ -8,26 +8,19 @@ Add Service Managed Identity to RBAC group
 .PARAMETER ServiceMIList
 Mandatory. ServiceMIList
 
-.PARAMETER RBACGroupName
-Mandatory. RBACGroupName
-
 .PARAMETER MIPrefix
 Mandatory. Managed Identity Prefix
 
 
 .EXAMPLE
-.\Add-MI-To-RBACGroup -ServiceMIList <string> -RBACGroupName <string> -MIPrefix <string> 
+.\Add-MI-To-RBACGroup -AccessGroupMiList <string> -MIPrefix <string> 
 #> 
 
 [CmdletBinding()]
 param(
-
     
     [Parameter(Mandatory)] 
-    [string]$ServiceMIList,
-    
-    [Parameter(Mandatory)] 
-    [string]$RBACGroupName,
+    [string[]]$AccessGroupMiList,
 
     [Parameter(Mandatory)] 
     [string]$MIPrefix
@@ -51,25 +44,35 @@ if ($enableDebug) {
 }
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
-Write-Debug "${functionName}:ServiceMIList=$ServiceMIList"
-Write-Debug "${functionName}:RBACGroupName=$RBACGroupName"
+Write-Debug "${functionName}:AccessGroupMiList=$AccessGroupMiList"
 Write-Debug "${functionName}:MIPrefix=$MIPrefix"
 
 try {
-    [array]$ServiceMIList = $ServiceMIList -split ','
-    $members = @()
-    foreach ($serviceMI in $ServiceMIList) {
-        $principalName = $MIPrefix + "-" + $serviceMI
-        $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
-        if ($null -eq $miObjectID) {
-            Write-Warning "Managed Identity $principalName not found"
-        }else{
-            Write-Output "miObjectID: $miObjectID"                
-            $members+=$miObjectID
-        }                
+
+    $content = ''
+    foreach ($line in $AccessGroupMiList) {
+        $content = $content + "`n" + $line 
     }
-    $groupid = (Get-AzADGroup -DisplayName $RBACGroupName).id
-    Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
+    $yaml = ConvertFrom-YAML $content    
+    
+    foreach ($accessGroupMiObj in $yaml.variables.accessGroupMiList) {
+        [array]$ServiceMIList = $accessGroupMiObj.miSuffixList -split ','
+        $members = @()
+        foreach ($serviceMI in $ServiceMIList) {
+            $principalName = $MIPrefix + "-" + $serviceMI                
+            $miObjectID = (Get-AzADServicePrincipal -DisplayName $principalName).id
+            if ($null -eq $miObjectID) {
+                Write-Warning "Managed Identity $principalName not found"
+            }
+            else {
+                Write-Output "miObjectID: $miObjectID"                
+                $members += $miObjectID
+            }
+        }   
+        $groupid = (Get-AzADGroup -DisplayName $accessGroupMiObj.groupName).id
+        Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
+    }
+    
 
     $exitCode = 0
 }

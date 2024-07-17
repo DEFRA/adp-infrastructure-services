@@ -1,0 +1,4 @@
+variables:
+  accessGroupMiList: 
+    - groupName: '$(openAiUserGroup)'
+      miSuffixList: 'coreai-mcu-generation-oai'

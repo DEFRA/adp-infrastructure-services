@@ -27,6 +27,7 @@ parameters:
       - mcu-techspike-ai-web
       - core-ai-techradar
       - coreai-mcu-frontend
+      - coreai-mcu-generation-oai
     default: mcu-techspike-ai-web
   - name: ingressType
     displayName: Select ingress type of the service
@@ -41,7 +42,7 @@ parameters:
     values:
       - application-domain
       - application-registration
-      - application-rbac
+      - service_mi_rbac
     default: application-domain
 
 extends:

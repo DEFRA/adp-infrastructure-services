@@ -1,4 +1,3 @@
 variables:
   appEndpoint: 'fcp-find-ai-frontend'
   dnsZoneName: '$(publicDnsZoneName)'
-  openAiUserGroupMiList: 'fcp-find-ai-frontend,fcp-find-ai-data-ingester'
