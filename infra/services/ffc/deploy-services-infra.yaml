@@ -23,6 +23,7 @@ parameters:
       - ffc-sfd
       - fcp-data-access-layer-api
       - fcp-find-ai-frontend
+      - fcp-find-ai-data-ingester
       - ffc-demo-web
       - ffc-demo-payment-web
       - ffc-ffd-frontend-poc

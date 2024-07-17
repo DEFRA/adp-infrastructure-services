@@ -1,3 +1,4 @@
 variables:
   appEndpoint: 'fcp-find-ai-frontend'
   dnsZoneName: '$(publicDnsZoneName)'
+  accessGroupMiList: '[{"groupName": "$(openAiUserGroup)",  "miSuffixList": "fcp-find-ai-frontend"}]'
