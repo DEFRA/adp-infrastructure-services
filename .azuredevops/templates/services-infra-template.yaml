@@ -110,7 +110,7 @@ extends:
                   -CustomDomainName '$(appEndpointName)'
                   -ResourceGroupName '$(cdnResourceGroup)'
                   -SubscriptionId '$(subscriptionId)'
-    - ${{ if eq(parameters.resource, 'application-rbac') }}:
+    - ${{ if eq(parameters.resource, 'service-mi-rbac') }}:
       - name: service_mi_rbac
         deployments:
           - name: Service MI RBAC

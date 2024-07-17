@@ -42,7 +42,7 @@ parameters:
     values:
       - application-domain
       - application-registration
-      - service_mi_rbac
+      - service-mi-rbac
     default: application-domain
 
 extends:

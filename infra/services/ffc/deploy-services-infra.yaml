@@ -46,7 +46,7 @@ parameters:
       - application-domain
       - application-registration
       - application-access-group
-      - service_mi_rbac
+      - service-mi-rbac
     default: application-domain
   - name: includePlatformEnvs
     displayName: Include Platform Environments
