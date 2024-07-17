@@ -20,7 +20,7 @@ Mandatory. Managed Identity Prefix
 param(
     
     [Parameter(Mandatory)] 
-    [string[]]$AccessGroupMiList,
+    [string]$AccessGroupMiList,
 
     [Parameter(Mandatory)] 
     [string]$MIPrefix
