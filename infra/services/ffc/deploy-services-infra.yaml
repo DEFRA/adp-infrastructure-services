@@ -64,3 +64,7 @@ extends:
     service: ${{ parameters.service }}
     ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
+    ${{ if eq(parameters.service, 'fcp-find-ai-data-ingester') }}:
+      includeServiceVariableFiles: Common
+    ${{ else }}:
+      includeServiceVariableFiles: Environment
