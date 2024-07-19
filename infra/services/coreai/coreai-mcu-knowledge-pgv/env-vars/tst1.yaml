@@ -1,2 +1,0 @@
-variables:
-  accessGroupMiList: '[{"groupName": "$(openAiUserGroup)",  "miSuffixList": "coreai-mcu-knowledge-pgv"}]'
