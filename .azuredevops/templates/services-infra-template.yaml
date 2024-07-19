@@ -16,6 +16,13 @@ parameters:
   - name: includePlatformEnvs
     type: boolean
     default: false
+  - name: includeServiceVariableFiles
+    type: string
+    default: Environment
+    values:
+      - Both
+      - Common
+      - Environment
   
 resources:
   repositories:
@@ -39,8 +46,10 @@ extends:
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
       - /pipelines/vars/tenant/azure-ip-ranges.yaml@_self
-      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@self
-      - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/common.yaml@self
+      - ${{ if or(eq(parameters.includeServiceVariableFiles, 'Both'),eq(parameters.includeServiceVariableFiles, 'Environment')) }}:
+        - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/{environment}.yaml@self
+      - ${{ if or(eq(parameters.includeServiceVariableFiles, 'Both'),eq(parameters.includeServiceVariableFiles, 'Common')) }}:
+        - /infra/services/${{ parameters.program }}/${{ parameters.service }}/env-vars/common.yaml@self
     groupedDeployments:
     - ${{ if eq(parameters.resource, 'application-registration') }}:
       - name: app_reg
