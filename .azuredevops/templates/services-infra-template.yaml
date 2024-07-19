@@ -18,11 +18,6 @@ parameters:
     default: false
   - name: includeServiceVariableFiles
     type: string
-    default: Environment
-    values:
-      - Both
-      - Common
-      - Environment
   
 resources:
   repositories:

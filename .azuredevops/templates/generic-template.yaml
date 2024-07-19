@@ -18,6 +18,13 @@ parameters:
   - name: includePlatformEnvs
     type: boolean
     default: false
+  - name: includeServiceVariableFiles
+    type: string
+    default: Environment
+    values:
+      - Both
+      - Common
+      - Environment
 
 extends:
   ${{ if eq(parameters.useCustomEnvironments, false) }}:
