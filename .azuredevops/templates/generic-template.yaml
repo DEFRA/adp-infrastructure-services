@@ -41,3 +41,4 @@ extends:
     ${{ if and(eq(parameters.useCustomEnvironments, false), gt(length(parameters.environments), 0)) }}:
       environments:
         - ${{ parameters.environments }}
+    includeServiceVariableFiles: ${{ parameters.includeServiceVariableFiles }}
