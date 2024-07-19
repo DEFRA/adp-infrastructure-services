@@ -66,7 +66,7 @@ extends:
     resource: ${{ parameters.resource }}
     ${{ if eq(parameters.service, 'fcp-find-ai-data-ingester') }}:
       includeServiceVariableFiles: Common
-    ${{ if eq(parameters.service, 'fcp-find-ai-frontend') }}:
+    ${{ elseif eq(parameters.service, 'fcp-find-ai-frontend') }}:
       includeServiceVariableFiles: Both
     ${{ else }}:
       includeServiceVariableFiles: Environment
