@@ -55,7 +55,7 @@ extends:
     service: ${{ parameters.service }}
     ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
-    ${{ if in(parameters.service, 'coreai-mcu-generation-oai','coreai-mcu-knowledge-pgv') }}:
+    ${{ if or(eq(parameters.service, 'coreai-mcu-generation-oai'),eq(parameters.service, 'coreai-mcu-knowledge-pgv') ) }}:
       includeServiceVariableFiles: Common
     ${{ else }}:
       includeServiceVariableFiles: Environment
