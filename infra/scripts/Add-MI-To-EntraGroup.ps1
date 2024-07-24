@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-Add Service Managed Identity to User group
+Add Service Managed Identity to Entra group
 
 .DESCRIPTION
-Add Service Managed Identity to User group
+Add Service Managed Identity to Entra group
 
 .PARAMETER ServiceMIList
 Mandatory. ServiceMIList
@@ -79,6 +79,7 @@ try {
         }
 
         if ($null -ne $members) {
+            Write-Debug "Adding members $($members -join ',') to group $groupid"
             Add-AzADGroupMember -TargetGroupObjectId $groupid -MemberObjectId $members
         }
 
