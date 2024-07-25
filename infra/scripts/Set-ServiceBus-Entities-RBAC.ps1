@@ -1,13 +1,11 @@
 [CmdletBinding()]
 param(
-    [Parameter()] 
-    [string]$ServiceBusAccessTo ='[{"servicePrincipalName" : "exports-rms-backend-integration", "entityName": "eutd-trade-exports-core-plingestion", "entityType":"Topics" , "roleDefinitionName": "Azure Service Bus Data Sender"}]',
-    [Parameter()] 
-    [string]$ServiceBusSubscriptionId = 'da83801b-f7e0-4510-9848-67d87b1009e2',
-    [Parameter()] 
-    [string]$ServiceBusNamespace= 'SNDADPINFSB1401',
-    [Parameter()] 
-    [string]$ServiceBusRgName= 'SNDADPINFRG4401'
+    [Parameter(Mandatory)] 
+    [string]$ServiceBusAccessTo,    
+    [Parameter(Mandatory)] 
+    [string]$ServiceBusNamespace,
+    [Parameter(Mandatory)] 
+    [string]$ServiceBusRgName
 )
 
 Set-StrictMode -Version 3.0
@@ -28,41 +26,51 @@ if ($enableDebug) {
 }
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
+Write-Debug "${functionName}:ServiceBusAccessTo=$ServiceBusAccessTo"
 Write-Debug "${functionName}:ServiceBusNamespace=$ServiceBusNamespace"
+Write-Debug "${functionName}:ServiceBusRgName=$ServiceBusRgName"
 
 try {
-
     $serviceBusAccessToList = ConvertFrom-Json $ServiceBusAccessTo
 
     foreach ($serviceBusAccessToObj in $serviceBusAccessToList) {
 
+        Write-Debug "${functionName}:serviceBusAccessToObj=$serviceBusAccessToObj"
         $servicePrincipal = Get-AzADServicePrincipal -DisplayName $serviceBusAccessToObj.servicePrincipalName
 
-        if ($null -ne $servicePrincipal) {
-
-            if ($serviceBusAccessToObj.entityType = 'Topics') {
-                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/topics/$($serviceBusAccessToObj.entityName)"
+        if ($servicePrincipal) {
+            
+            if ($serviceBusAccessToObj.entityType -eq "Queues") {
+                $entity = Get-AzServiceBusQueue -Name $serviceBusAccessToObj.entityName -ResourceGroupName $ServiceBusRgName -NamespaceName $ServiceBusNamespace 
             }
             else {
-                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/queues/$($serviceBusAccessToObj.entityName)"
+                $entity = Get-AzServiceBusTopic -Name $serviceBusAccessToObj.entityName -ResourceGroupName $ServiceBusRgName -NamespaceName  $ServiceBusNamespace
             }
 
-            Write-Host "Scope: $scope"
+            if (-not $entity) {
+                throw "$($serviceBusAccessToObj.entityType) : '$($serviceBusAccessToObj.entityName)' not found"
+            }
+
+            Write-Debug "${functionName}:Scope=$($entity.Id)"
 
             $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
-            if ($null -ne $roleDefinition) {
-                
-                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinition.Name -ErrorAction SilentlyContinue
-                if ($null -eq $roleAssignment) {
-                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinition.Name
+            if ($roleDefinition) {
+                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $entity.Id -RoleDefinitionName $roleDefinition.Name -ErrorAction SilentlyContinue
+
+                if (-not $roleAssignment) {
+                    Write-Host "Assigning role '$($serviceBusAccessToObj.roleDefinitionName)' to service principal '$($serviceBusAccessToObj.servicePrincipalName)'"
+                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $entity.Id -RoleDefinitionName $roleDefinition.Name
                 }
                 else {
-                    Write-Host "Role Assignment exists"
+                    Write-Host "Role assignment '$($roleDefinition.Name)' already exists for service principal '$($serviceBusAccessToObj.servicePrincipalName)'"
                 }
+            }
+            else {
+                throw "Role definition '$($serviceBusAccessToObj.roleDefinitionName)' not found"
             }
         }
         else {
-            Write-Host "Service Principal does not exist"
+            throw "Service Principal '$($serviceBusAccessToObj.servicePrincipalName)'  not found"
         }
     }
 

@@ -75,6 +75,7 @@ try {
                 }
             } catch {
                 Write-Error "Error retrieving Managed Identity ${principalName}: $_"
+                throw $_
             }
         }
 
