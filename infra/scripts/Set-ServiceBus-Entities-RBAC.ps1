@@ -55,9 +55,6 @@ try {
                 $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName -ErrorAction SilentlyContinue
                 if ($null -eq $roleAssignment) {
                     New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName
-                    
-                    New-AzRoleAssignment -RoleDefinitionName $roleName -ObjectId $miObjectID  -Scope $clientSecretResourceID
-       
                 }
                 else {
                     Write-Host "Role Assignment exists"
