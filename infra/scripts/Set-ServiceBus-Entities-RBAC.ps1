@@ -41,10 +41,10 @@ try {
         if ($null -ne $servicePrincipal) {
 
             if ($serviceBusAccessToObj.entityType = 'Topics') {
-                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/topics/${serviceBusAccessToObj.entityName}"
+                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/topics/$($serviceBusAccessToObj.entityName)"
             }
             else {
-                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/queues/${serviceBusAccessToObj.entityName}"
+                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/queues/$($serviceBusAccessToObj.entityName)"
             }
 
             Write-Host "Scope: $scope"
