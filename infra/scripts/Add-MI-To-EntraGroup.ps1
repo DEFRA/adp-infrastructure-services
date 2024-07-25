@@ -74,7 +74,7 @@ try {
                     $members += $miObjectID
                 }
             } catch {
-                Write-Warning "Error retrieving Managed Identity ${principalName}: $_"
+                Write-Error "Error retrieving Managed Identity ${principalName}: $_"
             }
         }
 

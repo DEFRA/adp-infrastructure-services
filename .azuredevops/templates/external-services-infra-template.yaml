@@ -1,0 +1,37 @@
+parameters:
+  - name: deployFromFeature
+    type: boolean
+    default: false
+  - name: includePlatformEnvs
+    type: boolean
+    default: false
+  - name: resource
+    type: string    
+
+resources:
+  repositories:
+    - repository: ADPPipelineCommon
+      name: DEFRA/adp-pipeline-common
+      endpoint: DEFRA-ADP
+      type: github
+      ref: refs/tags/1.0.0-latest
+
+extends:
+  template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
+  parameters:
+    projectName: $(projectName)
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
+    variableFiles: 
+      - /pipelines/vars/common.yaml@_self
+      - /pipelines/vars/env/{environment}.yaml@_self
+    groupedDeployments:
+      - name: servicebus_access
+        deployments:
+          - name: Grant Access to ServiceBus Queues and Topics
+            type: 'script'
+            scriptType: AzurePowerShell
+            serviceConnectionVariableName: ssvServiceConnection
+            path: "infra/scripts/Set-ServiceBus-Entities-RBAC.ps1"
+            scriptArguments: >
+              -ServiceBusNamespace 'SNDADPINFSB1401'

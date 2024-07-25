@@ -1,0 +1,30 @@
+name: 1.0.$(BuildID)-${{ parameters.service }}-${{ parameters.resource }}
+parameters:
+  - name: deployFromFeature
+    displayName: "Deploy from Feature Branch"
+    type: boolean
+    default: false
+  - name: resource
+    displayName: Resource Type to deploy
+    type: string
+    values:
+      - service-bus
+    default: service-bus
+pr:
+  branches:
+    include:
+      - main
+  paths:
+    include:
+      - infra/services/eutd/*
+  drafts: false
+
+trigger: none   
+
+extends:
+  template: /.azuredevops/templates/external-services-infra-template.yaml
+  parameters:
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
+    program: eutd
+    resource: ${{ parameters.resource }}
