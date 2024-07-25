@@ -27,7 +27,6 @@ extends:
           - name: Grant Access to ServiceBus Queues and Topics
             type: 'script'
             scriptType: AzurePowerShell
-            serviceConnectionVariableName: ssvServiceConnection
             path: "infra/scripts/Set-ServiceBus-Entities-RBAC.ps1"
             scriptArguments: >
               -ServiceBusAccessTo '$(serviceBusAccess)'

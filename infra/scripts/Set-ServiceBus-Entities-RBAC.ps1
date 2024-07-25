@@ -32,9 +32,7 @@ Write-Debug "${functionName}:ServiceBusNamespace=$ServiceBusNamespace"
 
 try {
 
-    $serviceBusAccessToList = ConvertFrom-Json $ServiceBusAccessTo  
-
-    Set-AzContext -Subscription $ServiceBusSubscription
+    $serviceBusAccessToList = ConvertFrom-Json $ServiceBusAccessTo
 
     foreach ($serviceBusAccessToObj in $serviceBusAccessToList) {
 
