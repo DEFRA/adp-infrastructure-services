@@ -1,7 +1,11 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)] 
-    [string]$ServiceBusNamespace
+    [string]$ServiceBusAccessTo,
+    [Parameter(Mandatory)] 
+    [string]$ServiceBusNamespace,
+    [Parameter(Mandatory)] 
+    [string]$ServiceBusRgName
 )
 
 Set-StrictMode -Version 3.0
@@ -25,6 +29,45 @@ Write-Host "${functionName} started at $($startTime.ToString('u'))"
 Write-Debug "${functionName}:ServiceBusNamespace=$ServiceBusNamespace"
 
 try {
+
+    $serviceBusAccessToList = ConvertFrom-Json $ServiceBusAccessTo  
+
+    foreach ($serviceBusAccessToObj in $serviceBusAccessToList) {
+
+        $servicePrincipal = Get-AzADServicePrincipal -DisplayName $serviceBusAccessToObj.servicePrincipalName
+
+        if ($null -ne $servicePrincipal) {
+
+            if ($serviceBusAccessToObj.entityType = 'Topics') {
+                $serviceBusNamespaceEntity = Get-AzServiceBusTopic -Name $serviceBusAccessToObj.entityName -NamespaceName  $ServiceBusNamespace -ResourceGroupName $ServiceBusRgName
+                
+            }
+            else {
+                $serviceBusNamespaceEntity = Get-AzServiceBusQueue -Name $serviceBusAccessToObj.entityName -NamespaceName  $ServiceBusNamespace -ResourceGroupName $ServiceBusRgName
+            }
+
+            if ($null -ne $serviceBusNamespaceEntity) {
+                $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
+                if ($null -ne $roleDefinition) {
+                    
+                    $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $serviceBusNamespaceEntity.Id -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
+                    if ($null -eq $roleAssignment) {
+                        New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $serviceBusNamespaceEntity.Id -RoleDefinitionName $roleDefinitionName
+                    }
+                    else {
+                        Write-Host "Role Assignment exists"
+                    }
+                }
+            }
+            else {
+                Write-Host "Service Bus $serviceBusAccessToObj.entityType $serviceBusAccessToObj.serviceBusEntityName  does not exist"
+            }
+        }
+        else {
+            Write-Host "Service Principal does not exist"
+        }
+    }
+
 
     $exitCode = 0
 }

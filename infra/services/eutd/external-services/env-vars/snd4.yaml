@@ -1,0 +1,2 @@
+variables:
+  serviceBusAccess : '[{"servicePrincipalName" : "exports-rms-backend-integration", "entityName": "eutd-trade-exports-core-plingestion", "entityType":"Topics" , "roleDefinitionName": "Azure Service Bus Data Sender"}]'

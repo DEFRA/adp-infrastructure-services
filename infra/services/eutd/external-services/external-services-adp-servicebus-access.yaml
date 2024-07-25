@@ -27,6 +27,7 @@ extends:
     variableFiles: 
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
+      - /infra/services/eutd/external-services/env-vars/{environment}.yaml@self
     groupedDeployments:
       - name: servicebus_access
         deployments:
@@ -36,4 +37,6 @@ extends:
             serviceConnectionVariableName: ssvServiceConnection
             path: "infra/scripts/Set-ServiceBus-Entities-RBAC.ps1"
             scriptArguments: >
+              -ServiceBusAccessTo ${{ parameters.serviceBusAccess }}
               -ServiceBusNamespace 'SNDADPINFSB1401'
+              -ServiceBusRgName 'SNDADPINFRG4401'
