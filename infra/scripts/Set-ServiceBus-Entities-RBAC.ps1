@@ -47,21 +47,16 @@ try {
                 $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/Queues/$serviceBusAccessToObj.entityName"
             }
 
-            if ($null -ne $serviceBusNamespaceEntity) {
-                $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
-                if ($null -ne $roleDefinition) {
-                    
-                    $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
-                    if ($null -eq $roleAssignment) {
-                        New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName
-                    }
-                    else {
-                        Write-Host "Role Assignment exists"
-                    }
+            $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
+            if ($null -ne $roleDefinition) {
+                
+                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
+                if ($null -eq $roleAssignment) {
+                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName
                 }
-            }
-            else {
-                Write-Host "Service Bus $serviceBusAccessToObj.entityType $serviceBusAccessToObj.serviceBusEntityName  does not exist"
+                else {
+                    Write-Host "Role Assignment exists"
+                }
             }
         }
         else {
