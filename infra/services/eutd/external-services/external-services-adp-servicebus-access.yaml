@@ -1,5 +1,6 @@
 parameters:
   - name: deployFromFeature
+    displayName: "Deploy from Feature Branch"
     type: boolean
     default: false
 
