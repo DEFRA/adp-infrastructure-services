@@ -3,7 +3,7 @@ param(
     [Parameter(Mandatory)] 
     [string]$ServiceBusAccessTo,
     [Parameter(Mandatory)] 
-    [string]$ServiceBusSubscription,
+    [string]$ServiceBusSubscriptionId,
     [Parameter(Mandatory)] 
     [string]$ServiceBusNamespace,
     [Parameter(Mandatory)] 
@@ -41,20 +41,19 @@ try {
         if ($null -ne $servicePrincipal) {
 
             if ($serviceBusAccessToObj.entityType = 'Topics') {
-                $serviceBusNamespaceEntity = Get-AzServiceBusTopic -Name $serviceBusAccessToObj.entityName -NamespaceName  $ServiceBusNamespace -ResourceGroupName $ServiceBusRgName
-                
+                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/topics/$serviceBusAccessToObj.entityName"
             }
             else {
-                $serviceBusNamespaceEntity = Get-AzServiceBusQueue -Name $serviceBusAccessToObj.entityName -NamespaceName  $ServiceBusNamespace -ResourceGroupName $ServiceBusRgName
+                $scope ="/subscriptions/$ServiceBusSubscriptionId/resourceGroups/$ServiceBusRgName/providers/Microsoft.ServiceBus/namespaces/$ServiceBusNamespace/Queues/$serviceBusAccessToObj.entityName"
             }
 
             if ($null -ne $serviceBusNamespaceEntity) {
                 $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
                 if ($null -ne $roleDefinition) {
                     
-                    $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $serviceBusNamespaceEntity.Id -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
+                    $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
                     if ($null -eq $roleAssignment) {
-                        New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $serviceBusNamespaceEntity.Id -RoleDefinitionName $roleDefinitionName
+                        New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName
                     }
                     else {
                         Write-Host "Role Assignment exists"

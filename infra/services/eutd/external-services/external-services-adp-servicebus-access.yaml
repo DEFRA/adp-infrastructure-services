@@ -30,6 +30,6 @@ extends:
             path: "infra/scripts/Set-ServiceBus-Entities-RBAC.ps1"
             scriptArguments: >
               -ServiceBusAccessTo '$(serviceBusAccess)'
-              -ServiceBusSubscription 'AZR-ADP-SND4'
+              -ServiceBusSubscriptionId 'da83801b-f7e0-4510-9848-67d87b1009e2'
               -ServiceBusNamespace 'SNDADPINFSB1401'
               -ServiceBusRgName 'SNDADPINFRG4401'
