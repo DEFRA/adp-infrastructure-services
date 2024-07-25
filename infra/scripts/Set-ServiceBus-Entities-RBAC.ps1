@@ -50,9 +50,9 @@ try {
             $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
             if ($null -ne $roleDefinition) {
                 
-                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName -ErrorAction SilentlyContinue
+                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName -ErrorAction SilentlyContinue
                 if ($null -eq $roleAssignment) {
-                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinitionName
+                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName
                 }
                 else {
                     Write-Host "Role Assignment exists"
