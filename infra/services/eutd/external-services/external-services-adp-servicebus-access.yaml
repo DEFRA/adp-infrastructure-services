@@ -16,7 +16,7 @@ extends:
   parameters:
     projectName: $(projectName)
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    includePlatformEnvs: ${{ parameters.includePlatformEnvs }}
+    includePlatformEnvs: false
     variableFiles: 
       - /pipelines/vars/common.yaml@_self
       - /pipelines/vars/env/{environment}.yaml@_self
