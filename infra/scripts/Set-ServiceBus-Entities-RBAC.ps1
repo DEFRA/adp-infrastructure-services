@@ -1,13 +1,13 @@
 [CmdletBinding()]
 param(
-    [Parameter(Mandatory)] 
-    [string]$ServiceBusAccessTo,
-    [Parameter(Mandatory)] 
-    [string]$ServiceBusSubscriptionId,
-    [Parameter(Mandatory)] 
-    [string]$ServiceBusNamespace,
-    [Parameter(Mandatory)] 
-    [string]$ServiceBusRgName
+    [Parameter()] 
+    [string]$ServiceBusAccessTo ='[{"servicePrincipalName" : "exports-rms-backend-integration", "entityName": "eutd-trade-exports-core-plingestion", "entityType":"Topics" , "roleDefinitionName": "Azure Service Bus Data Sender"}]',
+    [Parameter()] 
+    [string]$ServiceBusSubscriptionId = 'da83801b-f7e0-4510-9848-67d87b1009e2',
+    [Parameter()] 
+    [string]$ServiceBusNamespace= 'SNDADPINFSB1401',
+    [Parameter()] 
+    [string]$ServiceBusRgName= 'SNDADPINFRG4401'
 )
 
 Set-StrictMode -Version 3.0
@@ -52,9 +52,9 @@ try {
             $roleDefinition = Get-AzRoleDefinition -Name $serviceBusAccessToObj.roleDefinitionName
             if ($null -ne $roleDefinition) {
                 
-                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName -ErrorAction SilentlyContinue
+                $roleAssignment = Get-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinition.Name -ErrorAction SilentlyContinue
                 if ($null -eq $roleAssignment) {
-                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $serviceBusAccessToObj.roleDefinitionName
+                    New-AzRoleAssignment -ObjectId $servicePrincipal.Id -Scope $scope -RoleDefinitionName $roleDefinition.Name
                 }
                 else {
                     Write-Host "Role Assignment exists"

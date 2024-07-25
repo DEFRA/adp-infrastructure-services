@@ -31,5 +31,5 @@ extends:
             scriptArguments: >
               -ServiceBusAccessTo '$(serviceBusAccess)'
               -ServiceBusSubscriptionId 'da83801b-f7e0-4510-9848-67d87b1009e2'
-              -ServiceBusNamespace 'SNDADPINFSB1401'
+              -ServiceBusNamespace 'SNDADPINFSB4401'
               -ServiceBusRgName 'SNDADPINFRG4401'
