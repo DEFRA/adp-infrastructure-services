@@ -6,6 +6,8 @@ parameters:
     type: boolean
     default: false
   - name: resource
+    type: string
+  - name: program
     type: string    
 
 resources:

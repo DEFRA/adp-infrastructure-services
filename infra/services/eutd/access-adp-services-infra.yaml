@@ -25,6 +25,5 @@ extends:
   template: /.azuredevops/templates/external-services-infra-template.yaml
   parameters:
     deployFromFeature: ${{ parameters.deployFromFeature }}
-    useCustomEnvironments: ${{ parameters.useCustomEnvironments }}
     program: eutd
     resource: ${{ parameters.resource }}
