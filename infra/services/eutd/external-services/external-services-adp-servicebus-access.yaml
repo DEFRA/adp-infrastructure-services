@@ -2,13 +2,6 @@ parameters:
   - name: deployFromFeature
     type: boolean
     default: false
-  - name: includePlatformEnvs
-    type: boolean
-    default: false
-  - name: resource
-    type: string
-  - name: program
-    type: string    
 
 resources:
   repositories:
@@ -37,6 +30,6 @@ extends:
             serviceConnectionVariableName: ssvServiceConnection
             path: "infra/scripts/Set-ServiceBus-Entities-RBAC.ps1"
             scriptArguments: >
-              -ServiceBusAccessTo ${{ parameters.serviceBusAccess }}
+              -ServiceBusAccessTo '$(serviceBusAccess)'
               -ServiceBusNamespace 'SNDADPINFSB1401'
               -ServiceBusRgName 'SNDADPINFRG4401'
