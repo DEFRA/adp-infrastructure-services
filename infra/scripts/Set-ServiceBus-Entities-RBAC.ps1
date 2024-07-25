@@ -3,6 +3,8 @@ param(
     [Parameter(Mandatory)] 
     [string]$ServiceBusAccessTo,
     [Parameter(Mandatory)] 
+    [string]$ServiceBusSubscription,
+    [Parameter(Mandatory)] 
     [string]$ServiceBusNamespace,
     [Parameter(Mandatory)] 
     [string]$ServiceBusRgName
@@ -31,6 +33,8 @@ Write-Debug "${functionName}:ServiceBusNamespace=$ServiceBusNamespace"
 try {
 
     $serviceBusAccessToList = ConvertFrom-Json $ServiceBusAccessTo  
+
+    Set-AzContext -Subscription $ServiceBusSubscription
 
     foreach ($serviceBusAccessToObj in $serviceBusAccessToList) {
 
@@ -67,7 +71,6 @@ try {
             Write-Host "Service Principal does not exist"
         }
     }
-
 
     $exitCode = 0
 }
