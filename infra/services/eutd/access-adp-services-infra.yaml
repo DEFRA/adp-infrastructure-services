@@ -1,4 +1,4 @@
-name: 1.0.$(BuildID)-${{ parameters.service }}-${{ parameters.resource }}
+name: 1.0.$(BuildID)-${{ parameters.resource }}
 parameters:
   - name: deployFromFeature
     displayName: "Deploy from Feature Branch"
