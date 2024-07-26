@@ -31,12 +31,9 @@ extends:
             type: 'script'
             scriptType: AzurePowerShell
             resourceGroup: $(servicesResourceGroup)
-            inlineScript: |
-              $servicePrincipal = Get-AzADServicePrincipal -DisplayName $(servicePrincipalName)
-              if ($servicePrincipal) {
-                Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalId;]$($servicePrincipal.Id)"
-                Write-Host "Variable serviceBusEntitiesRbacPrincipalId set to $(serviceBusEntitiesRbacPrincipalId)"
-              }
+            path: "infra/scripts/Get-ServicePrincipal.ps1"
+            scriptArguments: >
+                -ServicePrincipalName '$(servicePrincipalName)'
           - name: service-bus-entities-rbac.main
             path: infra/bicep-generic/service-bus
             parameterFilePath: infra/services/eutd/external-services
