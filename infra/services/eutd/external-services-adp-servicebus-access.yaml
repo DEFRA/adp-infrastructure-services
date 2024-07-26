@@ -25,6 +25,16 @@ extends:
       - /pipelines/vars/env/{environment}.yaml@_self
       - /infra/services/eutd/external-services/env-vars/{environment}.yaml@self
     groupedDeployments:
+      - name: Set RBAC Permissions
+        type: 'script'
+        scriptType: AzurePowerShell
+        resourceGroup: $(servicesResourceGroup)
+        inlineScript: |
+          $servicePrincipal = Get-AzADServicePrincipal -DisplayName $(servicePrincipalName)
+          if ($servicePrincipal) {
+            Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalId;]$servicePrincipal.Id"
+            Write-Host "Variable serviceBusEntitiesRbacPrincipalId set to $($servicePrincipal.Id)"
+          }
       - name: servicebus_access
         deployments:
           - name: service-bus-entities-rbac.main

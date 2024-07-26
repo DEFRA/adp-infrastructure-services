@@ -4,7 +4,7 @@ param principalId string
 @description('Optional. The role assignments for topics.')
 param topicsRoleAssignments roleAssignment
 
-var namespaceName = '#{{ infraResourceNamePrefix }}#{{ nc_resource_servicebus }} #{{ nc_instance_regionid }}01'
+var namespaceName = '#{{ infraResourceNamePrefix }}#{{ nc_resource_servicebus }}#{{ nc_instance_regionid }}01'
 
 module topic_roleAssignments '.bicep/topic/main.bicep' = [
   for (roleAssignment, index) in (topicsRoleAssignments ?? []): {
