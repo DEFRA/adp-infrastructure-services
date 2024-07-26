@@ -28,14 +28,17 @@ Write-Debug "${functionName}:ServicePrincipalNames=$ServicePrincipalNames"
 try {
 
     [array]$servicePrincipalNamesObject = @()
+
     $ServicePrincipalNames.Split(",") | ForEach-Object {
         $servicePrincipalName = $_.Trim()
-        $servicePrincipal = Get-AzADServicePrincipal -DisplayName $servicePrincipalName
-        if ($servicePrincipal) {
-            $servicePrincipalNamesObject+= $servicePrincipal.id
-        }
-        else {
-            throw "Service Principal $servicePrincipalName not found"
+        if ($servicePrincipalName) {
+            $servicePrincipal = Get-AzADServicePrincipal -DisplayName $servicePrincipalName
+            if ($servicePrincipal) {
+                $servicePrincipalNamesObject += $servicePrincipal.id
+            }
+            else {
+                throw "Service Principal $($servicePrincipalName) not found"
+            }
         }
     }
 
