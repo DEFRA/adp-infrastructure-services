@@ -42,8 +42,8 @@ try {
         }
     }
 
-    Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalIds;]$($servicePrincipalNamesObject | ConvertTo-Json -Compress)"
-    Write-Debug "${functionName}:serviceBusEntitiesRbacPrincipalIds=$($servicePrincipalNamesObject | ConvertTo-Json -Compress)"
+    Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalIds;]$($servicePrincipalNamesObject | ConvertTo-Json -AsArray -Compress)"
+    Write-Debug "${functionName}:serviceBusEntitiesRbacPrincipalIds=$($servicePrincipalNamesObject | ConvertTo-Json -AsArray -Compress)"
 
     $exitCode = 0
 }
