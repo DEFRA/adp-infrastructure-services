@@ -1,0 +1,31 @@
+parameters:
+  - name: deployFromFeature
+    displayName: "Deploy from Feature Branch"
+    type: boolean
+    default: false
+
+resources:
+  repositories:
+    - repository: ADPPipelineCommon
+      name: DEFRA/adp-pipeline-common
+      endpoint: DEFRA-ADP
+      type: github
+      ref: refs/tags/1.0.0-latest
+
+extends:
+  template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
+  parameters:
+    projectName: $(projectName)
+    deployFromFeature: ${{ parameters.deployFromFeature }}
+    includePlatformEnvs: false
+    variableFiles: 
+      - /pipelines/vars/common.yaml@_self
+      - /pipelines/vars/env/{environment}.yaml@_self
+      - /infra/services/eutd/external-services/env-vars/{environment}.yaml@self
+    groupedDeployments:
+      - name: servicebus_access
+        deployments:
+          - name: service-bus-entities-rbac.main
+            path: infra/bicep-generic/service-bus
+            parameterFilePath: infra/services/eutd/external-services
+            resourceGroupName: $(servicesResourceGroup)
