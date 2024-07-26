@@ -1,2 +1,2 @@
 variables:
-  servicePrincipalNames: ''
+  servicePrincipalNames: 'exports-rms-backend-prd-blue,exports-rms-backend-prd-green'
