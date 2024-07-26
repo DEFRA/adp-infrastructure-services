@@ -3,13 +3,6 @@ param topicName string
 param roledefinitionName string
 param principalId string
 
-resource namespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' existing = {
-  name: namespaceName
-
-  resource topic 'topics@2022-10-01-preview' existing = {
-    name: topicName
-  }
-}
 
 var allowedRoleNames = {
   'Azure Service Bus Data Receiver': subscriptionResourceId(
@@ -22,14 +15,22 @@ var allowedRoleNames = {
   )
 }
 
+resource namespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' existing = {
+  name: namespaceName
+
+  resource topic 'topics@2022-10-01-preview' existing = {
+    name: topicName
+  }
+}
+
 resource topic_roleAssignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  scope: namespace::topic
   name: guid(namespace::topic.id, principalId, roledefinitionName)
     properties: {
-      roleDefinitionId: contains(allowedRoleNames, roledefinitionName) ? allowedRoleNames[roledefinitionName] : null
+      roleDefinitionId: allowedRoleNames[?roledefinitionName] ?? null
       principalId: principalId
       principalType: 'ServicePrincipal'
     }
-    scope: namespace::topic
   }
 
 type roleAssignmentType = {
@@ -40,6 +41,3 @@ type roleAssignmentType = {
   principalId: string
   
 }[]?
-
-
-
