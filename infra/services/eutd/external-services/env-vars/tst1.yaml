@@ -1,2 +1,2 @@
 variables:
-  servicePrincipalName: 'exports-rms-backend-integration'
+  servicePrincipalName: ''
