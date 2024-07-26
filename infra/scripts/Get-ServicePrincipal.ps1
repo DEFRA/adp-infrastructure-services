@@ -33,7 +33,7 @@ try {
         Write-Host "Variable serviceBusEntitiesRbacPrincipalId set to $($servicePrincipal.Id)"
     }
     else {
-        Write-Error "Service Principal $ServicePrincipalName not found"
+        throw "Service Principal $ServicePrincipalName not found"
     }
 
     $exitCode = 0
