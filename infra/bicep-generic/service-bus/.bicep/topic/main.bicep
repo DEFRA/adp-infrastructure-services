@@ -25,9 +25,7 @@ var allowedRoleNames = {
 resource topic_roleAssignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(namespace::topic.id, principalId, roledefinitionName)
     properties: {
-      roleDefinitionId: allowedRoleNames[?roledefinitionName] ?? contains(roledefinitionName, '/providers/Microsoft.Authorization/roleDefinitions/')
-            ? roledefinitionName
-            : subscriptionResourceId('Microsoft.Authorization/roleDefinitions', roledefinitionName)
+      roleDefinitionId: contains(allowedRoleNames, roledefinitionName) ? allowedRoleNames[roledefinitionName] : null
       principalId: principalId
       principalType: 'ServicePrincipal'
     }
