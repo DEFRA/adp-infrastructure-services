@@ -2,7 +2,7 @@
 [CmdletBinding()]
 param(
     [Parameter(Mandatory)] 
-    [string]$ServicePrincipalName
+    [string]$ServicePrincipalNames
 )
 
 Set-StrictMode -Version 3.0
@@ -23,18 +23,23 @@ if ($enableDebug) {
 }
 
 Write-Host "${functionName} started at $($startTime.ToString('u'))"
-Write-Debug "${functionName}:ServicePrincipalName=$ServicePrincipalName"
+Write-Debug "${functionName}:ServicePrincipalNames=$ServicePrincipalNames"
 
 try {
 
-    $servicePrincipal = Get-AzADServicePrincipal -DisplayName $ServicePrincipalName
-    if ($servicePrincipal) {
-        Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalId;]$($servicePrincipal.Id)"
-        Write-Host "Variable serviceBusEntitiesRbacPrincipalId set to $($servicePrincipal.Id)"
+    [array]$servicePrincipalNamesObject = @()
+    $ServicePrincipalNames.Split(",") | ForEach-Object {
+        $servicePrincipalName = $_.Trim()
+        $servicePrincipal = Get-AzADServicePrincipal -DisplayName $servicePrincipalName
+        if ($servicePrincipal) {
+            $servicePrincipalNamesObject+= $servicePrincipal.id
+        }
+        else {
+            throw "Service Principal $servicePrincipalName not found"
+        }
     }
-    else {
-        throw "Service Principal $ServicePrincipalName not found"
-    }
+
+    Write-Host "##vso[task.setvariable variable=serviceBusEntitiesRbacPrincipalIds;]$($servicePrincipalNamesObject | ConvertTo-Json -Compress)"
 
     $exitCode = 0
 }

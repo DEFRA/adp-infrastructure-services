@@ -1,6 +1,6 @@
 using '../../../bicep-generic/service-bus/service-bus-entities-rbac.main.bicep'
 
-param principalId = '#{{ serviceBusEntitiesRbacPrincipalId }}'
+param principalIds = '#{{ serviceBusEntitiesRbacPrincipalIds }}'
 
 param topicsRoleAssignments = [
   {

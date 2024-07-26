@@ -1,8 +1,7 @@
 param namespaceName string
 param topicName string
 param roledefinitionName string
-param principalId string
-
+param principalIds array
 
 var allowedRoleNames = {
   'Azure Service Bus Data Receiver': subscriptionResourceId(
@@ -23,7 +22,7 @@ resource namespace 'Microsoft.ServiceBus/namespaces@2022-10-01-preview' existing
   }
 }
 
-resource topic_roleAssignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+resource topic_roleAssignments 'Microsoft.Authorization/roleAssignments@2022-04-01' = [for principalId in principalIds: {
   scope: namespace::topic
   name: guid(namespace::topic.id, principalId, roledefinitionName)
     properties: {
@@ -31,7 +30,7 @@ resource topic_roleAssignments 'Microsoft.Authorization/roleAssignments@2022-04-
       principalId: principalId
       principalType: 'ServicePrincipal'
     }
-  }
+  }]
 
 type roleAssignmentType = {
   @description('Required. The role to assign. You can provide either the display name of the role definition, the role definition GUID.')

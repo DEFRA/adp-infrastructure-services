@@ -33,7 +33,7 @@ extends:
             resourceGroup: $(servicesResourceGroup)
             path: "infra/scripts/Get-ServicePrincipal.ps1"
             scriptArguments: >
-                -ServicePrincipalName '$(servicePrincipalName)'
+                -ServicePrincipalNames '$(servicePrincipalName)'
           - name: service-bus-entities-rbac.main
             path: infra/bicep-generic/service-bus
             parameterFilePath: infra/services/eutd/external-services

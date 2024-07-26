@@ -1,5 +1,5 @@
 @description('Required. The object Id of the service principal.')
-param principalId string
+param principalIds string
 
 @description('Optional. The role assignments for topics.')
 param topicsRoleAssignments roleAssignment
@@ -13,7 +13,7 @@ module topic_roleAssignments '.bicep/topic/main.bicep' = [
       namespaceName: namespaceName
       topicName: roleAssignment.entityName
       roledefinitionName: roleAssignment.roleDefinitionName
-      principalId: principalId
+      principalIds: json(principalIds)
     }
   }
 ]
