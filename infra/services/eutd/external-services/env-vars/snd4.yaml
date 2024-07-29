@@ -1,2 +1,2 @@
 variables:
-  servicePrincipalNames: 'exports-rms-backend-snd-blue,exports-rms-backend-snd-green'
+  ehcoServicePrincipalNames: 'exports-rms-backend-snd-blue,exports-rms-backend-snd-green'

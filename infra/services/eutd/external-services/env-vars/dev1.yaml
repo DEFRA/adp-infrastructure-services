@@ -1,2 +1,2 @@
 variables:
-  servicePrincipalNames: 'exports-rms-backend-integration'
+  ehcoServicePrincipalNames: 'exports-rms-backend-integration'
