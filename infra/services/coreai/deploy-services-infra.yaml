@@ -29,7 +29,7 @@ parameters:
       - coreai-mcu-frontend
       - coreai-mcu-generation-oai
       - coreai-mcu-knowledge-pgv
-      - coreai-jaf-frontend
+      - crai-jaf-frontend
     default: mcu-techspike-ai-web
   - name: ingressType
     displayName: Select ingress type of the service
