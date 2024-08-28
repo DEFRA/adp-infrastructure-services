@@ -17,6 +17,22 @@
                     "ADP-FCP-DAL-#{{ environment }}#{{ environmentId }}-CONSOLIDATED-VIEW"
                 ]
             }
+        },
+        {
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL-CONSOLIDATED-VIEW-CRM",
+            "description": "Azure AD Access group for FCP DAL CONSOLIDATED VIEW CRM.",
+            "Owners": {
+                "serviceprincipals" : [
+                    "#{{ ssvAppRegServicePrincipalName }}"
+                ],
+                "users" : [
+                    "david.aitchison@rpa.gov.uk"
+                ]
+            },
+            "Members": {
+                "groups" : [],
+                "serviceprincipals": []
+            }
         }
     ]
 }
