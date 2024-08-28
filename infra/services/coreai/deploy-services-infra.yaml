@@ -29,13 +29,14 @@ parameters:
       - coreai-mcu-frontend
       - coreai-mcu-generation-oai
       - coreai-mcu-knowledge-pgv
+      - coreai-jaf-frontend
     default: mcu-techspike-ai-web
   - name: ingressType
     displayName: Select ingress type of the service
     type: string
     values:
       - internal
-      - external    
+      - external
     default: internal
   - name: resource
     displayName: Resource Type to deploy
@@ -55,7 +56,7 @@ extends:
     service: ${{ parameters.service }}
     ingressType: ${{ parameters.ingressType }}
     resource: ${{ parameters.resource }}
-    ${{ if or(eq(parameters.service, 'coreai-mcu-generation-oai'),eq(parameters.service, 'coreai-mcu-knowledge-pgv') ) }}:
-      includeServiceVariableFiles: Common
+    ? ${{ if or(eq(parameters.service, 'coreai-mcu-generation-oai'),eq(parameters.service, 'coreai-mcu-knowledge-pgv') ) }}
+    : includeServiceVariableFiles: Common
     ${{ else }}:
       includeServiceVariableFiles: Environment

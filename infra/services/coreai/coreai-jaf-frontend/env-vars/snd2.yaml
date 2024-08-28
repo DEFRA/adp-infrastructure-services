@@ -1,0 +1,3 @@
+variables:
+  appEndpoint: "coreai-jaf-frontend"
+  dnsZoneName: "$(publicDnsZoneName)"
