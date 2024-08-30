@@ -76,11 +76,11 @@ try {
     $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -SubscriptionId $SubscriptionId
     $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq $PolicyName }
 
-    <# Complimentary fix to check the security policy exists in the old 'default' Azure Front Door Name (afdName) if we cannot find it.
+    <# Complimentary fix to check the security policy exists in the old 'default' Azure Front Door Name (PolicyName) if we cannot find it.
        We will raise a story to look into addressing how we change the default name without exposing services to the public internet   #>
     if (-not $securityPolicy) {
-        $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName 'default' -SubscriptionId $SubscriptionId
-        $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq $PolicyName }
+        $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -SubscriptionId $SubscriptionId
+        $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq 'default' }
     }
 
     if ($securityPolicy) {
