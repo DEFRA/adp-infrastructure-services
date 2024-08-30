@@ -75,12 +75,14 @@ try {
 
     $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -SubscriptionId $SubscriptionId
     $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq $PolicyName }
+    $usedlPolicyName = $PolicyName
 
     <# Complimentary fix to check the security policy exists in the old 'default' Azure Front Door Name (PolicyName) if we cannot find it.
        We will raise a story to look into addressing how we change the default name without exposing services to the public internet   #>
     if (-not $securityPolicy) {
         $securityPolicies = Get-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -SubscriptionId $SubscriptionId
         $securityPolicy = $securityPolicies | Where-Object { $_.Name -eq 'default' }
+        $usedlPolicyName = 'default'
     }
 
     if ($securityPolicy) {
@@ -95,16 +97,16 @@ try {
             }
         }
         if (-not $exists) {
-            Write-Output "Adding domain '$CustomDomainName' to the Security Policy '$PolicyName'."
+            Write-Output "Adding domain '$CustomDomainName' to the Security Policy '$usedlPolicyName'."
 
             $domains += @{"Id" = $($customDomain.Id) }
             $association = New-AzFrontDoorCdnSecurityPolicyWebApplicationFirewallAssociationObject -PatternsToMatch $securityPolicy.Parameter.Association[0].PatternsToMatch -Domain $domains
             $wafParameter = New-AzFrontDoorCdnSecurityPolicyWebApplicationFirewallParametersObject -Association @($association) -WafPolicyId $securityPolicy.Parameter.WafPolicyId
 
-            Update-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -Name $PolicyName -Parameter $wafParameter
+            Update-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -Name $usedlPolicyName -Parameter $wafParameter
         }
         else {
-            Write-Output "Domain '$CustomDomainName' is already associated to a security policy '$PolicyName'."
+            Write-Output "Domain '$CustomDomainName' is already associated to a security policy '$usedlPolicyName' or default."
         }
     }
     else {
