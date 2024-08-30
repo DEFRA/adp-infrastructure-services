@@ -106,7 +106,7 @@ try {
             Update-AzFrontDoorCdnSecurityPolicy -ResourceGroupName $ResourceGroupName -ProfileName $AfdName -Name $usedlPolicyName -Parameter $wafParameter
         }
         else {
-            Write-Output "Domain '$CustomDomainName' is already associated to a security policy '$usedlPolicyName' or default."
+            Write-Output "Domain '$CustomDomainName' is already associated to a security policy '$usedlPolicyName'."
         }
     }
     else {
