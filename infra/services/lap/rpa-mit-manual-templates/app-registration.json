@@ -1,0 +1,28 @@
+{
+    "applications": [
+        {
+            "displayName": "ADP-LAP-MIT-Frontend-#{{ environment }}#{{ environmentId }}",
+            "IdentifierUris": "",
+            "secretAutoRenewalEnabled": true,
+            "keyVault": {
+                "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
+                "secrets": [
+                    {
+                        "key": "lap-mit-frontend-ClientSecret",
+                        "type": "ClientSecret"
+                    },
+                    {
+                        "key": "lap-mit-frontend-ClientId",
+                        "type": "ClientId"
+                    }
+                ]
+            },
+            "appRoles": [
+            ],
+            "web": {
+            },
+            "requiredResourceAccess": [
+            ]
+        }
+    ]
+}
