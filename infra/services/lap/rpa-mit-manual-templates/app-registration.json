@@ -23,6 +23,30 @@
             },
             "requiredResourceAccess": [
             ]
+        },
+        {
+            "displayName": "ADP-LAP-MIT-Manual-Templates-Backend-#{{ environment }}#{{ environmentId }}",
+            "IdentifierUris": "",
+            "secretAutoRenewalEnabled": true,
+            "keyVault": {
+                "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}01",
+                "secrets": [
+                    {
+                        "key": "lap-mit-manual-templates-backend-ClientSecret",
+                        "type": "ClientSecret"
+                    },
+                    {
+                        "key": "lap-mit-manual-templates-backend-ClientId",
+                        "type": "ClientId"
+                    }
+                ]
+            },
+            "appRoles": [
+            ],
+            "web": {
+            },
+            "requiredResourceAccess": [
+            ]
         }
     ]
 }
