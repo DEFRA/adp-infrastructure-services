@@ -61,6 +61,57 @@
                     }
                 ]
             }
+        },
+        {
+            "displayName": "ADP-FCP-DAL-#{{ environment }}#{{ environmentId }}-CONSOLIDATED-VIEW-CLOUD-FLOW",
+            "identifierUris": "api://{{appId}}",
+            "secretAutoRenewalEnabled": true,
+            "keyVault": {
+                "name": "#{{ infraResourceNamePrefix }}#{{ nc_resource_keyvault }}#{{ nc_instance_regionid }}03",
+                "secrets": [
+                    {
+                        "key": "fcp-data-access-layer-consolidated-view-cloud-flow-ClientSecret",
+                        "type": "ClientSecret"
+                    },
+                    {
+                        "key": "fcp-data-access-layer-consolidated-view-cloud-flow-ClientId",
+                        "type": "ClientId"
+                    }
+                ]
+            },        
+            "groupMembershipClaims": "SecurityGroup",
+            "optionalClaims": {
+                "idToken": [
+                    {
+                        "name": "groups",
+                        "source": null,
+                        "essential": false,
+                        "additionalProperties": [
+                            "sam_account_name"
+                        ]
+                    }
+                ],
+                "accessToken": [
+                    {
+                        "name": "groups",
+                        "source": null,
+                        "essential": false,
+                        "additionalProperties": [
+                            "sam_account_name"
+                        ]
+                    }
+                ],
+                "saml2Token": [
+                    {
+                        "name": "groups",
+                        "source": null,
+                        "essential": false,
+                        "additionalProperties": [
+                            "sam_account_name"
+                        ]
+                    }
+                ]
+            }
         }
     ]
 }
