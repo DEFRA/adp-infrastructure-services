@@ -40,9 +40,6 @@
             "Owners": {
                 "serviceprincipals" : [
                     "#{{ ssvAppRegServicePrincipalName }}"
-                ],
-                "groups" : [
-                    "AG-ADO-GIO-CSC-Admin"
                 ]
             },
             "Members": {
