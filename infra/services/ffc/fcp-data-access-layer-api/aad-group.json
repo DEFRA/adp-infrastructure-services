@@ -33,6 +33,24 @@
                 "groups" : [],
                 "serviceprincipals": []
             }
+        },
+        {
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-FCP-DAL-CONSOLIDATED-VIEW-CLOUD-FLOW",
+            "description": "Azure AD Access group for FCP DAL CONSOLIDATED VIEW CLOUD FLOW.",
+            "Owners": {
+                "serviceprincipals" : [
+                    "#{{ ssvAppRegServicePrincipalName }}"
+                ],
+                "users" : [
+                    "AG-ADO-GIO-CSC-Admin"
+                ]
+            },
+            "Members": {
+                "groups" : [],
+                "serviceprincipals": [
+                    "ADP-FCP-DAL-#{{ environment }}#{{ environmentId }}-CONSOLIDATED-VIEW-CLOUD-FLOW"
+                ]
+            }
         }
     ]
 }
