@@ -39,6 +39,7 @@ parameters:
     type: string
     values:
       - application-domain
+      - application-access-group
     default: application-domain
 
 extends:
