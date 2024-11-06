@@ -13,7 +13,7 @@
                 "groups" : [
                 ],
                 "serviceprincipals": [
-                    "#{{ environment }}adpinfmi#{{ environmentId }}#{{ nc_instance_regionid }}01-trade-exportscore-plp"
+                    "#{{ environment }}adpinfmi#{{ nc_instance_regionid }}01-trade-exportscore-plp"
                 ]
             }
         },
