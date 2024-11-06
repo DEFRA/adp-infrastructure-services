@@ -25,6 +25,7 @@ parameters:
     type: string
     values:
       - trade-exports-packinglistai-ui
+      - trade-exportscore-plp
     default: trade-exports-packinglistai-ui
   - name: ingressType
     displayName: Select ingress type of the service
