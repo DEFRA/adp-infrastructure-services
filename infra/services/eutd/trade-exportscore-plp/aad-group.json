@@ -1,0 +1,39 @@
+{
+    "userADGroups": [
+        {
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-EUTD-PLP-DI-USER",
+            "description": "Azure AD Access group for EUTD PLP Document Intelligence User.",
+            "Owners": {
+                "serviceprincipals" : [
+                    "#{{ ssvAppRegServicePrincipalName }}"
+                ],
+                "users" : [
+                    "a-mathew.lambeth@Defra.onmicrosoft.com"
+                ]
+            },
+            "Members": {
+                "groups" : [
+                ],
+                "serviceprincipals": [
+                    "#{{ environment }}adpinfmi#{{ nc_instance_regionid }}01-trade-exportscore-plp"
+                ]
+            }
+        },
+        {
+            "displayName": "AAG-Azure-ADP-#{{ environment }}#{{ environmentId }}-EUTD-PLP-DI-TRAIN",
+            "description": "Azure AD Access group for EUTD PLP Document Intelligence Training.",
+            "Owners": {
+                "serviceprincipals" : [
+                    "#{{ ssvAppRegServicePrincipalName }}"
+                ],
+                "users" : [
+                    "a-mathew.lambeth@Defra.onmicrosoft.com"
+                ]
+            },
+            "Members": {
+                "groups" : [],
+                "serviceprincipals": []
+            }
+        }
+    ]
+}
