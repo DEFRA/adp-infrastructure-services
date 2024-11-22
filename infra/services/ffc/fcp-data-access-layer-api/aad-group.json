@@ -7,7 +7,9 @@
                 "serviceprincipals" : [
                     "#{{ ssvAppRegServicePrincipalName }}"
                 ],
-                "users" : []
+                "users" : [
+                    "david.aitchison@rpa.gov.uk"
+                ]
             },
             "Members": {
                 "groups" : [
