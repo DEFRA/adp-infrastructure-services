@@ -86,6 +86,10 @@ extends:
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
+          - name: action-groups.main
+            path: infra/bicep-generic/monitoring
+            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
+            resourceGroupName: $(servicesResourceGroup)
 
             ${{ if eq(parameters.service, 'portal') }}:
               preDeployScriptsList:

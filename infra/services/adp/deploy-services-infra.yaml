@@ -40,5 +40,4 @@ extends:
     service: ${{ parameters.service }}
     ingressType: internal-portal
     resource: ${{ parameters.resource }}
-    includeServiceVariableFiles: Common
 
