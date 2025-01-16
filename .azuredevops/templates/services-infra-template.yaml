@@ -79,6 +79,13 @@ extends:
             path: "PowerShellLibrary/Create-AADGroups.ps1"
             scriptArguments: >
                 -AADGroupsJsonManifestPath '$(Pipeline.Workspace)/s/self/infra/services/${{ parameters.program }}/${{ parameters.service }}/aad-group.json'
+    - ${{ if eq(parameters.resource, 'alerts') }}:
+      - name: alerts
+        deployments:
+          - name: action-groups.main
+            path: infra/bicep-generic/monitoring
+            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
+            resourceGroupName: $(servicesResourceGroup)
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
         deployments:
@@ -86,10 +93,6 @@ extends:
             path: infra/bicep-generic/cdn
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(cdnResourceGroup)
-          - name: action-groups.main
-            path: infra/bicep-generic/monitoring
-            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
-            resourceGroupName: $(servicesResourceGroup)
 
             ${{ if eq(parameters.service, 'portal') }}:
               preDeployScriptsList:
