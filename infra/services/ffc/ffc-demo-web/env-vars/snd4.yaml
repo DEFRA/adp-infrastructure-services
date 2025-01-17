@@ -2,5 +2,5 @@ variables:
   appEndpoint: 'ffc-demo-web'
   dnsZoneName: '$(publicDnsZoneName)'
   createActionGroups: true
-  actionGroups: '{"test":{"name":"test1","groupShortName":"test1"}}'
+  actionGroups: '{"test":{"name":"test1","groupShortName":"test1","emailReceivers":[{"emailAddress":"test.user@testcompany.com","name":"Test1User_-EmailAction-","useCommonAlertSchema": "true"}]}}'
 
