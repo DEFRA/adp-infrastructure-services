@@ -4,6 +4,7 @@ variables:
   createActionGroups: true
 
   actionGroups: |
+    '''
     {
       "test": {
         "name": "test1",
@@ -17,3 +18,4 @@ variables:
         ]
       }
     }
+    '''
