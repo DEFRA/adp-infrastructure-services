@@ -44,6 +44,7 @@ parameters:
     displayName: Resource Type to deploy
     type: string
     values:
+      - alerts
       - application-domain
       - application-registration
       - application-access-group
