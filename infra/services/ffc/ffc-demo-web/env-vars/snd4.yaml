@@ -3,7 +3,7 @@ variables:
   dnsZoneName: '$(publicDnsZoneName)'
   createActionGroups: true
 
-  actionGroups: |
+  actionGroups: >
     '''
     {
       "test": {
