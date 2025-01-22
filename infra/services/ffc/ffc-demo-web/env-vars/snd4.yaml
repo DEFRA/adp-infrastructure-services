@@ -5,14 +5,14 @@ variables:
 
   actionGroups: >
     {
-      "test": {
-        "name": "test1",
-        "groupShortName": "test1",
-        "emailReceivers": [
+      test: {
+        name: 'test1',
+        groupShortName: 'test1',
+        emailReceivers: [
           {
-            "emailAddress": "test.user@testcompany.com",
-            "name": "Test1User_-EmailAction-",
-            "useCommonAlertSchema": "true"
+            emailAddress: 'test.user@testcompany.com',
+            name: 'Test1User_-EmailAction-',
+            useCommonAlertSchema: 'true'
           }
         ]
       }
