@@ -25,7 +25,7 @@ resources:
       name: DEFRA/adp-pipeline-common
       endpoint: DEFRA-ADP
       type: github
-      ref: refs/heads/feature/PL-267
+      ref: refs/tags/1.0.0-latest
 
 extends:
   template: /pipelines/common-infra-deploy.yaml@ADPPipelineCommon
