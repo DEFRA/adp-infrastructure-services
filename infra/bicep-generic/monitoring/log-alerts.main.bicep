@@ -18,5 +18,8 @@ module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:<vers
     evaluationFrequency: 'PT5M'
     location: logAlert.value.location
     windowSize: 'PT5M'
+    actions: [
+      logAlert.value.actionGroup
+    ]
   }
 }]
