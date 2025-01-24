@@ -5,7 +5,7 @@ param logAlerts object = {}
 param createLogAlerts bool = false
 param service string = ''
 
-module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:<version>' = [for logAlert in items(logAlerts): if (createLogAlerts) {
+module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:0.3.0' = [for logAlert in items(logAlerts): if (createLogAlerts) {
   name: logAlert.value.name
   params: {
     // Required parameters
