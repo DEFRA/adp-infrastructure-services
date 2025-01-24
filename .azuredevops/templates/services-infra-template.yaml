@@ -86,10 +86,6 @@ extends:
             path: infra/bicep-generic/monitoring
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(servicesResourceGroup)
-          - name: log-alerts.main
-            path: infra/bicep-generic/monitoring
-            parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
-            resourceGroupName: $(servicesResourceGroup)
     - ${{ if eq(parameters.resource, 'application-domain') }}:
       - name: application_domain
         deployments:
