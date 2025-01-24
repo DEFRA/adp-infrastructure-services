@@ -10,7 +10,7 @@ param createLogAlerts bool = false
 
 
 module actionGroup 'br/public:avm/res/insights/action-group:0.4.0' = [for actionGroup in items(actionGroups): if (createActionGroups) {
-  name: actionGroup.value.name
+  name: '${actionGroup.value.name}-action-group'
   params: {
     // Required parameters
     groupShortName: actionGroup.value.groupShortName
@@ -26,7 +26,7 @@ output actionGroupName array = [for actiongroup in items(actionGroups): {
 }]
 
 module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:0.3.0' = [for logAlert in items(logAlerts): if (createLogAlerts) {
-  name: logAlert.value.name
+  name: '${logAlert.value.name}-log-alert'
   params: {
     // Required parameters
     criterias: logAlert.value.criterias
