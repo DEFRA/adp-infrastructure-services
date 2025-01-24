@@ -9,7 +9,7 @@ module actionGroup 'br/public:avm/res/insights/action-group:0.4.0' = [for action
   params: {
     // Required parameters
     groupShortName: actionGroup.value.groupShortName
-    name: actionGroup.value.name
+    name: '${service}-${actionGroup.value.name}'
     // Non-required parameters
     location: 'global'
     emailReceivers: actionGroup.value.emailReceivers

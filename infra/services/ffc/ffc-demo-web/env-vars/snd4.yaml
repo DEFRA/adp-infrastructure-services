@@ -16,4 +16,15 @@ variables:
           }
         ]
       }
+      test2: {
+        name: 'test2'
+        groupShortName: 'test2'
+        emailReceivers: [
+          {
+            emailAddress: 'test2.user@testcompany.com'
+            name: 'Test1User_-EmailAction-'
+            useCommonAlertSchema: 'true'
+          }
+        ]
+      }
     }
