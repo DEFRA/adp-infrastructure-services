@@ -1,5 +1,5 @@
 //Bicep File for Action Groups 
-@description('A sample parameter for demonstration purposes')
+@description('The actionGroups object defines the action groups to be created')
 param actionGroups object = {}
 param createActionGroups bool = false
 param service string = ''
