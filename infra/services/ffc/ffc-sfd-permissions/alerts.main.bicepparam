@@ -1,4 +1,4 @@
-using '../../../bicep-generic/monitoring/action-groups.main.bicep'
+using '../../../bicep-generic/monitoring/alerts.main.bicep'
 
 param actionGroups = #{{ actionGroups }}
 param createActionGroups = #{{ createActionGroups }}
