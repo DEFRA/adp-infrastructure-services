@@ -2,5 +2,67 @@ variables:
   appEndpoint: 'ffc-demo-web'
   dnsZoneName: '$(publicDnsZoneName)'
   createActionGroups: true
-  actionGroups: '{"test":{"name":"test1","groupShortName":"test1","emailReceivers":[{"emailAddress":"test.user@testcompany.com","name":"Test1User_-EmailAction-","useCommonAlertSchema": "true"}]}}'
 
+  actionGroups: >
+    {
+      test: {
+        name: 'test1'
+        groupShortName: 'test1'
+        emailReceivers: [
+          {
+            emailAddress: 'test.user@testcompany.com'
+            name: 'Test1User_-EmailAction-'
+            useCommonAlertSchema: 'true'
+          }
+        ]
+      }
+      test2: {
+        name: 'test2'
+        groupShortName: 'test2'
+        emailReceivers: [
+          {
+            emailAddress: 'test2.user@testcompany.com'
+            name: 'Test1User_-EmailAction-'
+            useCommonAlertSchema: 'true'
+          }
+        ]
+      }
+    }
+  createLogAlerts: true
+
+  logAlerts: >
+    {
+      test: {
+        name: 'test1'
+        location: 'UK South'
+        criterias: {
+          allOf: [
+            {
+              dimensions: [
+                {
+                  name: 'Computer'
+                  operator: 'Include'
+                  values: [
+                    '*'
+                  ]
+                }
+                {
+                  name: 'InstanceName'
+                  operator: 'Include'
+                  values: [
+                    '*'
+                  ]
+                }
+              ]
+              metricMeasureColumn: 'AggregatedValue'
+              operator: 'GreaterThan'
+              query: 'Perf | where ObjectName == \'LogicalDisk\' | where CounterName == \'% Free Space\' | where InstanceName <> \'HarddiskVolume1\' and InstanceName <> \'_Total\' | summarize AggregatedValue = min(CounterValue) by Computer, InstanceName, bin(TimeGenerated,5m)'
+              threshold: 0
+              timeAggregation: 'Average'
+            }
+          ]
+        }
+        logAnalyticsWorkspaceResourceId: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.OperationalInsights/workspaces/SNDADPINFLW4401'
+        actionGroup: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.Insights/actiongroups/ffc-demo-web-test1'
+      }
+    }

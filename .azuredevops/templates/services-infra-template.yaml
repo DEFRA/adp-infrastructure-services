@@ -82,7 +82,7 @@ extends:
     - ${{ if eq(parameters.resource, 'alerts') }}:
       - name: alerts
         deployments:
-          - name: action-groups.main
+          - name: alerts.main
             path: infra/bicep-generic/monitoring
             parameterFilePath: infra/services/${{ parameters.program }}/${{ parameters.service }}
             resourceGroupName: $(servicesResourceGroup)
