@@ -16,9 +16,9 @@ variables:
           }
         ]
       }
-      defender-container-demo: {
-        name: 'defender-container-demo'
-        groupShortName: 'dc-demo'
+      test2: {
+        name: 'test2'
+        groupShortName: 'test2'
         emailReceivers: [
           {
             emailAddress: 'mathew.lambeth@equalexperts.com'
