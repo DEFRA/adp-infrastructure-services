@@ -16,13 +16,13 @@ variables:
           }
         ]
       }
-      test2: {
-        name: 'test2'
-        groupShortName: 'test2'
+      defender-container-demo: {
+        name: 'defender-container-demo'
+        groupShortName: 'dc-demo'
         emailReceivers: [
           {
-            emailAddress: 'test2.user@testcompany.com'
-            name: 'Test1User_-EmailAction-'
+            emailAddress: 'mathew.lambeth@equalexperts.com'
+            name: 'matl_-EmailAction-'
             useCommonAlertSchema: 'true'
           }
         ]
