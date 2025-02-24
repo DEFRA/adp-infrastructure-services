@@ -16,9 +16,9 @@ variables:
           }
         ]
       }
-      test2: {
-        name: 'test2'
-        groupShortName: 'test2'
+      contScan: {
+        name: 'cont-scn'
+        groupShortName: 'container-scan'
         emailReceivers: [
           {
             emailAddress: 'mathew.lambeth@equalexperts.com'
