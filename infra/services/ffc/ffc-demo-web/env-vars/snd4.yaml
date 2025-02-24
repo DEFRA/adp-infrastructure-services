@@ -17,8 +17,8 @@ variables:
         ]
       }
       contScan: {
-        name: 'cont-scn'
-        groupShortName: 'container-scan'
+        name: 'container-scan'
+        groupShortName: 'cont-scan'
         emailReceivers: [
           {
             emailAddress: 'mathew.lambeth@equalexperts.com'
