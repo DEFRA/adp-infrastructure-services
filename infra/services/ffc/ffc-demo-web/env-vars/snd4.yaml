@@ -65,4 +65,39 @@ variables:
         logAnalyticsWorkspaceResourceId: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.OperationalInsights/workspaces/SNDADPINFLW4401'
         actionGroup: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.Insights/actiongroups/ffc-demo-web-test1'
       }
+      contScan: {
+        name: 'container-scan'
+        location: 'UK South'
+        "description": 'See <a href=\"https://portal.azure.com/#@Defra.onmicrosoft.com/resource/subscriptions/19164a52-70b4-46bf-be9b-0cb3edd7c120/resourceGroups/DEVADPINFRG1401/providers/Microsoft.OperationalInsights/workspaces/DEVADPINFLW1401/logs\">Defects triggering this rule here</a>\n\n',
+        criterias: {
+          allOf: [
+            {
+              dimensions: [
+                {
+                  name: 'Computer'
+                  operator: 'Include'
+                  values: [
+                    '*'
+                  ]
+                }
+                {
+                  name: 'InstanceName'
+                  operator: 'Include'
+                  values: [
+                    '*'
+                  ]
+                }
+              ]
+              metricMeasureColumn: 'RecommendationCount'
+              operator: 'GreaterThan'
+              query: 'SecurityNestedRecommendation\n| where RecommendationSeverity in (\"High\")\n| extend parsed_data = parse_json(ResourceDetails)\n| extend parsed_additional_data = parse_json(AdditionalData)\n| extend imageId = tostring(parsed_data.id)\n| extend assessedResourceType = tostring(parsed_additional_data.assessedResourceType)\n| project-away parsed_data, parsed_additional_data\n| where assessedResourceType !in ('ManagedAggregatedServerVulnerabilityTvm','AzureContainerRegistryVulnerability')  // Remove the managed infrastructure defects. Focus on running containers only.\n| summarize \n    RecommendationsList = make_list(RecommendationName), \n    RecommendationSeverity = any(RecommendationSeverity)  // Retain one of the RecommendationSeverity values for each AssessedResourceId\n    by AssessedResourceId\n| extend RecommendationsListStr = strcat_array(RecommendationsList, \",\")  // Convert the list to a comma-separated string\n| extend RecommendationCount = array_length(RecommendationsList)  // Count the number of recommendations\n| extend ImageName = substring(AssessedResourceId, indexof(AssessedResourceId, \"image/\") + 6, indexof(AssessedResourceId, \"@\") - indexof(AssessedResourceId, \"image/\") - 6)\n| project ImageName, RecommendationSeverity, RecommendationsListStr, RecommendationCount, AssessedResourceId\n| where ImageName contains \"demo\"''
+              threshold: 2
+              timeAggregation: 'Total'
+            }
+          ]
+        }
+        logAnalyticsWorkspaceResourceId: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.OperationalInsights/workspaces/SNDADPINFLW4401'
+        actionGroup: '/subscriptions/da83801b-f7e0-4510-9848-67d87b1009e2/resourceGroups/SNDADPINFRG4401/providers/Microsoft.Insights/actiongroups/ffc-demo-web-container-scan'
+      }
+      
     }
