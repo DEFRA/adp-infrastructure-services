@@ -89,7 +89,7 @@ variables:
               ]
               metricMeasureColumn: 'RecommendationCount'
               operator: 'GreaterThan'
-              query: 'SecurityNestedRecommendation\n| where RecommendationSeverity in (\'High\')\n'
+              query: 'SecurityNestedRecommendation\n| where RecommendationSeverity in (\'High\')\n | extend parsed_data = parse_json(ResourceDetails)\n| extend parsed_additional_data = parse_json(AdditionalData)\n| extend imageId = tostring(parsed_data.id)\n| extend assessedResourceType = tostring(parsed_additional_data.assessedResourceType)\n|'
               threshold: 2
               timeAggregation: 'Total'
             }
