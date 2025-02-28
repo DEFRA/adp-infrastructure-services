@@ -37,6 +37,7 @@ module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:0.3.0
     // Non-required parameters
     evaluationFrequency: 'PT5M'
     location: logAlert.value.location
+    alertDescription: logAlert.value.description
     windowSize: 'PT5M'
     actions: [
       logAlert.value.actionGroup
