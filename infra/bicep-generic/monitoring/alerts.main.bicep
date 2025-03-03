@@ -35,10 +35,10 @@ module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:0.3.0
       logAlert.value.logAnalyticsWorkspaceResourceId
     ]
     // Non-required parameters
-    evaluationFrequency: 'PT5M'
+    evaluationFrequency: logAlert.value.evaluationFrequency != '' ? logAlert.value.evaluationFrequency : 'PT5M'
     location: logAlert.value.location
     alertDescription: logAlert.value.description
-    windowSize: 'PT5M'
+    windowSize: logAlert.value.windowSize != '' ? logAlert.value.windowSize : 'PT5M'
     actions: [
       logAlert.value.actionGroup
     ]

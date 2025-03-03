@@ -69,6 +69,8 @@ variables:
         name: 'container-scan'
         description: 'See <a href=\'https://portal.azure.com/#@Defra.onmicrosoft.com/resource/subscriptions/19164a52-70b4-46bf-be9b-0cb3edd7c120/resourceGroups/DEVADPINFRG1401/providers/Microsoft.OperationalInsights/workspaces/DEVADPINFLW1401/logs\'>Defects triggering this rule here</a>'
         location: 'UK South'
+        evaluationFrequency: 'PT6H'
+        windowSize: 'P1D',
         criterias: {
           allOf: [
             {
