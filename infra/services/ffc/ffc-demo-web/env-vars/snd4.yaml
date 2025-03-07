@@ -34,6 +34,7 @@ variables:
     {
       test: {
         name: 'test1'
+        description: 'na'
         location: 'UK South'
         evaluationFrequency: 'PT5M'
         windowSize: 'PT5M'
