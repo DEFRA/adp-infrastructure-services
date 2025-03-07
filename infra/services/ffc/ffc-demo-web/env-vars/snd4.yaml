@@ -71,7 +71,7 @@ variables:
         name: 'container-scan'
         description: 'See <a href=\'https://portal.azure.com#@770a2450-0227-4c62-90c7-4e38537f1102/blade/Microsoft_OperationsManagementSuite_Workspace/Logs.ReactView/resourceId/%2Fsubscriptions%2F19164a52-70b4-46bf-be9b-0cb3edd7c120%2Fresourcegroups%2Fdevadpinfrg1401%2Fproviders%2Fmicrosoft.operationalinsights%2Fworkspaces%2Fdevadpinflw1401/source/LogsBlade.AnalyticsShareLinkToQuery/q/H4sIAAAAAAAAA41TTW%252FaQBC951dMfcGoBm65RSpKVBWpzQGiXtHgHZtNvbtoP0gc9cd31g5gyKIUcYCdNzPvvZlZURms9O0jOU9iSaVRirRAL42%252B%252BQsvW7IE588r2lNMAakhz37IepuNGUqvnhGwQ%252BtIrBmKcNf%252FWz87o%252FMlORNsSQ%252FkUTbuYwoKIWN9bBLZ82PwgWODZKmwpoVgtDfOW6nrfEBhKsUAi84Rf8WBylO7o0TiBZFpKi1W3VnzTKWf4Au2Q93FFUVHP5M8vkQ7R79Qsx4xr2tLNfJIVmTZ7t%252Bh0WRxIxs2%252FmmvRsVo%252FhYs3RvNbnJoSbVkFe0ZcDQGmM14fMrsCfyWQPXleXSVRcaH0nMVEFSxEDeF76YMDowGG7RmS6A8NIivTTtlDS4ohVa%252BEdwAf86Xw%252F1kGuypwj%252B0bvh3fh5%252FREXjIpV5XKs7QN3m6eBBUOTEhAhM1em6UmqPTSAHlbFAWG5hfmH8QnRENm0qclybhMKVt8yTDSzRr9FavCTcoQrIiqynzINiTr4jG23hpQOEmIETR7wvcdbQ7%252BG1zvcm6Oht12%252FdkK79NtX20DGiYz8d1IZstMqeg0%252BNFvGK4myiqrB5v4ePphS8OYJeTZWMZd0xzljyV7j9BPqNUZP%252FrDaB28G9ncgWV%252BZ%252B%252BX4Y2eV7Z1GRnn1%252FqSdf3g%252FBQSb4nLJ%252F9FB%252FgzgFAAA%253D/timespan/P1D/limit/1000\'>Defects triggering this rule here</a>'
         location: 'UK South'
-        evaluationFrequency: 'PT5H'
+        evaluationFrequency: 'PT6H'
         windowSize: 'P1D'
         criterias: {
           allOf: [
