@@ -37,7 +37,7 @@ module scheduledQueryRule 'br/public:avm/res/insights/scheduled-query-rule:0.3.0
     // Non-required parameters
     evaluationFrequency: logAlert.value.evaluationFrequency != null && logAlert.value.evaluationFrequency != '' ? logAlert.value.evaluationFrequency : 'PT5M'
     location: logAlert.value.location
-    alertDescription: logAlert.value.description != null && logAlert.value.description != '' ? logAlert.value.description : 'na'
+    alertDescription: logAlert.value.?description ?? 'No description provided'
     windowSize: logAlert.value.windowSize != null && logAlert.value.windowSize != '' ? logAlert.value.windowSize : 'PT5M'
     actions: [
       logAlert.value.actionGroup
