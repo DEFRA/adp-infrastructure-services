@@ -35,8 +35,6 @@ variables:
       test: {
         name: 'test1'
         location: 'UK South'
-        evaluationFrequency: 'PT5M'
-        windowSize: 'PT5M'
         criterias: {
           allOf: [
             {
